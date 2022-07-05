@@ -2,5 +2,5 @@ steps:
 - id: 'Provision Infra Components'
   name: 'gcr.io/gts-multicloud-pe-dev/privateedition'
   entrypoint: 'bash'
-  args: ['services/infra/provision.sh']
+  args: ['services/provision-infra.sh']
   timeout: '3600s'

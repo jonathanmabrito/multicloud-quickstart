@@ -33,7 +33,7 @@ export SERVICE=infra
 export DOMAIN=domain.example.com.
 #export IMAGE_REGISTRY=${{ env.IMAGE_REGISTRY }}
 
-cd "./gcp-gke/terraform/uswest1-jonathan/cloudbuild-services/$SERVICE"
+cd "$SERVICE"
 FULLCOMMAND="install"
 COMMAND=$(echo $FULLCOMMAND | cut -d' ' -f1)
 if [[ "$FULLCOMMAND" == *" "* ]]; then

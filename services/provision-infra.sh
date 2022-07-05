@@ -33,7 +33,7 @@ export SERVICE=infra
 export DOMAIN=domain.example.com.
 #export IMAGE_REGISTRY=${{ env.IMAGE_REGISTRY }}
 
-cd "$SERVICE"
+cd "./services/$SERVICE"
 FULLCOMMAND="install"
 COMMAND=$(echo $FULLCOMMAND | cut -d' ' -f1)
 if [[ "$FULLCOMMAND" == *" "* ]]; then

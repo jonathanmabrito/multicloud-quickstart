@@ -11,12 +11,12 @@ gcloud container clusters get-credentials cluster02 --region us-west1 --project 
 echo "***********************"
 echo "Add Helm Repo"
 echo "***********************"
-#helm repo add --force-update helm_repo ${{ env.HELM_REGISTRY }}${{ github.event.inputs.helmrepo }} --username ${{ env.HELM_REGISTRY_USER }} --password ${{ env.HELM_REGISTRY_TOKEN }}
+#helm repo add --force-update helm_repo oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe/gauth:100.0.007_0145
 
 echo "***********************"
 echo "Create or use namespace"
 echo "***********************"
-NS=infra
+NS=gauth
 if ! kubectl get namespaces $NS; then
     echo "Namespace $NS does not exist. Creating it.."
     kubectl create namespace $NS
@@ -26,14 +26,31 @@ fi
 kubectl config set-context --current --namespace=infra
 
 echo "***********************"
+echo "Creating JKS Keystore"
+echo "***********************"
+keytool -keystore idp_keystore.jks -genkey -noprompt -alias gws-auth-key -dname "CN=domain.example.com, O=Genesys, L=Indianapolis, S=Indiana, C=US" -storepass Genesys1234 -keypass Genesys1234 -keyalg RSA
+JKSBASE64=$(cat ./idp_keystore.jks | base64)
+sed -i 's|<JKS_KEY_CONTENT>|$JKSBASE64|g' "./services/gauth/01_chart_gauth/override_values.yaml"
+cat ./services/gauth/01_chart_gauth/override_values.yaml
+
+echo "***********************"
+echo "Creating K8 Secrets"
+echo "***********************"
+REDISPASSWORD=$(kubectl get -n infra secrets infra-redis-redis-cluster -o jsonpath='{.data.redis-password}' | base64 -d)
+sed -i 's|REDIS_PASSWORD_BASE64|$REDISPASSWORD|g' "./services/gauth/gauth-k8secrets.yaml"
+cat ./services/gauth/gauth-k8secrets.yaml
+
+kubectl apply -f  ./services/gauth/gauth-k8secrets.yaml
+
+echo "***********************"
 echo "Run Helm Charts"
 echo "***********************"
-export NS=infra
-export SERVICE=infra
+export NS=gauth
+export SERVICE=gauth
 export DOMAIN=domain.example.com.
 #export IMAGE_REGISTRY=${{ env.IMAGE_REGISTRY }}
 
-cd "$SERVICE"
+cd "./services/$SERVICE"
 FULLCOMMAND="install"
 COMMAND=$(echo $FULLCOMMAND | cut -d' ' -f1)
 if [[ "$FULLCOMMAND" == *" "* ]]; then

@@ -12,9 +12,10 @@ echo "***********************"
 echo "Add Helm Repo"
 echo "***********************"
 #helm repo add --force-update helm_repo oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe/gauth:100.0.007_0145
-helm pull oci://us-west1-docker.pkg.dev/gts-multicloud-pe-dev/multicloud-pe/charts/gauth  --version 100.0.007+0145
-tar -xzvf gauth-100.0.007+0145.tgz
-ls -la
+#helm pull oci://us-west1-docker.pkg.dev/gts-multicloud-pe-dev/multicloud-pe/charts/gauth  --version 100.0.007+0145
+#tar -xzvf gauth-100.0.007+0145.tgz
+#ls -la
+export 
 
 echo "***********************"
 echo "Create or use namespace"
@@ -39,10 +40,10 @@ echo "***********************"
 echo "Creating K8 Secrets"
 echo "***********************"
 REDISPASSWORD=$(kubectl get -n infra secrets infra-redis-redis-cluster -o jsonpath='{.data.redis-password}')
-sed -i "s|REDIS_PASSWORD|$REDISPASSWORD|g" "./services/gauth/gauth-k8secrets.yaml"
+sed -i "s|INSERT_REDIS_PASSWORD|$REDISPASSWORD|g" "./services/gauth/gauth-k8secrets.yaml"
 
 POSTGRESPASSWORD=$(kubectl get -n infra secrets pgdb-gws-postgresql -o jsonpath='{.data.postgres-password}')
-sed -i "s|POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/gauth/gauth-k8secrets.yaml"
+sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/gauth/gauth-k8secrets.yaml"
 
 cat "./services/gauth/gauth-k8secrets.yaml"
 
@@ -55,6 +56,7 @@ export NS=gauth
 export SERVICE=gauth
 export DOMAIN=domain.example.com.
 export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
+export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
 
 cd "./services/$SERVICE"
 FULLCOMMAND="install"
@@ -83,7 +85,7 @@ for DIR in [0-9][0-9]_chart_*$CHART_NAME*/; do
     # 🖊️ (Optional) EDIT 1st line of chart.ver file with chart version number
     VER=$(head -n 1 $DIR/chart.ver)
     
-    FLAGS="helm_repo/$CHART --install --version=$VER -n $NS -f $(pwd)/overrides.yaml"
+    FLAGS="$ARTIFACT_REPO/$CHART --install --version=$VER -n $NS -f $(pwd)/overrides.yaml"
     
     case $COMMAND in
     install)

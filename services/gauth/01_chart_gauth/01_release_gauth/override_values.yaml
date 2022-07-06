@@ -38,7 +38,7 @@ services:
       # Convert keystore.jks file content to base64 ( cat keystore.jks | base64 ) and put the output here
       keyStore: jksStorage.jks
 
-      keyStoreFileData: <key content>	
+      keyStoreFileData: JKS_KEY_CONTENT
       # Keystore password
       keyStorePassword: gauth_jks_keyStorePassword
       # SSL key alias

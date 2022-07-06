@@ -13,7 +13,7 @@ echo "Add Helm Repo"
 echo "***********************"
 #helm repo add --force-update helm_repo oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe/gauth:100.0.007_0145
 helm pull oci://us-west1-docker.pkg.dev/gts-multicloud-pe-dev/multicloud-pe/charts/gauth  --version 100.0.007+0145
-helm chart export us-west1-docker.pkg.dev/gts-multicloud-pe-dev/multicloud-pe/charts/gauth --version 100.0.007+0145
+#helm chart export us-west1-docker.pkg.dev/gts-multicloud-pe-dev/multicloud-pe/charts/gauth --version 100.0.007+0145
 
 echo "***********************"
 echo "Create or use namespace"

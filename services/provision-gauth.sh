@@ -39,6 +39,7 @@ echo "Creating K8 Secrets"
 echo "***********************"
 REDISPASSWORD=$(kubectl get -n infra secrets infra-redis-redis-cluster -o jsonpath='{.data.redis-password}' | base64 -d)
 sed -i "s|REDIS_PASSWORD_BASE64|$REDISPASSWORD|g" "./services/gauth/gauth-k8secrets.yaml"
+cat "./services/gauth/gauth-k8secrets.yaml"
 
 kubectl apply -f  ./services/gauth/gauth-k8secrets.yaml
 

@@ -26,6 +26,7 @@ echo "***********************"
 keytool -keystore jksStorage.jks -genkey -noprompt -alias gws-auth-key -dname "CN=domain.example.com, O=Genesys, L=Indianapolis, S=Indiana, C=US" -storepass Genesys1234 -keypass Genesys1234 -keyalg RSA
 JKSBASE64=$(cat ./jksStorage.jks | base64 -w 0)
 sed -i "s#JKS_KEY_CONTENT#$JKSBASE64#g" "./services/gauth/01_chart_gauth/override_values.yaml"
+echo $JKSBASE64
 cat "./services/gauth/01_chart_gauth/override_values.yaml"
 
 echo "***********************"

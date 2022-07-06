@@ -9,15 +9,6 @@ echo "***********************"
 gcloud container clusters get-credentials cluster02 --region us-west1 --project gts-multicloud-pe-dev
 
 echo "***********************"
-echo "Add Helm Repo"
-echo "***********************"
-#helm repo add --force-update helm_repo oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe/gauth:100.0.007_0145
-#helm pull oci://us-west1-docker.pkg.dev/gts-multicloud-pe-dev/multicloud-pe/charts/gauth  --version 100.0.007+0145
-#tar -xzvf gauth-100.0.007+0145.tgz
-#ls -la
-export 
-
-echo "***********************"
 echo "Create or use namespace"
 echo "***********************"
 NS=gauth
@@ -39,10 +30,10 @@ sed -i "s#JKS_KEY_CONTENT#$JKSBASE64#g" "./services/gauth/01_chart_gauth/overrid
 echo "***********************"
 echo "Creating K8 Secrets"
 echo "***********************"
-REDISPASSWORD=$(kubectl get -n infra secrets infra-redis-redis-cluster -o jsonpath='{.data.redis-password}')
+REDISPASSWORD=$(kubectl get -n infra secrets infra-redis-redis-cluster -o jsonpath='{.data.redis-password}' | base64 --decode)
 sed -i "s|INSERT_REDIS_PASSWORD|$REDISPASSWORD|g" "./services/gauth/gauth-k8secrets.yaml"
 
-POSTGRESPASSWORD=$(kubectl get -n infra secrets pgdb-gws-postgresql -o jsonpath='{.data.postgres-password}')
+POSTGRESPASSWORD=$(kubectl get secret --namespace infra pgdb-gws-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
 sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/gauth/gauth-k8secrets.yaml"
 
 cat "./services/gauth/gauth-k8secrets.yaml"

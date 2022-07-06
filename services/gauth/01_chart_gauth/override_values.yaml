@@ -227,16 +227,16 @@ internal_ingress:
 
 monitoring:
   # Deploy ServiceMonitor
-  enabled: true
+  enabled: false
   # Metrics Scraping Interval
   interval: 15s
   # Create ConfigMap with Grafana Dashboards
-  dashboards: true
+  dashboards: false
   # Create PrometheusRule k8s object with alarm definitions
   alarms: false
   # Create rules with CRITICAL severity for Pager Duty integration.
   # `false` will change severity to HIGH (email notifications)
-  pagerduty: true
+  pagerduty: false
 
 services:
   auth:

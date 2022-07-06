@@ -31,7 +31,7 @@ echo "***********************"
 keytool -keystore idp_keystore.jks -genkey -noprompt -alias gws-auth-key -dname "CN=domain.example.com, O=Genesys, L=Indianapolis, S=Indiana, C=US" -storepass Genesys1234 -keypass Genesys1234 -keyalg RSA
 JKSBASE64=$(cat ./idp_keystore.jks | base64 -w 0)
 sed -i "s#JKS_KEY_CONTENT#$JKSBASE64#g" "./services/gauth/01_chart_gauth/override_values.yaml"
-ech0 $JKSBASE64
+echo $JKSBASE64
 cat ./services/gauth/01_chart_gauth/override_values.yaml
 
 echo "***********************"
@@ -39,8 +39,6 @@ echo "Creating K8 Secrets"
 echo "***********************"
 REDISPASSWORD=$(kubectl get -n infra secrets infra-redis-redis-cluster -o jsonpath='{.data.redis-password}' | base64 -d)
 sed -i "s|REDIS_PASSWORD_BASE64|$REDISPASSWORD|g" "./services/gauth/gauth-k8secrets.yaml"
-echo $REDISPASSWORD
-cat ./services/gauth/gauth-k8secrets.yaml
 
 kubectl apply -f  ./services/gauth/gauth-k8secrets.yaml
 

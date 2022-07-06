@@ -13,7 +13,8 @@ echo "Add Helm Repo"
 echo "***********************"
 #helm repo add --force-update helm_repo oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe/gauth:100.0.007_0145
 helm pull oci://us-west1-docker.pkg.dev/gts-multicloud-pe-dev/multicloud-pe/charts/gauth  --version 100.0.007+0145
-#helm chart export us-west1-docker.pkg.dev/gts-multicloud-pe-dev/multicloud-pe/charts/gauth --version 100.0.007+0145
+tar -xzvf gauth-100.0.007+0145.tgz
+ls -la
 
 echo "***********************"
 echo "Create or use namespace"
@@ -39,6 +40,10 @@ echo "Creating K8 Secrets"
 echo "***********************"
 REDISPASSWORD=$(kubectl get -n infra secrets infra-redis-redis-cluster -o jsonpath='{.data.redis-password}')
 sed -i "s|REDIS_PASSWORD|$REDISPASSWORD|g" "./services/gauth/gauth-k8secrets.yaml"
+
+POSTGRESPASSWORD=$(kubectl get -n infra secrets pgdb-gws-postgresql -o jsonpath='{.data.postgres-password}')
+sed -i "s|POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/gauth/gauth-k8secrets.yaml"
+
 cat "./services/gauth/gauth-k8secrets.yaml"
 
 kubectl apply -f  ./services/gauth/gauth-k8secrets.yaml
@@ -49,7 +54,7 @@ echo "***********************"
 export NS=gauth
 export SERVICE=gauth
 export DOMAIN=domain.example.com.
-#export IMAGE_REGISTRY=${{ env.IMAGE_REGISTRY }}
+export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
 
 cd "./services/$SERVICE"
 FULLCOMMAND="install"

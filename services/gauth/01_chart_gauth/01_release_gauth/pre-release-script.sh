@@ -8,8 +8,7 @@
 ###############################################################################
 function get_secret {
 	# Using: get_secret secret_name
-	echo $( kubectl get secrets deployment-secrets -o custom-columns=:data.$1 \
-			--no-headers | base64 -d )
+	echo $( kubectl get secrets deployment-secrets -o custom-columns=:data.$1 --no-headers | base64 -d )
 }
 
 function replace_overrides {

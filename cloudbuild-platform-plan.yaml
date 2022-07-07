@@ -17,7 +17,7 @@ steps:
         terraform init || exit 1
         cd ../../../../
       done
-- id: 'tf apply'
+- id: 'tf plan'
   name: 'hashicorp/terraform:1.0.11'
   entrypoint: 'sh'
   args: 

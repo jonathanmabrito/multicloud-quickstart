@@ -5,7 +5,7 @@ module "network" {
     network_name    = "network01"
     environment     = "gts-multicloud-pe-dev" #For naming conventions; can be the same as project name.
     region          = ["us-west1","us-east1"]
-    fqdn            = "domain.example.com."
+    fqdn            = "cluster02.gcp.demo.genesys.com"
 
     subnets = [
         {

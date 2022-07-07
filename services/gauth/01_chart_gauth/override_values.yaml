@@ -199,6 +199,7 @@ ingress:
   annotations:
     # Default annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    kubernetes.io/ingress.class: "nginx"
   # HTTPS configuration
   tls_enabled: false
   tls:
@@ -217,6 +218,7 @@ internal_ingress:
   annotations:
     # Default annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    kubernetes.io/ingress.class: "nginx"
   # HTTPS configuration
   tls_enabled: false
   tls:

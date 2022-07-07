@@ -15,7 +15,7 @@ steps:
         echo "******* At environment: ${env} ********"
         echo "*************************************************"
         terraform init || exit 1
-        cd ../../../../../
+        cd ../../../../
       done
 - id: 'tf apply'
   name: 'hashicorp/terraform:1.0.11'
@@ -33,6 +33,6 @@ steps:
         echo "******* At environment: ${env} ********"
         echo "*************************************************"
         terraform plan
-        cd ../../../../../
+        cd ../../../../
       done
   timeout: '3600s'

@@ -48,12 +48,12 @@ echo "Run Helm Charts"
 echo "***********************"
 export NS=gauth
 export SERVICE=gauth
-export DOMAIN=gauth.cluster02.gcp.demo.genesys.com
+export DOMAIN=cluster02.gcp.demo.genesys.com
 export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
 export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
 
 cd "./services/$SERVICE"
-FULLCOMMAND="install"
+FULLCOMMAND="uninstall"
 COMMAND=$(echo $FULLCOMMAND | cut -d' ' -f1)
 if [[ "$FULLCOMMAND" == *" "* ]]; then
     CHART_NAME=$(echo $FULLCOMMAND | tr -s ' ' | cut -d' ' -f2)

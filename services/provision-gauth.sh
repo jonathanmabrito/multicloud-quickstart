@@ -53,7 +53,7 @@ export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
 export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
 
 cd "./services/$SERVICE"
-FULLCOMMAND="uninstall"
+FULLCOMMAND="install"
 COMMAND=$(echo $FULLCOMMAND | cut -d' ' -f1)
 if [[ "$FULLCOMMAND" == *" "* ]]; then
     CHART_NAME=$(echo $FULLCOMMAND | tr -s ' ' | cut -d' ' -f2)

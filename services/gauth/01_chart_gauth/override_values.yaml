@@ -200,7 +200,7 @@ ingress:
     # Default annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
   # HTTPS configuration
-  tls_enabled: true
+  tls_enabled: false
   tls:
     - hosts:
         - gauth.${DOMAIN}
@@ -218,7 +218,7 @@ internal_ingress:
     # Default annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
   # HTTPS configuration
-  tls_enabled: true
+  tls_enabled: false
   tls:
     - hosts:
         - gauth-int.${DOMAIN}

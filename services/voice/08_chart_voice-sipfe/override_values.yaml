@@ -36,3 +36,16 @@ hpa:
   targetCPUPercent: 60
   targetMemoryPercent: 60
   enabled: true
+
+prometheus:
+  # Enable for Prometheus Annotation
+  metricServer:
+    enabled: false
+    path: /metrics
+
+  # Enable for Prometheus operator
+  podMonitor:
+    enabled: false
+    path: /metrics
+    interval: 30s
+    scrapeTimeout:

@@ -44,7 +44,7 @@ gauth_gws_client_id|gauth_client
 gauth_gws_client_secret|gauth_secret **base64 encoded**
 gauth_jks_keyPassword|keyPass
 gauth_jks_keyStorePassword|keyStorePass
-
+LOCATION|USW1
 
 An example `.yaml`
 ```
@@ -66,6 +66,7 @@ stringData:
   gauth_gws_client_secret: base64 encoded gauth_secret
   gauth_jks_keyPassword: keyPass 
   gauth_jks_keyStorePassword: keyStorePass
+  LOCATION: USW1
 ```
 ## Additional Information
 

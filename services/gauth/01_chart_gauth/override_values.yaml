@@ -200,6 +200,7 @@ ingress:
     # Default annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   # HTTPS configuration
   tls_enabled: true
   tls:
@@ -219,6 +220,7 @@ internal_ingress:
     # Default annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   # HTTPS configuration
   tls_enabled: true
   tls:

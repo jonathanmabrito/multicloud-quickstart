@@ -1,5 +1,5 @@
 steps:
-- id: 'Provision Infra Components'
+- id: 'Provision GAUTH Components'
   name: 'gcr.io/gts-multicloud-pe-dev/privateedition'
   entrypoint: 'bash'
   args: ['services/provision-gauth.sh']

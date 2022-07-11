@@ -41,3 +41,9 @@ resource "google_storage_bucket" "state-storage" {
         }
     }
 }
+
+resource "google_project_iam_member" "project" {
+  project = var.project_id
+  role    = "roles/owner"
+  member  = var.user
+}

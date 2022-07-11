@@ -2,6 +2,8 @@ module "cloudbuild" {
   source = "../../tfm/0-cloudbuild/"
   storageBucketName = "gts-multicloud-pe-dev2-tf-statefiles"
   location = "us-west2"
+  project_id = "gts-multicloud-pe-dev2"
+  user = "serviceAccount:24743425028@cloudbuild.gserviceaccount.com"
 }
 
 provider "google" {

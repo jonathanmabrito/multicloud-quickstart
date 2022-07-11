@@ -18,6 +18,14 @@ steps:
         cd ../../../../
       done
   timeout: '3600s'
+- id: 'tf remove lock'
+  name: 'hashicorp/terraform:1.0.11'
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - |
+      terraform force-unlock 1657555391085839
+  timeout: '3600s'
 - id: 'tf apply'
   name: 'hashicorp/terraform:1.0.11'
   entrypoint: 'sh'

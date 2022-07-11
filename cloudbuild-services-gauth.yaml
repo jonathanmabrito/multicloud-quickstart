@@ -1,6 +1,7 @@
 steps:
 - id: 'Provision GAUTH Components'
-  name: 'gcr.io/gts-multicloud-pe-dev/privateedition'
+  name: 'gcr.io/gts-multicloud-pe-dev2/privateedition'
   entrypoint: 'bash'
   args: ['services/provision-gauth.sh']
   timeout: '3600s'
+timeout: '3600s'

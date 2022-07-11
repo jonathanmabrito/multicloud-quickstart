@@ -6,12 +6,7 @@ gcloud init --no-launch-browser
 echo "***********************"
 echo "Logging into GKE"
 echo "***********************"
-gcloud container clusters get-credentials cluster02 --region us-west1 --project gts-multicloud-pe-dev
-
-echo "***********************"
-echo "Add Helm Repo"
-echo "***********************"
-#helm repo add --force-update helm_repo ${{ env.HELM_REGISTRY }}${{ github.event.inputs.helmrepo }} --username ${{ env.HELM_REGISTRY_USER }} --password ${{ env.HELM_REGISTRY_TOKEN }}
+gcloud container clusters get-credentials cluster03 --region us-west2 --project gts-multicloud-pe-dev2
 
 echo "***********************"
 echo "Create or use namespace"
@@ -30,11 +25,10 @@ echo "Run Helm Charts"
 echo "***********************"
 export NS=infra
 export SERVICE=infra
-export DOMAIN=domain.example.com.
-#export IMAGE_REGISTRY=${{ env.IMAGE_REGISTRY }}
+export DOMAIN=cluster03.gcp.demo.genesys.com
+export FULLCOMMAND=install
 
 cd "./services/$SERVICE"
-FULLCOMMAND="install"
 COMMAND=$(echo $FULLCOMMAND | cut -d' ' -f1)
 if [[ "$FULLCOMMAND" == *" "* ]]; then
     CHART_NAME=$(echo $FULLCOMMAND | tr -s ' ' | cut -d' ' -f2)

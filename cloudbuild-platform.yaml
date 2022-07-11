@@ -17,6 +17,7 @@ steps:
         terraform init || exit 1
         cd ../../../../
       done
+  timeout: '3600s'
 - id: 'tf apply'
   name: 'hashicorp/terraform:1.0.11'
   entrypoint: 'sh'
@@ -36,3 +37,4 @@ steps:
         cd ../../../../
       done
   timeout: '3600s'
+timeout: '7200s'

@@ -11,7 +11,7 @@ resource "local_file" "kubeconfig" {
 }
 
 module "third-party" {
-    source  = "../../../tfm/6-third-party/" #github.com/genesys/multicloud-platform.git//gcp-gke/tfm/5-third-party?ref=master
+    source  = "../../../tfm/6-third-party/"
 }
 
 data "google_client_config" "provider" {}
@@ -19,7 +19,7 @@ data "google_client_config" "provider" {}
 data "google_container_cluster" "cluster03" {
   name     = "cluster03"
   location = "us-west2"
-  project  = "gts-multicloud-pe-dev"
+  project  = "gts-multicloud-pe-dev2"
 }
 
 provider "kubernetes" {

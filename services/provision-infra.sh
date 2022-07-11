@@ -11,7 +11,7 @@ gcloud container clusters get-credentials cluster03 --region us-west2 --project 
 echo "***********************"
 echo "Create or use namespace"
 echo "***********************"
-NS=infra
+NS=consul
 if ! kubectl get namespaces $NS; then
     echo "Namespace $NS does not exist. Creating it.."
     kubectl create namespace $NS
@@ -23,8 +23,8 @@ kubectl config set-context --current --namespace=infra
 echo "***********************"
 echo "Run Helm Charts"
 echo "***********************"
-export NS=infra
-export SERVICE=infra
+export NS=consul
+export SERVICE=consul
 export DOMAIN=cluster03.gcp.demo.genesys.com
 export FULLCOMMAND=install
 

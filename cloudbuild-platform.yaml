@@ -18,14 +18,6 @@ steps:
         cd ../../../../
       done
   timeout: '3600s'
-- id: 'tf remove lock'
-  name: 'hashicorp/terraform:1.0.11'
-  entrypoint: 'sh'
-  args: 
-  - '-c'
-  - |
-      terraform force-unlock 1657555391085839
-  timeout: '3600s'
 - id: 'tf apply'
   name: 'hashicorp/terraform:1.0.11'
   entrypoint: 'sh'
@@ -41,7 +33,7 @@ steps:
         echo "*************** TERRAFOM PLAN ******************"
         echo "******* At environment: ${env} ********"
         echo "*************************************************"
-        terraform apply -auto-approve || exit 1
+        terraform apply -auto-approve -lock=false || exit 1
         cd ../../../../
       done
   timeout: '3600s'

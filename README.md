@@ -52,7 +52,6 @@ All service and product documentation can be found at [docs.genesys.com](https:/
 For installing Genesys products and services, please checkout [Genesys Multicloud Services repository](https://github.com/genesys/multicloud-services)
 
 
-
 ## License
 
 All content in this repository is released under the [MIT License](LICENSE)

@@ -15,15 +15,13 @@ locals {
         "cloudresourcemanager.googleapis.com" ]
 }
 
-
 resource "google_project_service" "api" {
   for_each = toset(local.api)
   service = each.value
 }
 
-
 resource "google_storage_bucket" "state-storage" {
-    name      = var.name
+    name      = var.storageBucketName
     location  = var.location
     uniform_bucket_level_access = true
 
@@ -42,5 +40,4 @@ resource "google_storage_bucket" "state-storage" {
           type = "Delete"
         }
     }
-
 }

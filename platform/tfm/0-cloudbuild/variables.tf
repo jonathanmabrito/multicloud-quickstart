@@ -1,4 +1,4 @@
-variable "name" {
+variable "storageBucketName" {
   type = string
   description = "Name of the bucket"
 }
@@ -9,5 +9,3 @@ variable "location" {
   description = "location of the bucket"
   #default     = "US"
 }
-
-

@@ -80,6 +80,3 @@ resource "google_compute_subnetwork" "subnetwork" {
     google_compute_network.vpc[0]
   ]
 }
-
-
-

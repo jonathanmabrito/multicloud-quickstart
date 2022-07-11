@@ -1,18 +1,18 @@
 module "jumphost_instance" {
     source          = "../../../tfm/7-jumphost/"
-    project         = "gts-multicloud-pe-dev"
-    name            = "cluster02-jumphost"
+    project         = "gts-multicloud-pe-dev2"
+    name            = "cluster03-jumphost"
     machine_type    = "e2-micro"
-    zone            = "us-west1-a" 
+    zone            = "us-west2-a" 
     image           = "ubuntu-os-cloud/ubuntu-1804-lts"    
     network         = "network01"
-    subnetwork      = "enviroment01-us-west1-vm-subnet"
+    subnetwork      = "enviroment01-us-west2-vm-subnet"
     provision_ssh_firewall = false
     provision_iap_firewall = false   
 }
 
 provider "google" {
-  project = "gts-multicloud-pe-dev"
+  project = "gts-multicloud-pe-dev2"
 }
 
 terraform {
@@ -28,7 +28,7 @@ terraform {
 
 terraform {
   backend "gcs" {
-    bucket = "gts-multicloud-pe-dev-tf-statefiles" #Replace with the name of the bucket created above
-    prefix = "jumphost-uswest1-state" #creates a new folder
+    bucket = "gts-multicloud-pe-dev2-tf-statefiles" #Replace with the name of the bucket created above
+    prefix = "jumphost-uswest2-state" #creates a new folder
   }
 }

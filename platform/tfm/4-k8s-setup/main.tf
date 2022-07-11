@@ -7,7 +7,7 @@ resource "kubernetes_storage_class" "class" {
   allow_volume_expansion = "true"
   volume_binding_mode = "WaitForFirstConsumer"
   parameters = {
-    tier = "standard"
+    tier = "BASIC_HDD"
     reserved-ipv4-cidr = var.ipv4
     network = var.network_name
   }

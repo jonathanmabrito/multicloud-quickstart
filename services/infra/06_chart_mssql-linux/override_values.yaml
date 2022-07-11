@@ -16,15 +16,15 @@ persistence:
   # existingTransactionLogClaim:
   # existingBackupClaim:
   # existingMasterClaim:
-  storageClass: "standard"
+  storageClass: "repd-us-west2-a-b-c"
   dataAccessMode: ReadWriteOnce
-  dataSize: 1Gi
+  dataSize: 200Gi
   logAccessMode: ReadWriteOnce
-  logSize: 1Gi
+  logSize: 200Gi
   backupAccessMode: ReadWriteOnce
-  backupLogSize: 1Gi
+  backupLogSize: 200Gi
   masterAccessMode: ReadWriteOnce
-  masterSize: 1Gi
+  masterSize: 200Gi
 
 securityContext:
   fsGroup: 10001

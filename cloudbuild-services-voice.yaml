@@ -1,6 +1,6 @@
 steps:
 - id: 'Provision Voice Components'
-  name: 'gcr.io/gts-multicloud-pe-dev2/privateedition'
+  name: 'gcr.io/gts-multicloud-pe-dev/privateedition'
   entrypoint: 'bash'
   args: ['services/provision-voice.sh']
   timeout: '3600s'

@@ -60,6 +60,8 @@ export KAFKA_ADDRESS=$( get_secret KAFKA_ADDRESS )
 ###############################################################################
 create_secret consul-voice-token      consul-consul-voice-token $CONSUL_VOICE_TOKEN
 create_secret kafka-secrets-token     kafka-secrets           {\"bootstrap\":\"$KAFKA_ADDRESS\"}
+create_secret kafka-secrets-token-eastus2-dev     kafka-secrets           {\"bootstrap\":\"$KAFKA_ADDRESS\"}
+create_secret kafka-secrets-token-westus2-dev    kafka-secrets           {\"bootstrap\":\"$KAFKA_ADDRESS\"}
 create_secret redis-agent-token       redis-agent-state       {\"password\":\"$REDIS_PASSWORD\"}
 create_secret redis-callthread-token  redis-call-state        {\"password\":\"$REDIS_PASSWORD\"}
 create_secret redis-config-token      redis-config-state      {\"password\":\"$REDIS_PASSWORD\"}

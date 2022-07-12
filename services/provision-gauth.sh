@@ -23,7 +23,7 @@ kubectl config set-context --current --namespace=gauth
 echo "***********************"
 echo "Creating JKS Keystore"
 echo "***********************"
-keytool -keystore jksStorage.jks -genkey -noprompt -alias gws-auth-key -dname "CN=cluster03.gcp.demo.genesys.com, O=Genesys, L=Indianapolis, S=Indiana, C=US" -storepass Genesys1234 -keypass Genesys1234 -keyalg RSA
+keytool -keystore jksStorage.jks -genkey -noprompt -alias gws-auth-key -dname "CN=cluster01.gcp.demo.genesys.com, O=Genesys, L=Indianapolis, S=Indiana, C=US" -storepass Genesys1234 -keypass Genesys1234 -keyalg RSA
 JKSBASE64=$(cat ./jksStorage.jks | base64 -w 0)
 sed -i "s#JKS_KEY_CONTENT#$JKSBASE64#g" "./services/gauth/01_chart_gauth/override_values.yaml"
 sed -i "s#JKS_KEY_CONTENT#$JKSBASE64#g" "./services/gauth/01_chart_gauth/01_release_gauth/override_values.yaml"

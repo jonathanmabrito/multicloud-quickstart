@@ -1,11 +1,11 @@
 module "network" {
     source          = "../../../tfm/2-network/"
     provision_vpc   = true
-    project_id      = "gts-multicloud-pe-dev2"
+    project_id      = "gts-multicloud-pe-dev"
     network_name    = "network01"
-    environment     = "gts-multicloud-pe-dev2" #For naming conventions; can be the same as project name.
+    environment     = "gts-multicloud-pe-dev" #For naming conventions; can be the same as project name.
     region          = ["us-west2","us-east1"]
-    fqdn            = "cluster03.gcp.demo.genesys.com."
+    fqdn            = "cluster02.gcp.demo.genesys.com."
 
     subnets = [
         {
@@ -42,7 +42,7 @@ module "network" {
 }
 
 provider "google" {
-  project = "gts-multicloud-pe-dev2"
+  project = "gts-multicloud-pe-dev"
 }
 
 terraform {
@@ -58,7 +58,7 @@ terraform {
 
 terraform {
   backend "gcs" {
-    bucket = "gts-multicloud-pe-dev2-tf-statefiles" #Replace with the name of the bucket created above
+    bucket = "gts-multicloud-pe-dev-tf-statefiles" #Replace with the name of the bucket created above
     prefix = "network-state" #creates a new folder
   }
 }

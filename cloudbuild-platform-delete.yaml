@@ -1,0 +1,20 @@
+steps:
+- id: 'tf delete'
+  name: 'hashicorp/terraform:1.0.11'
+  entrypoint: 'sh'
+  args: 
+  - '-c'
+  - | 
+      for dir in platform/terraform/cloudbuild/*
+      do 
+        cd ${dir}   
+        env=${dir%*/}
+        env=${env#*/}  
+        echo ""
+        echo "*************** TERRAFOM PLAN ******************"
+        echo "******* At environment: ${env} ********"
+        echo "*************************************************"
+        terraform destroy -auto-approve
+        cd ../../../../
+      done
+  timeout: '3600s'

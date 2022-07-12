@@ -6,7 +6,7 @@ gcloud init --no-launch-browser
 echo "***********************"
 echo "Logging into GKE"
 echo "***********************"
-gcloud container clusters get-credentials cluster03 --region us-west2 --project gts-multicloud-pe-dev2
+gcloud container clusters get-credentials cluster02 --region us-west2 --project gts-multicloud-pe-dev
 
 echo "***********************"
 echo "Create or use namespace"
@@ -48,7 +48,7 @@ echo "Run Helm Charts"
 echo "***********************"
 export NS=gauth
 export SERVICE=gauth
-export DOMAIN=cluster03.gcp.demo.genesys.com
+export DOMAIN=cluster02.gcp.demo.genesys.com
 export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
 export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
 export FULLCOMMAND=install

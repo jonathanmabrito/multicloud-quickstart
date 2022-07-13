@@ -6,14 +6,14 @@ gcloud init --no-launch-browser
 echo "***********************"
 echo "Logging into GKE"
 echo "***********************"
-gcloud container clusters get-credentials cluster01 --region us-west2 --project gts-multicloud-pe-dmitry
+gcloud container clusters get-credentials cluster02 --region us-west2 --project gts-multicloud-pe-dev
 
 echo "***********************"
 echo "Setting Variables"
 echo "***********************"
 export NS=voice
 export SERVICE=voice
-export DOMAIN=cluster01.gcp.demo.genesys.com
+export DOMAIN=cluster02.gcp.demo.genesys.com
 export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
 export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
 export FULLCOMMAND=install

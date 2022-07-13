@@ -6,7 +6,7 @@ gcloud init --no-launch-browser
 echo "***********************"
 echo "Logging into GKE"
 echo "***********************"
-gcloud container clusters get-credentials cluster01 --region us-west2 --project gts-multicloud-pe-dmitry
+gcloud container clusters get-credentials cluster02 --region us-west2 --project gts-multicloud-pe-dev
 
 echo "***********************"
 echo "Create or use namespace"
@@ -23,7 +23,7 @@ kubectl config set-context --current --namespace=gauth
 echo "***********************"
 echo "Creating JKS Keystore"
 echo "***********************"
-keytool -keystore jksStorage.jks -genkey -noprompt -alias gws-auth-key -dname "CN=cluster01.gcp.demo.genesys.com, O=Genesys, L=Indianapolis, S=Indiana, C=US" -storepass Genesys1234 -keypass Genesys1234 -keyalg RSA
+keytool -keystore jksStorage.jks -genkey -noprompt -alias gws-auth-key -dname "CN=cluster02.gcp.demo.genesys.com, O=Genesys, L=Indianapolis, S=Indiana, C=US" -storepass Genesys1234 -keypass Genesys1234 -keyalg RSA
 JKSBASE64=$(cat ./jksStorage.jks | base64 -w 0)
 sed -i "s#JKS_KEY_CONTENT#$JKSBASE64#g" "./services/gauth/01_chart_gauth/override_values.yaml"
 sed -i "s#JKS_KEY_CONTENT#$JKSBASE64#g" "./services/gauth/01_chart_gauth/01_release_gauth/override_values.yaml"
@@ -48,7 +48,7 @@ echo "Run Helm Charts"
 echo "***********************"
 export NS=gauth
 export SERVICE=gauth
-export DOMAIN=cluster01.gcp.demo.genesys.com
+export DOMAIN=cluster02.gcp.demo.genesys.com
 export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
 export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
 export FULLCOMMAND=install

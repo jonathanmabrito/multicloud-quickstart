@@ -17,6 +17,12 @@ context:
 
 # Set the consul volume to be mounted
 secrets:
+  kafka:
+    general:
+      enabled: true
+  kafkaDC:
+    general:
+      enabled: false
   consulACL:
     volumes:
     - name: consul-shared-secret

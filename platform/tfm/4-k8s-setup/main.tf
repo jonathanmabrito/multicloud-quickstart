@@ -5,7 +5,7 @@ resource "kubernetes_storage_class" "class" {
   storage_provisioner = "filestore.csi.storage.gke.io"
   reclaim_policy      = "Delete"
   allow_volume_expansion = "true"
-  volume_binding_mode = "WaitForFirstConsumer"
+  volume_binding_mode = "Immediate"
   parameters = {
     tier = "BASIC_HDD"
     reserved-ipv4-cidr = var.ipv4

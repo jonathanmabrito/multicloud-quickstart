@@ -11,6 +11,4 @@ resource "kubernetes_storage_class" "class" {
     reserved-ipv4-cidr = var.ipv4
     network = var.network_name
   }
-
-  mount_options = ["file_mode=0777", "dir_mode=0777", "mfsymlinks", "uid=500", "gid=500", "cache=strict"]
 }

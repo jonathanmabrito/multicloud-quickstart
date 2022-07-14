@@ -65,7 +65,7 @@ for DIR in [0-9][0-9]_chart_*$CHART_NAME*/; do
     install)
         echo "Installing..."
         CMD="upgrade"
-        FLAGS=" --force"
+        FLAGS=""
         ;;
     uninstall)
         echo "Uninstalling..."

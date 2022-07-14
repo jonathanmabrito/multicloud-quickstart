@@ -174,4 +174,3 @@ config: |-
   log.flush.interval.ms=1000
   log.retention.hours=1
   log.retention.bytes=1073741824
-  

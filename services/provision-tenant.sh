@@ -12,7 +12,7 @@ echo "***********************"
 echo "Setting Variables"
 echo "***********************"
 export NS=voice
-export SERVICE=voice
+export SERVICE=tenant
 export DOMAIN=cluster02.gcp.demo.genesys.com
 export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
 export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
@@ -21,14 +21,13 @@ export FULLCOMMAND=install
 echo "***********************"
 echo "Create or use namespace"
 echo "***********************"
-NS=gauth
 if ! kubectl get namespaces $NS; then
     echo "Namespace $NS does not exist. Creating it.."
     kubectl create namespace $NS
 else
     echo "Namespace $NS already exists. Will use it."
 fi
-kubectl config set-context --current --namespace=gauth
+kubectl config set-context --current --namespace=$NS
 
 echo "***********************"
 echo "Run Helm Charts"

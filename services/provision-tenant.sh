@@ -21,14 +21,13 @@ export FULLCOMMAND=install
 echo "***********************"
 echo "Create or use namespace"
 echo "***********************"
-NS=gauth
 if ! kubectl get namespaces $NS; then
     echo "Namespace $NS does not exist. Creating it.."
     kubectl create namespace $NS
 else
     echo "Namespace $NS already exists. Will use it."
 fi
-kubectl config set-context --current --namespace=gauth
+kubectl config set-context --current --namespace=$NS
 
 echo "***********************"
 echo "Run Helm Charts"

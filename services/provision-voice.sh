@@ -35,7 +35,7 @@ echo "***********************"
 DNSSECRET=$(kubectl get -n kube-system svc kube-dns -o custom-columns=:spec.clusterIP --no-headers)
 sed -i "s|INSERT_DNS|$DNSSECRET|g" "./services/$SERVICE/$SERVICE-k8secrets.yaml"
 
-CONSULSECRET=$(kubectl get -n consul secrets consul-client-acl-token -o jsonpath='{.data.token}' | base64 --decode)
+CONSULSECRET=$(kubectl get -n consul secrets consul-bootstrap-acl-token -o jsonpath='{.data.token}' | base64 --decode)
 sed -i "s|INSERT_CONSUL_TOKEN|$CONSULSECRET|g" "./services/$SERVICE/$SERVICE-k8secrets.yaml"
 
 REDISIP=$(kubectl get svc infra-redis-redis-cluster -n infra -o jsonpath="{.spec.clusterIP}")

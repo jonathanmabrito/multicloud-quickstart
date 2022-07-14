@@ -5,14 +5,14 @@ global:
 
 prometheus:
   podMonitor:
-    create: "true"
+    create: "false"
   alertrule:
     create: "false"
 
 fluent:
   rawlogs:
     stdout:
-      enable: "true"
+      enable: "false"
   jsonlogs:
     stdout:
-      enable: "true"
+      enable: "false"

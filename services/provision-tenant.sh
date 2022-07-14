@@ -34,7 +34,6 @@ echo "Run Helm Charts"
 echo "***********************"
 
 cd "./services/$SERVICE"
-FULLCOMMAND="install"
 COMMAND=$(echo $FULLCOMMAND | cut -d' ' -f1)
 if [[ "$FULLCOMMAND" == *" "* ]]; then
     CHART_NAME=$(echo $FULLCOMMAND | tr -s ' ' | cut -d' ' -f2)

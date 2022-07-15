@@ -12,7 +12,7 @@ module "jumphost_instance" {
 }
 
 provider "google" {
-  project = "gts-multicloud-pe-dev"
+  project = "gts-multicloud-pe-dev2"
 }
 
 terraform {
@@ -28,7 +28,7 @@ terraform {
 
 terraform {
   backend "gcs" {
-    bucket = "gts-multicloud-pe-dev-tf-statefiles" #Replace with the name of the bucket created above
+    bucket = "gts-multicloud-pe-dev2-tf-statefiles" #Replace with the name of the bucket created above
     prefix = "jumphost-uswest2-state" #creates a new folder
   }
 }

@@ -6,14 +6,14 @@ gcloud init --no-launch-browser
 echo "***********************"
 echo "Logging into GKE"
 echo "***********************"
-gcloud container clusters get-credentials cluster02 --region us-west2 --project gts-multicloud-pe-dev
+gcloud container clusters get-credentials cluster03 --region us-west2 --project gts-multicloud-pe-dev2
 
 echo "***********************"
 echo "Setting Variables"
 echo "***********************"
 export NS=voice
 export SERVICE=voice
-export DOMAIN=cluster02.gcp.demo.genesys.com
+export DOMAIN=cluster03.gcp.demo.genesys.com
 export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
 export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
 export FULLCOMMAND=install
@@ -33,23 +33,23 @@ echo "***********************"
 echo "Creating K8 Secrets"
 echo "***********************"
 DNSSECRET=$(kubectl get -n kube-system svc kube-dns -o custom-columns=:spec.clusterIP --no-headers)
-sed -i "s|INSERT_DNS|$DNSSECRET|g" "./services/$SERVICE/$SERVICE-k8secrets.yaml"
+sed -i "s|INSERT_DNS|$DNSSECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
 CONSULSECRET=$(kubectl get -n consul secrets consul-bootstrap-acl-token -o jsonpath='{.data.token}' | base64 --decode)
-sed -i "s|INSERT_CONSUL_TOKEN|$CONSULSECRET|g" "./services/$SERVICE/$SERVICE-k8secrets.yaml"
+sed -i "s|INSERT_CONSUL_TOKEN|$CONSULSECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
 REDISIP=$(kubectl get svc infra-redis-redis-cluster -n infra -o jsonpath="{.spec.clusterIP}")
-sed -i "s|INSERT_REDIS_IP|$REDISIP|g" "./services/$SERVICE/$SERVICE-k8secrets.yaml"
+sed -i "s|INSERT_REDIS_IP|$REDISIP|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
 REDISPASSWORD=$(kubectl get -n infra secrets infra-redis-redis-cluster -o jsonpath='{.data.redis-password}' | base64 --decode)
-sed -i "s|INSERT_REDIS_PASSWORD|$REDISPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets.yaml"
+sed -i "s|INSERT_REDIS_PASSWORD|$REDISPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
 POSTGRESPASSWORD=$(kubectl get secret --namespace infra pgdb-gws-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
-sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets.yaml"
+sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
-cat "./services/$SERVICE/$SERVICE-k8secrets.yaml"
+cat "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
-kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets.yaml
+kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 
 echo "***********************"
 echo "Run Helm Charts"

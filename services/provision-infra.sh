@@ -6,7 +6,7 @@ gcloud init --no-launch-browser
 echo "***********************"
 echo "Logging into GKE"
 echo "***********************"
-gcloud container clusters get-credentials cluster02 --region us-west2 --project gts-multicloud-pe-dev
+gcloud container clusters get-credentials cluster03 --region us-west2 --project gts-multicloud-pe-dev2
 
 echo "***********************"
 echo "Create or use namespace"
@@ -25,7 +25,7 @@ echo "Run Helm Charts"
 echo "***********************"
 export NS=infra
 export SERVICE=infra
-export DOMAIN=cluster02.gcp.demo.genesys.com
+export DOMAIN=cluster03.gcp.demo.genesys.com
 export FULLCOMMAND=install
 
 cd "./services/$SERVICE"

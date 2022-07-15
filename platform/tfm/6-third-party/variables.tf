@@ -1,8 +1,7 @@
-
 #variable chartValues    { default = "" }
 
 variable tls {
-  default = false
+  default = true
 }
 
 variable connectInject {

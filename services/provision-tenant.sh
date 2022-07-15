@@ -16,7 +16,7 @@ export SERVICE=tenant
 export DOMAIN=cluster02.gcp.demo.genesys.com
 export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
 export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
-export FULLCOMMAND=uninstall
+export FULLCOMMAND=install
 
 echo "***********************"
 echo "Create or use namespace"

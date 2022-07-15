@@ -66,24 +66,3 @@ create_secret svcuseraccount    svcpassword   $service_account_password
 envsubst < init_db.sh > init_db.sh_
 kubectl run busybox -i --rm --image=alpine --restart=Never -- sh -c "$(<init_db.sh_)"
 ###############################################################################
-
-###############################################################################
-#               Creating PVC for log
-###############################################################################
-cat << EOF | kubectl apply -n $NS -f - 
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: log-pvc
-  labels:
-    service: tenant
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
-  storageClassName: csi-standard-rwx
-EOF
-###############################################################################
-

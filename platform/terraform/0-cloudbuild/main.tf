@@ -3,11 +3,11 @@ module "cloudbuild" {
   storageBucketName = "gts-multicloud-pe-dev2-tf-statefiles"
   location = "us-west2"
   project_id = "gts-multicloud-pe-dev2"
-  user = "serviceAccount:729705515652@cloudbuild.gserviceaccount.com"
+  user = "serviceAccount:24743425028@cloudbuild.gserviceaccount.com"
 }
 
 provider "google" {
-  project = "gts-multicloud-pe-dev"
+  project = "gts-multicloud-pe-dev2"
 }
 
 terraform {

@@ -25,5 +25,5 @@ tenant:
       createpvClaim: "true"
       logClaim: "tenant-logs-pvc"
       logClaimSize: "20Gi"
-      logStorageClass: "standard"
+      logStorageClass: "csi-standard-rwx"
       parameters: {}

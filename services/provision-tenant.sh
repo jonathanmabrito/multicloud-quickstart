@@ -6,54 +6,34 @@ gcloud init --no-launch-browser
 echo "***********************"
 echo "Logging into GKE"
 echo "***********************"
-gcloud container clusters get-credentials cluster02 --region us-west1 --project gts-multicloud-pe-dev
+gcloud container clusters get-credentials cluster02 --region us-west2 --project gts-multicloud-pe-dev
+
+echo "***********************"
+echo "Setting Variables"
+echo "***********************"
+export NS=voice
+export SERVICE=tenant
+export DOMAIN=cluster02.gcp.demo.genesys.com
+export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
+export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
+export FULLCOMMAND=install
 
 echo "***********************"
 echo "Create or use namespace"
 echo "***********************"
-NS=gauth
 if ! kubectl get namespaces $NS; then
     echo "Namespace $NS does not exist. Creating it.."
     kubectl create namespace $NS
 else
     echo "Namespace $NS already exists. Will use it."
 fi
-kubectl config set-context --current --namespace=gauth
-
-echo "***********************"
-echo "Creating JKS Keystore"
-echo "***********************"
-keytool -keystore jksStorage.jks -genkey -noprompt -alias gws-auth-key -dname "CN=domain.example.com, O=Genesys, L=Indianapolis, S=Indiana, C=US" -storepass Genesys1234 -keypass Genesys1234 -keyalg RSA
-JKSBASE64=$(cat ./jksStorage.jks | base64 -w 0)
-sed -i "s#JKS_KEY_CONTENT#$JKSBASE64#g" "./services/gauth/01_chart_gauth/override_values.yaml"
-sed -i "s#JKS_KEY_CONTENT#$JKSBASE64#g" "./services/gauth/01_chart_gauth/01_release_gauth/override_values.yaml"
-echo $JKSBASE64
-cat "./services/gauth/01_chart_gauth/override_values.yaml"
-
-echo "***********************"
-echo "Creating K8 Secrets"
-echo "***********************"
-REDISPASSWORD=$(kubectl get -n infra secrets infra-redis-redis-cluster -o jsonpath='{.data.redis-password}' | base64 --decode)
-sed -i "s|INSERT_REDIS_PASSWORD|$REDISPASSWORD|g" "./services/gauth/gauth-k8secrets.yaml"
-
-POSTGRESPASSWORD=$(kubectl get secret --namespace infra pgdb-gws-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
-sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/gauth/gauth-k8secrets.yaml"
-
-cat "./services/gauth/gauth-k8secrets.yaml"
-
-kubectl apply -f  ./services/gauth/gauth-k8secrets.yaml
+kubectl config set-context --current --namespace=$NS
 
 echo "***********************"
 echo "Run Helm Charts"
 echo "***********************"
-export NS=gauth
-export SERVICE=gauth
-export DOMAIN=cluster02.gcp.demo.genesys.com
-export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
-export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
 
 cd "./services/$SERVICE"
-FULLCOMMAND="install"
 COMMAND=$(echo $FULLCOMMAND | cut -d' ' -f1)
 if [[ "$FULLCOMMAND" == *" "* ]]; then
     CHART_NAME=$(echo $FULLCOMMAND | tr -s ' ' | cut -d' ' -f2)

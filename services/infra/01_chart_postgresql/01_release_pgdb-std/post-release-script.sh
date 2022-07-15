@@ -5,6 +5,7 @@
 ###############################################################################
 pg=$(pwd | sed 's/.*\///' | sed 's/[0-9][0-9]_release_//' | sed 's/\///') 
 POSTGRES_PASSWORD=$(kubectl get secret $pg-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
+echo $POSTGRES_PASSWORD
 
 ## Performace test (transactions per second, latencies, etc)
 kubectl wait pod --selector "app.kubernetes.io/instance=$pg" --for condition=ready --timeout=300s

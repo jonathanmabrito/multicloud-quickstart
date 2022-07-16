@@ -41,10 +41,6 @@ export tenant_gauth_client_secret=$( get_secret tenant_gauth_client_secret )
 ###############################################################################
 export POSTGRES_USER=$( get_secret POSTGRES_USER )
 export POSTGRES_PASSWORD=$( get_secret POSTGRES_PASSWORD )
-###############################################################################
-#       Config Server Service Account Password
-###############################################################################
-export service_account_password=$( get_secret service_account_password )
 
 ###############################################################################
 #             Secrets for voice microservices
@@ -57,7 +53,6 @@ create_secret dbuser            dbuser        $tenant_t100_pg_db_user
 create_secret dbpassword        dbpassword    $tenant_t100_pg_db_password
 create_secret gauthclientid     clientid      $tenant_gauth_client_id
 create_secret gauthclientsecret clientsecret  $tenant_gauth_client_secret
-create_secret svcuseraccount    svcpassword   $service_account_password
 ###############################################################################
 
 ###############################################################################

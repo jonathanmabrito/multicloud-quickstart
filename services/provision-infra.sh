@@ -1,4 +1,15 @@
 echo "***********************"
+echo "Set variables"
+echo "***********************"
+export gkeCluster=cluster03
+export gcpRegion=us-west2
+export gcpProject=gts-multicloud-pe-dev2
+export NS=infra
+export SERVICE=infra
+export DOMAIN=cluster03.gcp.demo.genesys.com
+export FULLCOMMAND=install
+
+echo "***********************"
 echo "Logging into GCP"
 echo "***********************"
 gcloud init --no-launch-browser
@@ -6,27 +17,27 @@ gcloud init --no-launch-browser
 echo "***********************"
 echo "Logging into GKE"
 echo "***********************"
-gcloud container clusters get-credentials cluster03 --region us-west2 --project gts-multicloud-pe-dev2
+gcloud container clusters get-credentials $gkeCluster --region $gcpRegion --project $gcpProject
+
+echo "***********************"
+echo "Enable Filestore CSI driver"
+echo "***********************"
+gcloud container clusters update $gkeCluster --update-addons=GcpFilestoreCsiDriver=ENABLED --region=$gcpRegion
 
 echo "***********************"
 echo "Create or use namespace"
 echo "***********************"
-NS=infra
 if ! kubectl get namespaces $NS; then
     echo "Namespace $NS does not exist. Creating it.."
     kubectl create namespace $NS
 else
     echo "Namespace $NS already exists. Will use it."
 fi
-kubectl config set-context --current --namespace=infra
+kubectl config set-context --current --namespace=$NS
 
 echo "***********************"
 echo "Run Helm Charts"
 echo "***********************"
-export NS=infra
-export SERVICE=infra
-export DOMAIN=cluster03.gcp.demo.genesys.com
-export FULLCOMMAND=install
 
 cd "./services/$SERVICE"
 COMMAND=$(echo $FULLCOMMAND | cut -d' ' -f1)

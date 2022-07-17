@@ -3,5 +3,5 @@ steps:
   name: 'gcr.io/gts-multicloud-pe-dev/privateedition'
   entrypoint: 'bash'
   args: ['services/provision-infra.sh']
-  timeout: '3600s'
-timeout: '3600s'
+  timeout: '7200'
+timeout: '7200s'

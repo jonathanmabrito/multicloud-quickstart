@@ -7,6 +7,8 @@ export gcpProject=gts-multicloud-pe-dev2
 export NS=gauth
 export SERVICE=gauth
 export DOMAIN=cluster03.gcp.demo.genesys.com
+export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
+export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
 export FULLCOMMAND=install
 
 echo "***********************"

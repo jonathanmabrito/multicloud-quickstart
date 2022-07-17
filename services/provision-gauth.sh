@@ -83,7 +83,11 @@ for DIR in [0-9][0-9]_chart_*$CHART_NAME*/; do
     # 🖊️ (Optional) EDIT 1st line of chart.ver file with chart version number
     VER=$(head -n 1 $DIR/chart.ver)
     
+    echo "Artifact repo: $ARTIFACT_REPO"
+    echo "Chart: $CHART"
+
     FLAGS="$ARTIFACT_REPO/$CHART --install --version=$VER -n $NS -f $(pwd)/overrides.yaml"
+    echo "Flags: $FLAGS"
     
     case $COMMAND in
     install)
@@ -109,6 +113,8 @@ for DIR in [0-9][0-9]_chart_*$CHART_NAME*/; do
     
     touch overrides.yaml
     [[ "$FLAGS" ]] && FLAGS+=" -f $(pwd)/overrides.yaml"
+
+    echo "Touch Override Flags: $FLAGS"
     
     # FOR EVERY HELM RELEASE###########################################################
     # ℹ️ Notice: in chart folder should be exist subfolder with name in format: 

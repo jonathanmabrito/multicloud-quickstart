@@ -59,7 +59,7 @@ for DIR in [0-9][0-9]_chart_*$CHART_NAME*/; do
     # 🖊️ (Optional) EDIT 1st line of chart.ver file with chart version number
     VER=$(head -n 1 $DIR/chart.ver)
     
-    FLAGS="$ARTIFACT_REPO/$CHART --install --version=$VER -n $NS -f $(pwd)/overrides.yaml"
+    FLAGS="$ARTIFACT_REPO/$CHART --install --timeout 1200s --version=$VER -n $NS -f $(pwd)/overrides.yaml"
     
     case $COMMAND in
     install)

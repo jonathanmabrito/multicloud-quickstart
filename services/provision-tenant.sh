@@ -1,4 +1,18 @@
 echo "***********************"
+echo "Set Variables"
+echo "***********************"
+export gkeCluster=cluster03
+export gcpRegion=us-west2
+export gcpProject=gts-multicloud-pe-dev2
+export NS=voice
+export SERVICE=tenant
+export DOMAIN=cluster03.gcp.demo.genesys.com
+export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
+export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
+export FULLCOMMAND=install
+
+
+echo "***********************"
 echo "Logging into GCP"
 echo "***********************"
 gcloud init --no-launch-browser
@@ -6,17 +20,7 @@ gcloud init --no-launch-browser
 echo "***********************"
 echo "Logging into GKE"
 echo "***********************"
-gcloud container clusters get-credentials cluster03 --region us-west2 --project gts-multicloud-pe-dev2
-
-echo "***********************"
-echo "Setting Variables"
-echo "***********************"
-export NS=voice
-export SERVICE=tenant
-export DOMAIN=cluster03.gcp.demo.genesys.com
-export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
-export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
-export FULLCOMMAND=install
+gcloud container clusters get-credentials $gkeCluster --region $gcpRegion --project $gcpProject
 
 echo "***********************"
 echo "Create or use namespace"

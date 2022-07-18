@@ -32,7 +32,7 @@ redis:
     name_override:
     create: true
   image: redis:5-stretch
-  cluster_nodes: infra-redis-redis-cluster-headless.infra.svc.cluster.local:6379
+  cluster_nodes: infra-redis-redis-cluster.infra.svc.cluster.local:6379
   use_tls: false
   # REDIS AUTH
   password_required: true
@@ -206,7 +206,7 @@ ingress:
   tls:
     - hosts:
         - gauth.${DOMAIN}
-      secretName: letsencrypt
+      secretName: gauth-ingress-ext
 
 
 # Internal  config
@@ -226,7 +226,7 @@ internal_ingress:
   tls:
     - hosts:
         - gauth-int.${DOMAIN}
-      #secretName: letsencrypt
+      secretName: gauth-ingress-int
 
 monitoring:
   # Deploy ServiceMonitor

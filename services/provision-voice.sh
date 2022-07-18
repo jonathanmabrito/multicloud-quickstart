@@ -1,12 +1,12 @@
 echo "***********************"
 echo "Set Variables"
 echo "***********************"
-export gkeCluster=cluster03
+export gkeCluster=cluster02
 export gcpRegion=us-west2
-export gcpProject=gts-multicloud-pe-dev2
+export gcpProject=gts-multicloud-pe-dev
 export NS=voice
 export SERVICE=voice
-export DOMAIN=cluster03.gcp.demo.genesys.com
+export DOMAIN=cluster02.gcp.demo.genesys.com
 export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
 export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
 export FULLCOMMAND=install

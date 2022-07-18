@@ -1,12 +1,12 @@
 terraform {
   backend "gcs" {
-    bucket = "gts-multicloud-pe-dev2-tf-statefiles" #Replace with the name of the bucket created above
+    bucket = "gts-multicloud-pe-dev-tf-statefiles" #Replace with the name of the bucket created above
     prefix = "base-state" #creates a new folder
   }
 }
 
 provider "google" {
-  project = "gts-multicloud-pe-dev2"
+  project = "gts-multicloud-pe-dev"
 }
 
 terraform {

@@ -5,7 +5,7 @@ module "gke" {
     network_name            = "network01"
     region                  = "us-west2"
     cluster                 = "cluster02"
-    gke_version             = "1.22.10-gke.600" #Minumum version supported: 1.22.*
+    gke_version             = "1.22.8-gke.2200" #Minumum version supported: 1.22.*
     release_channel         = "STABLE" 
     secondary_pod_range     = "10.198.64.0/18"
     secondary_service_range = "10.198.16.0/20"

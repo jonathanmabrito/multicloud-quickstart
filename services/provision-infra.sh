@@ -44,8 +44,8 @@ echo "***********************"
 echo "Set Consul Stub Zone in Kube-DNS"
 echo "***********************"
 CONSULDNS=$(kubectl get svc consul-dns -n consul -o jsonpath='{.spec.clusterIP}')
-sed -i "s#INSERT_CONSULDNS#$CONSULDNS#g" "./$SERVICE/kube-dns-patch.yaml"
-kubectl patch configmap/kube-dns -n kube-system --type merge --patch-file kubepatch.yaml
+sed -i "s#INSERT_CONSULDNS#$CONSULDNS#g" "./services/$SERVICE/kube-dns-patch.yaml"
+kubectl patch configmap/kube-dns -n kube-system --type merge --patch-file ./services/$SERVICE/kube-dns-patch.yaml
 #kubectl patch configmap/kube-dns -n kube-system --type merge -p "{\"data\": {\"stubDomains\": {\"consul\": [\"$consulDNS\"]}}}"
 
 echo "***********************"

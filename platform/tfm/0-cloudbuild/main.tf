@@ -12,7 +12,8 @@ locals {
         "datastore.googleapis.com",
         "iap.googleapis.com",
         "cloudbuild.googleapis.com",
-        "cloudresourcemanager.googleapis.com" ]
+        "cloudresourcemanager.googleapis.com" 
+        "secretmanager.googleapis.com"]
 }
 
 resource "google_project_service" "api" {

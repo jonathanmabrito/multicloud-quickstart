@@ -4,8 +4,8 @@ echo "***********************"
 export gkeCluster=$VGKECLUSTER
 export gcpRegion=$VGCPREGION
 export gcpProject=$VGCPPROJECT
-export NS=$VNAMESPACE
-export SERVICE=$VSERVICE
+export NS=infra
+export SERVICE=infra
 export DOMAIN=$VDOMAIN
 export FULLCOMMAND=$VHELMCOMMAND
 

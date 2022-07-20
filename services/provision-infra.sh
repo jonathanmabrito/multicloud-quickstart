@@ -1,13 +1,13 @@
 echo "***********************"
 echo "Set variables"
 echo "***********************"
-export gkeCluster=vGKECLUSTER
-export gcpRegion=vGCPREGION
-export gcpProject=vGCPPROJECT
-export NS=vNAMESPACE
-export SERVICE=vSERVICE
-export DOMAIN=vDOMAIN
-export FULLCOMMAND=vHELMCOMMAND
+export gkeCluster=VGKECLUSTER
+export gcpRegion=VGCPREGION
+export gcpProject=VGCPPROJECT
+export NS=VNAMESPACE
+export SERVICE=VSERVICE
+export DOMAIN=VDOMAIN
+export FULLCOMMAND=VHELMCOMMAND
 
 echo "***********************"
 echo "Logging into GCP"

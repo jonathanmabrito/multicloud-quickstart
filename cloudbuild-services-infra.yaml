@@ -3,13 +3,5 @@ steps:
   name: 'gcr.io/gts-multicloud-pe-dev/privateedition'
   entrypoint: 'bash'
   args: ['services/provision-infra.sh']
-  env:
-    - 'DOMAIN=${_DOMAIN}'
-    - 'GCPPROJECT=${_GCPPROJECT}'
-    - 'GCPREGION=${_GCPREGION}'
-    - 'GKECLUSTER=${_GKECLUSTER}'
-    - 'HELMCOMMAND=${_HELMCOMMAND}'
-    - 'NAMESPACE=${_NAMESPACE}'
-    - 'SERVICE=${_SERVICE}'
   timeout: '7200s'
 timeout: '7200s'

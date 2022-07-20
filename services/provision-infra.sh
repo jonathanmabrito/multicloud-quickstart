@@ -1,13 +1,13 @@
 echo "***********************"
 echo "Set variables"
 echo "***********************"
-export gkeCluster=cluster02
-export gcpRegion=us-west2
-export gcpProject=gts-multicloud-pe-dev
-export NS=infra
-export SERVICE=infra
-export DOMAIN=cluster02.gcp.demo.genesys.com
-export FULLCOMMAND=install
+export gkeCluster=vGKECLUSTER
+export gcpRegion=vGCPREGION
+export gcpProject=vGCPPROJECT
+export NS=vNAMESPACE
+export SERVICE=vSERVICE
+export DOMAIN=vDOMAIN
+export FULLCOMMAND=vHELMCOMMAND
 
 echo "***********************"
 echo "Logging into GCP"

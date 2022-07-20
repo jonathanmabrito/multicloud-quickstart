@@ -43,8 +43,10 @@ kubectl config set-context --current --namespace=$NS
 echo "***********************"
 echo "Set Consul Stub Zone in Kube-DNS"
 echo "***********************"
-consulDNS = $(kubectl get svc consul-dns -n consul -o jsonpath='{.spec.clusterIP}')
-kubectl patch configmap/kube-dns -n kube-system --type merge -p "{\"data\": stubDomains: {\"consul\": [\"$consulDNS\"]}}"
+CONSULDNS=$(kubectl get svc consul-dns -n consul -o jsonpath='{.spec.clusterIP}')
+sed -i "s#INSERT_CONSULDNS#$CONSULDNS#g" "./$SERVICE/kube-dns-patch.yaml"
+kubectl patch configmap/kube-dns -n kube-system --type merge --patch-file kubepatch.yaml
+#kubectl patch configmap/kube-dns -n kube-system --type merge -p "{\"data\": {\"stubDomains\": {\"consul\": [\"$consulDNS\"]}}}"
 
 echo "***********************"
 echo "Run Helm Charts"

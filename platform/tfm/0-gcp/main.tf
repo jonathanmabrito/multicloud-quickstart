@@ -12,7 +12,7 @@ locals {
         "datastore.googleapis.com",
         "iap.googleapis.com",
         "cloudbuild.googleapis.com",
-        "cloudresourcemanager.googleapis.com" 
+        "cloudresourcemanager.googleapis.com",
         "secretmanager.googleapis.com"]
 }
 
@@ -43,7 +43,7 @@ resource "google_storage_bucket" "state-storage" {
     }
 }
 
-resource "google_project_iam_member" "project" {
+resource "google_project_iam_member" "project-iam" {
   project = var.project_id
   role    = "roles/owner"
   member  = var.user

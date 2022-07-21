@@ -9,6 +9,12 @@ RUN add-apt-repository ppa:git-core/ppa
 RUN apt-get -y update 
 RUN apt-get -y install git
 
+#Install Terraform
+RUN wget -O- https://apt.releases.hashicorp.com/gpg | pg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg]  https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list
+RUN apt update
+RUN apt install terraform
+
 # Setup Google Cloud SDK (latest)
 RUN mkdir -p /usr/local/gcloud
 RUN wget -qO- https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-392.0.0-linux-x86_64.tar.gz | tar zxv -C /usr/local/gcloud

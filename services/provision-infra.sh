@@ -20,11 +20,6 @@ echo "***********************"
 gcloud container clusters get-credentials $gkeCluster --region $gcpRegion --project $gcpProject
 
 echo "***********************"
-echo "Print Environment Variables"
-echo "***********************"
-printenv
-
-echo "***********************"
 echo "Enable Filestore CSI driver"
 echo "***********************"
 gcloud container clusters update $gkeCluster --update-addons=GcpFilestoreCsiDriver=ENABLED --region=$gcpRegion

@@ -1,6 +1,12 @@
 module "cloudbuild" {
   source = "../../tfm/1-cloudbuild/"
   project_id = "gts-multicloud-pe-jonathan"
+  gkeregionprimary = "us-west2"
+  gkeregionsecondary = "us-east1"
+  gkecluster = "cluster001"
+  fqdn = "cluster001.gcp.demo.genesys.com"
+  emailaddress = "jonathan.mabrito@genesys.com"
+  storageBucketName = "gts-multicloud-pe-jonathan-tf-statefiles"
 }
 
 provider "google" {

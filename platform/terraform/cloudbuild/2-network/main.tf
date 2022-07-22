@@ -1,48 +1,48 @@
 module "network" {
     source          = "../../../tfm/2-network/"
     provision_vpc   = true
-    project_id      = "gts-multicloud-pe-dev2"
+    project_id      = "INSERT_VGCPPROJECT"
     network_name    = "network01"
-    environment     = "gts-multicloud-pe-dev2" #For naming conventions; can be the same as project name.
-    region          = ["us-west2","us-east1"]
-    fqdn            = "cluster03.gcp.demo.genesys.com."
+    environment     = "INSERT_VGCPPROJECT"
+    region          = ["INSERT_VGCPREGIONPRIMARY","INSERT_VGCPREGIONSECONDARY"]
+    fqdn            = "INSERT_VDOMAIN."
 
     subnets = [
         {
-            subnet_name           = "enviroment01-us-west2-subnet"
+            subnet_name           = "enviroment01-INSERT_VGCPREGIONPRIMARY-subnet"
             subnet_ip             = "10.198.0.0/22"
-            subnet_region         = "us-west2"
+            subnet_region         = "INSERT_VGCPREGIONPRIMARY"
         },
         {
-            subnet_name           = "enviroment01-us-west2-vm-subnet"
+            subnet_name           = "enviroment01-INSERT_VGCPREGIONPRIMARY-vm-subnet"
             subnet_ip             = "10.198.8.0/22"
-            subnet_region         = "us-west2"
+            subnet_region         = "INSERT_VGCPREGIONPRIMARY"
         },
         {
-            subnet_name           = "enviroment01-us-west2-privateep-subnet"
+            subnet_name           = "enviroment01-INSERT_VGCPREGIONPRIMARY-privateep-subnet"
             subnet_ip             = "10.198.4.0/22"
-            subnet_region         = "us-west2"
+            subnet_region         = "INSERT_VGCPREGIONPRIMARY"
         },
          {
-            subnet_name           = "enviroment01-us-east1-subnet"
+            subnet_name           = "enviroment01-INSERT_VGCPREGIONSECONDARY-subnet"
             subnet_ip             = "10.200.0.0/22"
-            subnet_region         = "us-east1"
+            subnet_region         = "INSERT_VGCPREGIONSECONDARY"
         },
         {
-            subnet_name           = "enviroment01-us-east1-vm-subnet"
+            subnet_name           = "enviroment01-INSERT_VGCPREGIONSECONDARY-vm-subnet"
             subnet_ip             = "10.200.8.0/22"
-            subnet_region         = "us-east1"
+            subnet_region         = "INSERT_VGCPREGIONSECONDARY"
         },
         {
-            subnet_name           = "enviroment01-us-east1-privateep-subnet"
+            subnet_name           = "enviroment01-INSERT_VGCPREGIONSECONDARY-privateep-subnet"
             subnet_ip             = "10.200.4.0/22"
-            subnet_region         = "us-east1"
+            subnet_region         = "INSERT_VGCPREGIONSECONDARY"
         }
     ]
 }
 
 provider "google" {
-  project = "gts-multicloud-pe-dev2"
+  project = "INSERT_VGCPPROJECT"
 }
 
 terraform {
@@ -58,7 +58,7 @@ terraform {
 
 terraform {
   backend "gcs" {
-    bucket = "gts-multicloud-pe-dev2-tf-statefiles" #Replace with the name of the bucket created above
-    prefix = "network-state" #creates a new folder
+    bucket = "INSERT_VSTORAGEBUCKET"
+    prefix = "network-state"
   }
 }

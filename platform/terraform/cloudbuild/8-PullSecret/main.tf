@@ -1,11 +1,11 @@
 module "jumphost_instance" {
     source          = "../../../tfm/8-PullSecret/"
-    project         = "gts-multicloud-pe-dev2"
-    region          = "us-west2"
+    project         = "INSERT_VGCPPROJECT"
+    region          = "INSERT_VGCPREGIONPRIMARY"
 }
 
 provider "google" {
-  project = "gts-multicloud-pe-dev2"
+  project = "INSERT_VGCPPROJECT"
 }
 
 terraform {
@@ -21,7 +21,7 @@ terraform {
 
 terraform {
   backend "gcs" {
-    bucket = "gts-multicloud-pe-dev2-tf-statefiles" #Replace with the name of the bucket created above
-    prefix = "pullsecret-uswest2-state" #creates a new folder
+    bucket = "INSERT_VSTORAGEBUCKET"
+    prefix = "pullsecret-INSERT_VGCPREGIONPRIMARY-state"
   }
 }

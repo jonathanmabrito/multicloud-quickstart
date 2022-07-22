@@ -42,4 +42,14 @@ resource "google_cloudbuild_trigger" "gcp-platform" {
   approval_config {
     approval_required = false
   }
+
+  substitutions = {
+    _VGCPREGIONPRIMARY    = var.gkeregionprimary
+    _VGCPREGIONSECONDARY  = var.gkeregionsecondary
+    _VGCPPROJECT          = var.project_id
+    _VGKECLUSTER          = var.gkecluster
+    _VDOMAIN              = var.fqdn
+    _VEMAILADDRESS        = var.emailaddress
+    _VSTORAGEBUCKET       = var.storageBucketName
+  }
 }

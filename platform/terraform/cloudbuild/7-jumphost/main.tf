@@ -1,18 +1,18 @@
 module "jumphost_instance" {
     source          = "../../../tfm/7-jumphost/"
-    project         = "gts-multicloud-pe-dev2"
-    name            = "cluster02-jumphost"
+    project         = "INSERT_VGCPPROJECT"
+    name            = "INSERT_VGKECLUSTER-jumphost"
     machine_type    = "e2-micro"
-    zone            = "us-west2-a" 
+    zone            = "INSERT_VGCPREGIONPRIMARY-a" 
     image           = "ubuntu-os-cloud/ubuntu-1804-lts"    
     network         = "network01"
-    subnetwork      = "enviroment01-us-west2-vm-subnet"
+    subnetwork      = "enviroment01-INSERT_VGCPREGIONPRIMARY-vm-subnet"
     provision_ssh_firewall = false
     provision_iap_firewall = false   
 }
 
 provider "google" {
-  project = "gts-multicloud-pe-dev2"
+  project = "INSERT_VGCPPROJECT"
 }
 
 terraform {
@@ -28,7 +28,6 @@ terraform {
 
 terraform {
   backend "gcs" {
-    bucket = "gts-multicloud-pe-dev2-tf-statefiles" #Replace with the name of the bucket created above
-    prefix = "jumphost-uswest2-state" #creates a new folder
-  }
+    bucket = "INSERT_VSTORAGEBUCKET"
+    prefix = "jumphost-INSERT_VGCPREGIONPRIMARY-state"
 }

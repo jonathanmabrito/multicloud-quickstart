@@ -149,7 +149,18 @@ done
 echo "***********************"
 echo "Enable Filestore"
 echo "***********************"
+# A freshly deployed GKE cluster will usually have updates to apply to the nodes, etc. 
+# While its online and usuable from a Kubernetes perspective, its not in a fully running state and enabling Filestore will fail. 
+# Checking for status of the cluster and performing 10 minute waits and re checks. 
+
 gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
-echo $gkeClusterStatus
+if [$gkeClusterStatus != "RUNNING"]
+    until [ $gkeClusterStatus == "RUNNING" ]
+    do
+    echo "GKE Cluster is not fully ready yet. Waiting 10 minutes to check again"
+    sleep 10m
+    gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
+    done
+fi
 
 gcloud container clusters update $VGKECLUSTER --update-addons=GcpFilestoreCsiDriver=ENABLED --region=$VGCPREGIONPRIMARY

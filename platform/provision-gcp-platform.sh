@@ -154,9 +154,9 @@ echo "***********************"
 # Checking for status of the cluster and performing 10 minute waits and re checks. 
 
 gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
-if [$gkeClusterStatus != "RUNNING"]
+if [echo $gkeClusterStatus != "RUNNING"]
 then
-    until [ $gkeClusterStatus == "RUNNING" ]
+    until [ echo $gkeClusterStatus == "RUNNING" ]
     do
     echo "GKE Cluster is not fully ready yet. Waiting 10 minutes to check again"
     sleep 10m

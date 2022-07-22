@@ -33,7 +33,7 @@ resource "google_cloudbuild_trigger" "gcp-platform" {
   }
 
   git_file_source {
-    path      = "cloudbuild-platform.yaml"
+    path      = "cloudbuild-gcp-platform.yaml"
     uri       = "https://github.com/jonathanmabrito/multicloud-quickstart"
     revision  = "refs/heads/development"
     repo_type = "GITHUB"

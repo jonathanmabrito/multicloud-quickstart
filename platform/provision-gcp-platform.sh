@@ -149,4 +149,7 @@ done
 echo "***********************"
 echo "Enable Filestore"
 echo "***********************"
+gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
+echo $gkeClusterStatus
+
 gcloud container clusters update $VGKECLUSTER --update-addons=GcpFilestoreCsiDriver=ENABLED --region=$VGCPREGIONPRIMARY

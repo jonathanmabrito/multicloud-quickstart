@@ -30,4 +30,5 @@ terraform {
   backend "gcs" {
     bucket = "INSERT_VSTORAGEBUCKET"
     prefix = "jumphost-INSERT_VGCPREGIONPRIMARY-state"
+  }
 }

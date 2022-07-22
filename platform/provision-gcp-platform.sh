@@ -94,11 +94,11 @@ echo "***********************"
 #INPUT: VGKECLUSTER
 #INPUT: VSTORAGEBUCKET
 
-sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/cloudbuild/7-jumpshost/main.tf"
-sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/cloudbuild/7-jumpshost/main.tf"
-sed -i "s#INSERT_VGKECLUSTER#$VGKECLUSTER#g" "./platform/terraform/cloudbuild/7-jumpshost/main.tf"
-sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/cloudbuild/7-jumpshost/main.tf"
-cat "./platform/terraform/cloudbuild/7-jumpshost/main.tf"
+sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/cloudbuild/7-jumphost/main.tf"
+sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/cloudbuild/7-jumphost/main.tf"
+sed -i "s#INSERT_VGKECLUSTER#$VGKECLUSTER#g" "./platform/terraform/cloudbuild/7-jumphost/main.tf"
+sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/cloudbuild/7-jumphost/main.tf"
+cat "./platform/terraform/cloudbuild/7-jumphost/main.tf"
 
 echo "***********************"
 echo "Modifying 8-PullSecret"

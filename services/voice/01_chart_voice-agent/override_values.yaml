@@ -47,3 +47,8 @@ prometheus:
     path: /metrics
     interval: 30s
     scrapeTimeout:
+
+serviceDiscovery:
+  globalOption: consul
+  redisFqdnType: consul
+  serviceMesh: consul

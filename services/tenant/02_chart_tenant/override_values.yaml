@@ -15,28 +15,32 @@ images:
   fluentBit:
     enable: "true"
     name: json-sidecar
-    tag: 1.8.7
+    tag: 1.9.5
   fluentBitCs:
     enable: "true"
     name: stdoutcs-sidecar
-    tag: 1.8.7
+    tag: 1.9.5
   fluentBitOcs:
     enable: "true"
     name: stdoutocs-sidecar
-    tag: 1.8.7
+    tag: 1.9.5
   fluentBitSs:
     enable: "true"
     name: stdoutss-sidecar
-    tag: 1.8.7
+    tag: 1.9.5
   fluentBitUrs:
     enable: "true"
     name: stdouturs-sidecar
-    tag: 1.8.7
-
+    tag: 1.9.5
 
 tenant:
   general:
+    location: USW2
+    sipDomain: t100.dev.genazure.com
     upstreamServices: voice-sipfe:9101,voice-config:9100,ixn-server-9350e2fc-a1dd-4c65-8d40-1f75a2e080dd:7120,ixn-vqnode-9350e2fc-a1dd-4c65-8d40-1f75a2e080dd:7122"
+  livenessProbe:
+    checkInterval: 10
+    startupDelay: 50
   pgdb:
     dbhost: "/opt/genesys/dbserver/dbserver"
     dbuser: "/opt/genesys/dbuser/dbuser"
@@ -137,7 +141,8 @@ tenant:
       stdoutUrsLog:
       - emptyDir: {}
         name: fluenturs-logs
-
+  readinessProbe:
+    checkInterval: 10
 #  # PVC Model of logging
 #   logging:
 #     volumes:
@@ -251,15 +256,17 @@ tenant:
     isCluster: true
 
   resources:
-      tenantContainer:
-          limits:
-            cpu: "900m"
-            memory: 900Mi
-          requests:
-            cpu: "500m"
-            memory: 600Mi
-
-      initResources:
-        requests:
-          cpu: "100m"
-          memory: 500Mi
+    initContainer:
+      limits:
+        cpu: "2"
+        memory: 1.5Gi
+      requests:
+        cpu: 300m
+        memory: 700Mi
+    tenantContainer:
+      limits:
+        cpu: "2"
+        memory: 4Gi
+      requests:
+        cpu: "1"
+        memory: 1Gi

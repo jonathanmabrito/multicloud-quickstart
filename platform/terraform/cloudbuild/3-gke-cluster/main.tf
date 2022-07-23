@@ -1,12 +1,12 @@
 module "gke" {
     source                  = "../../../tfm/3-gke-cluster/"
-    project_id              = "gts-multicloud-pe-dev"
+    project_id              = "INSERT_VGCPPROJECT"
     environment             = "enviroment01"
     network_name            = "network01"
-    region                  = "us-west2"
-    cluster                 = "cluster02"
-    gke_version             = "1.22.10-gke.600" #Minumum version supported: 1.22.*
-    release_channel         = "STABLE" 
+    region                  = "INSERT_VGCPREGIONPRIMARY"
+    cluster                 = "INSERT_VGKECLUSTER"
+    gke_version             = "1.22.8-gke.2200" #Minumum version supported: 1.22.*
+    release_channel         = "UNSPECIFIED" 
     secondary_pod_range     = "10.198.64.0/18"
     secondary_service_range = "10.198.16.0/20"
     gke_num_nodes           = "2"
@@ -21,12 +21,12 @@ terraform {
     }
   }
 
-  required_version = "= 1.0.11"
+  required_version = "= 1.2.5"
 }
 
 terraform {
     backend "gcs" {
-        bucket = "gts-multicloud-pe-dev-tf-statefiles" 
-        prefix = "gke-cluster-cluster02-uswest2-state" #creates a new folder
+        bucket = "INSERT_VSTORAGEBUCKET"
+        prefix = "gke-cluster-INSERT_VGKECLUSTER-INSERT_VGCPREGIONPRIMARY-state"
     }
 }

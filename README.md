@@ -12,6 +12,7 @@ This repository is broken up into two sections:
 * Platform - Contains Terraform files to provision a new GCP project with the necessary Google API's and services. 
 * Services - Contains the Helm Charts to provision the Private Edition containers. 
 
+<pre>
 multicloud-quickstart
 |
 ├── platform
@@ -44,6 +45,7 @@ multicloud-quickstart
 │   └── README.md  -  Overview of each module and order of execution
 └── provision-[product].sh - Shell script responsible for executing the Helm Charts for the specific product
 └── cloudbuild-services-[product].yaml - Cloud Build file
+</pre>
 
 ## Related Sites
 

@@ -1,4 +1,15 @@
 echo "***********************"
+echo "Set variables"
+echo "***********************"
+export gkeCluster=$VGKECLUSTER
+export gcpRegion=$VGCPREGION
+export gcpProject=$VGCPPROJECT
+export NS=infra
+export SERVICE=infra
+export DOMAIN=$VDOMAIN
+export FULLCOMMAND=$VHELMCOMMAND
+
+echo "***********************"
 echo "Logging into GCP"
 echo "***********************"
 gcloud init --no-launch-browser
@@ -6,27 +17,29 @@ gcloud init --no-launch-browser
 echo "***********************"
 echo "Logging into GKE"
 echo "***********************"
-gcloud container clusters get-credentials cluster02 --region us-west2 --project gts-multicloud-pe-dev
+gcloud container clusters get-credentials $gkeCluster --region $gcpRegion --project $gcpProject
 
 echo "***********************"
 echo "Create or use namespace"
 echo "***********************"
-NS=infra
 if ! kubectl get namespaces $NS; then
     echo "Namespace $NS does not exist. Creating it.."
     kubectl create namespace $NS
 else
     echo "Namespace $NS already exists. Will use it."
 fi
-kubectl config set-context --current --namespace=infra
+kubectl config set-context --current --namespace=$NS
+
+echo "***********************"
+echo "Set Consul Stub Zone in Kube-DNS"
+echo "***********************"
+CONSULDNS=$(kubectl get svc consul-dns -n consul -o jsonpath='{.spec.clusterIP}')
+sed -i "s#INSERT_CONSULDNS#$CONSULDNS#g" "./services/$SERVICE/kube-dns-patch.yaml"
+kubectl patch configmap/kube-dns -n kube-system --type merge --patch-file ./services/$SERVICE/kube-dns-patch.yaml
 
 echo "***********************"
 echo "Run Helm Charts"
 echo "***********************"
-export NS=infra
-export SERVICE=infra
-export DOMAIN=cluster02.gcp.demo.genesys.com
-export FULLCOMMAND=install
 
 cd "./services/$SERVICE"
 COMMAND=$(echo $FULLCOMMAND | cut -d' ' -f1)

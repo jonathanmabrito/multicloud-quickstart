@@ -41,8 +41,6 @@ export tenant_gauth_client_secret=$( get_secret tenant_gauth_client_secret )
 ###############################################################################
 export POSTGRES_USER=$( get_secret POSTGRES_USER )
 export POSTGRES_PASSWORD=$( get_secret POSTGRES_PASSWORD )
-###############################################################################
-
 
 ###############################################################################
 #             Secrets for voice microservices
@@ -63,24 +61,3 @@ create_secret gauthclientsecret clientsecret  $tenant_gauth_client_secret
 envsubst < init_db.sh > init_db.sh_
 kubectl run busybox -i --rm --image=alpine --restart=Never -- sh -c "$(<init_db.sh_)"
 ###############################################################################
-
-###############################################################################
-#               Creating PVC for log
-###############################################################################
-cat << EOF | kubectl apply -n $NS -f - 
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: log-pvc
-  labels:
-    service: tenant
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
-  storageClassName: nfs-client
-EOF
-###############################################################################
-

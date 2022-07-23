@@ -1,19 +1,30 @@
-module "k8s-setup" {
-    source        = "../../../tfm/4-k8s-setup/"
-    project_id   = "INSERT_VGCPPROJECT"
-    network_name = "network01"
-    ipv4         = "10.198.12.0/22"
+module "gke_auth" {
+  source = "terraform-google-modules/kubernetes-engine/google//modules/auth"
+  project_id    = "INSERT_VGCPPROJECT"
+  cluster_name  = "INSERT_VGKECLUSTER"
+  location      = "INSERT_VGCPREGIONPRIMARY"
 }
+
+resource "local_file" "kubeconfig" {
+  content  = module.gke_auth.kubeconfig_raw
+  filename = "${path.module}/kubeconfig"
+}
+
+module "ingress_certs" {
+  source            = "../../../tfm/5-ingress-certs/"
+  project_id        = "INSERT_VGCPPROJECT"
+  environment       = "INSERT_VGCPPROJECT"
+  domain_name_nginx = "nlb02-INSERT_VGCPREGIONPRIMARY.INSERT_VDOMAIN"
+  email             = "INSERT_VEMAILADDRESS"
+}
+
+#Kubernetes
 
 data "google_client_config" "provider" {}
 
 data "google_container_cluster" "INSERT_VGKECLUSTER" {
   name = "INSERT_VGKECLUSTER"
   location = "INSERT_VGCPREGIONPRIMARY"
-  project = "INSERT_VGCPPROJECT"
-}
-
-provider "google" {
   project = "INSERT_VGCPPROJECT"
 }
 
@@ -24,6 +35,8 @@ provider "kubernetes" {
     data.google_container_cluster.INSERT_VGKECLUSTER.master_auth[0].cluster_ca_certificate,
   ) 
 }
+
+#Helm
 
 variable "helm_version" {
 default = "v2.9.1"
@@ -36,8 +49,13 @@ provider "helm" {
     cluster_ca_certificate = base64decode(
     data.google_container_cluster.INSERT_VGKECLUSTER.master_auth[0].cluster_ca_certificate,
     )
-    config_path = "~/.kube/config"
-  } 
+    config_path = "${path.module}/kubeconfig"
+  }
+}
+
+
+provider "google" {
+  project = "INSERT_VGCPPROJECT"
 }
 
 terraform {
@@ -53,7 +71,7 @@ terraform {
 
 terraform {
   backend "gcs" {
-    bucket = "INSERT_VSTORAGEBUCKET" 
-    prefix = "k8s-setup-INSERT_VGKECLUSTER-INSERT_VGCPREGIONPRIMARY-state"
+    bucket = "INSERT_VSTORAGEBUCKET"
+    prefix = "ingress-certs-INSERT_VGKECLUSTER-INSERT_VGCPREGIONPRIMARY-state"
   }
 }

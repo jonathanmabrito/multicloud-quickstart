@@ -5,7 +5,7 @@ global:
 
 prometheus:
   podMonitor:
-    create: "true"
+    create: "false"
   alertrule:
     create: "false"
 
@@ -16,3 +16,14 @@ fluent:
   jsonlogs:
     stdout:
       enable: "true"
+
+tenant:
+  logging:
+    volume:
+      enabled: "true"
+      createSC: "false"
+      createpvClaim: "true"
+      logClaim: "tenant-logs-pvc"
+      logClaimSize: "20Gi"
+      logStorageClass: "csi-standard-rwx"
+      parameters: {}

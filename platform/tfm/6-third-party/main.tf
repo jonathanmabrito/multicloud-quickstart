@@ -1,4 +1,3 @@
-
 #Kafka
 resource "kubernetes_namespace" "kafka" {
   metadata {
@@ -20,7 +19,6 @@ resource "helm_release" "kafka-install" {
     data.local_file.helmvalues-kafka.content
   ]
 }
-
 
 #Keda 
 resource "kubernetes_namespace" "keda" {

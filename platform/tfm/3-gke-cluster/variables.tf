@@ -13,7 +13,6 @@ variable "region" {
   description = "region"
 }
 
-
 variable "cluster" {
   type = string
   description = "cluster name"

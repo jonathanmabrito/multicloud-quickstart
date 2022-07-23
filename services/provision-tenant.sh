@@ -1,4 +1,17 @@
 echo "***********************"
+echo "Set Variables"
+echo "***********************"
+export gkeCluster=$VGKECLUSTER
+export gcpRegion=$VGCPREGION
+export gcpProject=$VGCPPROJECT
+export NS=voice
+export SERVICE=tenant
+export DOMAIN=$VDOMAIN
+export IMAGE_REGISTRY=$VIMAGEREGISTRY
+export ARTIFACT_REPO=$VARTIFACTREPO
+export FULLCOMMAND=$VHELMCOMMAND
+
+echo "***********************"
 echo "Logging into GCP"
 echo "***********************"
 gcloud init --no-launch-browser
@@ -6,36 +19,24 @@ gcloud init --no-launch-browser
 echo "***********************"
 echo "Logging into GKE"
 echo "***********************"
-gcloud container clusters get-credentials cluster02 --region us-west2 --project gts-multicloud-pe-dev
-
-echo "***********************"
-echo "Setting Variables"
-echo "***********************"
-export NS=voice
-export SERVICE=voice
-export DOMAIN=cluster02.gcp.demo.genesys.com
-export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
-export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
-export FULLCOMMAND=install
+gcloud container clusters get-credentials $gkeCluster --region $gcpRegion --project $gcpProject
 
 echo "***********************"
 echo "Create or use namespace"
 echo "***********************"
-NS=gauth
 if ! kubectl get namespaces $NS; then
     echo "Namespace $NS does not exist. Creating it.."
     kubectl create namespace $NS
 else
     echo "Namespace $NS already exists. Will use it."
 fi
-kubectl config set-context --current --namespace=gauth
+kubectl config set-context --current --namespace=$NS
 
 echo "***********************"
 echo "Run Helm Charts"
 echo "***********************"
 
 cd "./services/$SERVICE"
-FULLCOMMAND="install"
 COMMAND=$(echo $FULLCOMMAND | cut -d' ' -f1)
 if [[ "$FULLCOMMAND" == *" "* ]]; then
     CHART_NAME=$(echo $FULLCOMMAND | tr -s ' ' | cut -d' ' -f2)
@@ -61,7 +62,7 @@ for DIR in [0-9][0-9]_chart_*$CHART_NAME*/; do
     # 🖊️ (Optional) EDIT 1st line of chart.ver file with chart version number
     VER=$(head -n 1 $DIR/chart.ver)
     
-    FLAGS="$ARTIFACT_REPO/$CHART --install --version=$VER -n $NS -f $(pwd)/overrides.yaml"
+    FLAGS="$ARTIFACT_REPO/$CHART --install --timeout 1200s --version=$VER -n $NS -f $(pwd)/overrides.yaml"
     
     case $COMMAND in
     install)

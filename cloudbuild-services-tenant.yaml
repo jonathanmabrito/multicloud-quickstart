@@ -1,8 +1,8 @@
 steps:
-- id: 'Provision GAUTH Components'
+- id: 'Provision Tenant Components'
   name: 'gcr.io/gts-multicloud-pe-dev/privateedition'
   entrypoint: 'bash'
-  args: ['services/provision-gauth.sh']
+  args: ['services/provision-tenant.sh']
   env:
     - 'VDOMAIN=${_VDOMAIN}'
     - 'VGCPPROJECT=${_VGCPPROJECT}'

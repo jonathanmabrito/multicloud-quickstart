@@ -1,7 +1,7 @@
 module "jumphost_instance" {
     source          = "../../../tfm/9-repo/"
     project         = "INSERT_VGCPPROJECT"
-    region          = "INSERT_VGCPREGIONPRIMARY"
+    region          = "INSERT_VGCPREGION"
     repoid          = "INSERT_VGCPREPOID"
 }
 

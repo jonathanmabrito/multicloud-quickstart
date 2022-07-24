@@ -3,18 +3,18 @@ echo "Modifying Terraform Files for user variables and inputs"
 echo "***********************"
 #ALL UNIQUE INPUTS
 #INPUT: VGCPPROJECT
-#INPUT: VGCPREGIONPRIMARY
+#INPUT: VGCPREGION
 #INPUT: VGCPREPOID
 
 echo "***********************"
 echo "Modifying 9-repo"
 echo "***********************"
 #INPUT: VGCPPROJECT
-#INPUT: VGCPREGIONPRIMARY
+#INPUT: VGCPREGION
 #INPUT: VGCPREPOID
 
 sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
-sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
+sed -i "s#INSERT_VGCPREGION#$VGCPREGION#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 sed -i "s#INSERT_VGCPREPOID#$VGCPREPOID#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 cat "./platform/terraform/cloudbuild/9-repo/main.tf"
 

@@ -1,0 +1,12 @@
+steps:
+- id: 'Provision GCP Artifactory with Terraform'
+  name: 'gcr.io/gts-multicloud-pe-jonathan/privateedition'
+  entrypoint: 'bash'
+  args: ['platform/provision-gcp-repo.sh']
+  env:
+    - 'VGCPPROJECT=${_VGCPPROJECT}'
+    - 'VGCPREGION=${_VGCPREGION}'
+    - 'VGCPREPOID=${_VGCPREPOID}'
+#   - 'VSTORAGEBUCKET=${_VSTORAGEBUCKET}'
+  timeout: '7200s'
+timeout: '7200s'

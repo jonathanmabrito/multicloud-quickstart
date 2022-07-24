@@ -16,7 +16,7 @@ echo "***********************"
 sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 sed -i "s#INSERT_VGCPREPOID#$VGCPREPOID#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
-cat "./platform/terraform/cloudbuild/8-PullSecret/main.tf"
+cat "./platform/terraform/cloudbuild/9-repo/main.tf"
 
 dir=platform/terraform/cloudbuild/9-repo/
 

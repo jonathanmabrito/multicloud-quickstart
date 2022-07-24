@@ -14,7 +14,7 @@ echo "***********************"
 #INPUT: VGCPREPOID
 
 sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
-sed -i "s#INSERT_VGCPREGION#$VGCPREGION#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
+sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 sed -i "s#INSERT_VGCPREPOID#$VGCPREPOID#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 cat "./platform/terraform/cloudbuild/9-repo/main.tf"
 

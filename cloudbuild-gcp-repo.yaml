@@ -5,7 +5,7 @@ steps:
   args: ['platform/provision-gcp-repo.sh']
   env:
     - 'VGCPPROJECT=${_VGCPPROJECT}'
-    - 'VGCPREGION=${_VGCPREGIONPRIMARY}'
+    - 'VGCPREGIONPRIMARY=${_VGCPREGIONPRIMARY}'
     - 'VGCPREPOID=${_VGCPREPOID}'
 #   - 'VSTORAGEBUCKET=${_VSTORAGEBUCKET}'
   timeout: '7200s'

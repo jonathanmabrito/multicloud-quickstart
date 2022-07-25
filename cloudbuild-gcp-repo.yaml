@@ -1,8 +1,8 @@
 steps:
 - id: 'Provision GCP Artifactory with Terraform'
-  name: 'gcr.io/gts-multicloud-pe-jonathan/privateedition'
+  name: 'us-west2-docker.pkg.dev/gts-multicloud-pe-dmitry/gts-multicloud-pe/privateedition'
   entrypoint: 'bash'
-  args: ['platform/provision-gcp-repo.sh']
+  args: ['platform/provision-gcp-repo.sh', 'container-privileged']
   env:
     - 'VGCPPROJECT=${_VGCPPROJECT}'
     - 'VGCPREGIONPRIMARY=${_VGCPREGIONPRIMARY}'

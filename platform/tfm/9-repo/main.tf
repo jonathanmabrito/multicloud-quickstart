@@ -24,4 +24,5 @@ resource "null_resource" "image" {
       podman push ${each.value} ${var.region}-docker.pkg.dev/${var.project}/${var.repoid}/${each.value}
     EOT
   }
+  depends_on = [null_resource.remoteregistry]
 }

@@ -18,8 +18,8 @@ sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/c
 sed -i "s#INSERT_VGCPREPOID#$VGCPREPOID#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 sed -i "s#INSERT_REPOEXISTS#$REPOEXISTS#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 sed -i "s#INSERT_REMOTEREPO#$REMOTEREPO#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
-sed -i "s#INSERT_REMOTEREPOUID#$REMOTEREPOUID#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
-sed -i "s#INSERT_REMOTEREPOPWD#$REMOTEREPOPWD#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
+sed -i "s#INSERT_REMOTEUID#$REMOTEUSER#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
+sed -i "s#INSERT_REMOTEPWD#$REMOTEPASS#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 cat "./platform/terraform/cloudbuild/9-repo/main.tf"
 
 dir=platform/terraform/cloudbuild/9-repo/

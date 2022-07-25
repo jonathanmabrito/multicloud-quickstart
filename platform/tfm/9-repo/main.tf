@@ -9,11 +9,12 @@
 resource "null_resource" "image" {
   # ...
   #interpreter = ["/bin/bash", "-c"]
+  for_each = var.images
   provisioner "local-exec" {
     command = <<-EOT
-      podman pull docker.io/library/hello-world:latest
-      podman tag docker.io/library/hello-world:latest us-west2-docker.pkg.dev/gts-multicloud-pe-dmitry/gts-multicloud-pe/hello-world:latest
-      podman push us-west2-docker.pkg.dev/gts-multicloud-pe-dmitry/gts-multicloud-pe/hello-world:latest
+      podman pull docker.io/${each.value}
+      podman tag ${each.value} us-west2-docker.pkg.dev/gts-multicloud-pe-dmitry/gts-multicloud-pe/${each.value}
+      podman push us-west2-docker.pkg.dev/gts-multicloud-pe-dmitry/gts-multicloud-pe/${each.value}
     EOT
   }
 }

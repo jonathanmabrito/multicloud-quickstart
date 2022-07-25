@@ -5,8 +5,8 @@ module "jumphost_instance" {
     repoid                = "INSERT_VGCPREPOID"
     repoexists            = "INSERT_REPOEXISTS"
     remoteregistry        = "INSERT_REMOTEREPO"
-    remoteregistry_user   = "INSERT_REMOTEREPOUID"
-    remoteregistry_pass   = "INSERT_REMOTEREPOPWD"
+    remoteregistry_user   = "INSERT_REMOTEUSER"
+    remoteregistry_pass   = "INSERT_REMOTEPASS"
 }
 
 provider "google" {

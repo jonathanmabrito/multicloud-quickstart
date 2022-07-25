@@ -5,20 +5,17 @@ resource "google_artifact_registry_repository" "my-repo" {
   repository_id = var.repoid
   description   = "Genesys container and helm chart repository"
   format        = "DOCKER"
-  #lifecycle {
-    # Only run if doesn't exists
-  #  precondition {
-  #    condition     = "gcloud artifacts repositories describe ${var.repoid} --location=${var.region}" == 0
-  #    error_message = "Repo already exists"
-  #  }
-  #}
 }
 
-
+resource "null_resource" "remoteregistry" {
+  # Login to remote registry
+  provisioner "local-exec" {
+    command = "podman login -u ${var.remoteregistry_user} -p ${var.remoteregistry_pass} ${var.remoteregistry}"
+  }
+}
 
 resource "null_resource" "image" {
-  # ...
-  #interpreter = ["/bin/bash", "-c"]
+  # Pull, tag, push containers
   for_each = var.images
   provisioner "local-exec" {
     command = <<-EOT

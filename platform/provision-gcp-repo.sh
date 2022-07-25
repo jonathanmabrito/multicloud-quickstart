@@ -1,18 +1,13 @@
 echo "***********************"
-echo "Modifying Terraform Files for user variables and inputs"
-echo "***********************"
-#ALL UNIQUE INPUTS
-#INPUT: VGCPPROJECT
-#INPUT: VGCPREGION
-#INPUT: VGCPREPOID
-
-echo "***********************"
 echo "Modifying 9-repo"
 echo "***********************"
 #INPUT: VGCPPROJECT
 #INPUT: VGCPREGION
 #INPUT: VGCPREPOID
 #VARIABLE: REPOEXISTS - computed
+#INPUT: REMOTEREPO"
+#INPUT: REMOTEREPOUID"
+#INPUT: REMOTEREPOPWD"
 
 #Check if repo already exists - 0 is yes or 1 if no
 gcloud artifacts repositories describe $VGCPREPOID --location=$VGCPREGIONPRIMARY --project=$VGCPPROJECT
@@ -22,6 +17,9 @@ sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/cloudbuild/9-
 sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 sed -i "s#INSERT_VGCPREPOID#$VGCPREPOID#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 sed -i "s#INSERT_REPOEXISTS#$REPOEXISTS#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
+sed -i "s#INSERT_REMOTEREPO#$REMOTEREPO#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
+sed -i "s#INSERT_REMOTEREPOUID#$REMOTEREPOUID#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
+sed -i "s#INSERT_REMOTEREPOPWD#$REMOTEREPOPWD#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 cat "./platform/terraform/cloudbuild/9-repo/main.tf"
 
 dir=platform/terraform/cloudbuild/9-repo/

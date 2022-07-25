@@ -14,6 +14,7 @@ echo "***********************"
 #INPUT: VGCPREPOID
 #VARIABLE: REPOEXISTS - computed
 
+#Check if repo already exists - 0 is yes or 1 if no
 gcloud artifacts repositories describe $VGCPREPOID --location=$VGCPREGIONPRIMARY --project=$VGCPPROJECT
 REPOEXISTS=$?
 

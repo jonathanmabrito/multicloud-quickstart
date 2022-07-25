@@ -23,8 +23,8 @@ resource "null_resource" "image" {
   provisioner "local-exec" {
     command = <<-EOT
       podman pull docker.io/${each.value}
-      podman tag ${each.value} us-west2-docker.pkg.dev/gts-multicloud-pe-dmitry/gts-multicloud-pe/${each.value}
-      podman push us-west2-docker.pkg.dev/gts-multicloud-pe-dmitry/gts-multicloud-pe/${each.value}
+      podman tag ${each.value} ${var.region}-docker.pkg.dev/${var.project}/${var.repoid}/${each.value}
+      podman push ${each.value} ${var.region}-docker.pkg.dev/${var.project}/${var.repoid}/${each.value}
     EOT
   }
 }

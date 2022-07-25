@@ -14,7 +14,7 @@ variable "repoid" {
 }
 
 variable "repoexists" {
-    type = number
+    type = bool
     description = "Pre-run computed value if registry already exists"
 }
 

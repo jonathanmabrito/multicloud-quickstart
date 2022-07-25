@@ -1,16 +1,17 @@
 resource "google_artifact_registry_repository" "my-repo" {
+  count = var.repoexists ? 1 : 0
   location      = var.region
   project       = var.project
   repository_id = var.repoid
   description   = "Genesys container and helm chart repository"
   format        = "DOCKER"
-  lifecycle {
+  #lifecycle {
     # Only run if doesn't exists
-    precondition {
-      condition     = "gcloud artifacts repositories describe ${var.repoid} --location=${var.region}" == 0
-      error_message = "Repo already exists"
-    }
-  }
+  #  precondition {
+  #    condition     = "gcloud artifacts repositories describe ${var.repoid} --location=${var.region}" == 0
+  #    error_message = "Repo already exists"
+  #  }
+  #}
 }
 
 

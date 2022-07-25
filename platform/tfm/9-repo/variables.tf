@@ -13,6 +13,11 @@ variable "repoid" {
     description = "The last part of the repository name"
 }
 
+variable "repoexists" {
+    type = number
+    description = "Pre-run computed value if registry already exists"
+}
+
 variable "images" {
     type = set(string)
     default = [

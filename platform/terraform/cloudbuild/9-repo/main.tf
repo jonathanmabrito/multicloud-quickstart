@@ -3,6 +3,7 @@ module "jumphost_instance" {
     project         = "INSERT_VGCPPROJECT"
     region          = "INSERT_VGCPREGIONPRIMARY"
     repoid          = "INSERT_VGCPREPOID"
+    repoexists      = "INSERT_REPOEXISTS"
 }
 
 provider "google" {

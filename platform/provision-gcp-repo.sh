@@ -12,10 +12,15 @@ echo "***********************"
 #INPUT: VGCPPROJECT
 #INPUT: VGCPREGION
 #INPUT: VGCPREPOID
+#VARIABLE: REPOEXISTS - computed
+
+gcloud artifacts repositories describe $VGCPREPOID --location=$VGCPREGIONPRIMARY --project=$VGCPPROJECT
+REPOEXISTS=$?
 
 sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 sed -i "s#INSERT_VGCPREPOID#$VGCPREPOID#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
+sed -i "s#INSERT_REPOEXISTS#$REPOEXISTS#g" "./platform/terraform/cloudbuild/9-repo/main.tf"
 cat "./platform/terraform/cloudbuild/9-repo/main.tf"
 
 dir=platform/terraform/cloudbuild/9-repo/

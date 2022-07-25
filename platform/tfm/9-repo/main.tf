@@ -10,6 +10,6 @@ resource "null_resource" "image" {
   # ...
 
   provisioner "local-exec" {
-    command = "podman pull hello-world | podman tag hello-world us-west2-docker.pkg.dev/gts-multicloud-pe-dmitry/gts-multicloud-pe/hello-world | podman push us-west2-docker.pkg.dev/gts-multicloud-pe-dmitry/gts-multicloud-pe/hello-world"
+    command = "podman pull docker.io/library/hello-world:latest | podman tag docker.io/library/hello-world:latest us-west2-docker.pkg.dev/gts-multicloud-pe-dmitry/gts-multicloud-pe/hello-world | podman push us-west2-docker.pkg.dev/gts-multicloud-pe-dmitry/gts-multicloud-pe/hello-world:latest"
   }
 }

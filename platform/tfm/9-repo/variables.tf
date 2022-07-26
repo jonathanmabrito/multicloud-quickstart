@@ -37,7 +37,7 @@ variable "images" {
     type = set(string)
     default = [
         "voice/agent_node:100.0.1000013",
-        "voice/voice_callthread:100.0.1000013",
-        "voice/voice_config:100.0.1000010"
+        "voice/callthread_node:100.0.1000013",
+        "voice/config_node:100.0.1000010"
         ]
 }

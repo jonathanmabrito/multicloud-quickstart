@@ -4,6 +4,7 @@ module "jumphost_instance" {
     region                = "INSERT_VGCPREGIONPRIMARY"
     repoid                = "INSERT_VGCPREPOID"
     repoexists            = "INSERT_REPOEXISTS"
+    remotehelm            = "INSERT_REMOTEHELM"
     remoteregistry        = "INSERT_REMOTEREPO"
     remoteregistry_user   = "INSERT_REMOTEUSER"
     remoteregistry_pass   = "INSERT_REMOTEPASS"

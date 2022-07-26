@@ -23,6 +23,11 @@ variable "remoteregistry" {
     description = "Address of remote registry"
 }
 
+variable "remotehelm" {
+    type = string
+    description = "Address of remote registry"
+}
+
 variable "remoteregistry_user" {
     type = string
     description = "Remote registry user"

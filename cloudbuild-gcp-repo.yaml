@@ -10,5 +10,6 @@ steps:
     - 'REMOTEREPO=${_REMOTEREPO}'
     - 'REMOTEUSER=${_REMOTEREPOUID}'
     - 'REMOTEPASS=${_REMOTEREPOPWD}'
-  timeout: '7200s'
-timeout: '7200s'
+    - 'REMOTEHELM=${_REMOTEHELM}'
+  timeout: '43200s'
+timeout: '43200s'

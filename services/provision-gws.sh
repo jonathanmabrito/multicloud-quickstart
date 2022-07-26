@@ -51,12 +51,14 @@ kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 echo "***********************"
 echo "Creating GAUTH API Entry"
 echo "***********************"
-sh ./services/$SERVICE/misc_apiclient.sh apiclient add all cluster02.gcp.demo.genesys.com
+chmod +x ./services/$SERVICE/misc_apiclient.sh
+./services/$SERVICE/misc_apiclient.sh apiclient add all cluster02.gcp.demo.genesys.com
 
 echo "***********************"
 echo "Creating GAUTH CORS Entry"
 echo "***********************"
-sh ./services/$SERVICE/mis_cors.sh cors 100 ixn-100 USW2
+chmod +x ./services/$SERVICE/misc_cors.sh
+./services/$SERVICE/misc_cors.sh cors 100 ixn-100 USW2
 
 echo "***********************"
 echo "Run Helm Charts"

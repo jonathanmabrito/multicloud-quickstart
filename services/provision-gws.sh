@@ -55,6 +55,12 @@ chmod +x ./services/$SERVICE/misc_apiclient.sh
 ./services/$SERVICE/misc_apiclient.sh apiclient add all cluster02.gcp.demo.genesys.com
 
 echo "***********************"
+echo "Creating GAUTH CCID Entrys"
+echo "***********************"
+chmod +x ./services/$SERVICE/misc_ccid.sh
+./services/$SERVICE/misc_ccid.sh ccid 100 USW2
+
+echo "***********************"
 echo "Creating GAUTH CORS Entry"
 echo "***********************"
 chmod +x ./services/$SERVICE/misc_cors.sh

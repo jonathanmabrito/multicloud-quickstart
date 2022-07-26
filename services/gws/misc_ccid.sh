@@ -38,7 +38,7 @@ case "$TID" in
           ;;
 esac
 # We will Curl from gauth pod, because no access from GH runner to ingress https://gauth.$domain
-GAPOD=$(kubectl get po | grep gauth-auth | grep Running | grep -v gauth-auth-ui -m1 | awk '{print $1}')
+GAPOD=$(kubectl get po -n gauth | grep gauth-auth | grep Running | grep -v gauth-auth-ui -m1 | awk '{print $1}')
 
 
 ###+++++++++++++ Create new environment (will return error if already exists) ++++++
@@ -75,7 +75,7 @@ EOF
 echo $UUID
 echo $NEW_DATA
 
-kubectl exec $GAPOD -- bash -c "curl -s -XPOST https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/environments -u $CREDS -H 'Content-Type: application/json' -d '$(NEW_DATA)'" | tee RSP
+kubectl exec $GAPOD --namespace="gauth" -- bash -c "curl -s -XPOST https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/environments -u $CREDS -H 'Content-Type: application/json' -d '$(NEW_DATA)'" | tee RSP
 sleep 3
 
 ###++++++++++++++
@@ -84,7 +84,7 @@ sleep 3
 NEW_ENV=$(cat RSP | jq .path | cut -d'/' -f3| sed 's/"//')
 
 echo "*** Current list of environments:"
-kubectl exec $GAPOD -- bash -c "curl -s https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/environments -u $CREDS" | jq .data[]
+kubectl exec $GAPOD --namespace="gauth" -- bash -c "curl -s https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/environments -u $CREDS" | jq .data[]
 
 
 ###### Create CCID ######
@@ -103,11 +103,11 @@ NEW_DATA()
 EOF
 }
 
-kubectl exec $GAPOD -- bash -c "curl -s -XPOST https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/contact-centers -u $CREDS -H 'Content-Type: application/json' -d '$(NEW_DATA)'" | tee RSP
+kubectl exec $GAPOD --namespace="gauth" -- bash -c "curl -s -XPOST https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/contact-centers -u $CREDS -H 'Content-Type: application/json' -d '$(NEW_DATA)'" | tee RSP
 sleep 3
 
 ###++++++++++++++
 [[ "$(cat RSP | jq .status.code)" != "0" ]] && echo "ERROR 2: failed http request to Gauth: "$(cat RSP | jq .status) && exit 1
 
 echo "*** Current list of CCIDs:"
-kubectl exec $GAPOD -- bash -c "curl -s https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/contact-centers -u $CREDS" | jq .data[]
+kubectl exec $GAPOD --namespace="gauth" -- bash -c "curl -s https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/contact-centers -u $CREDS" | jq .data[]

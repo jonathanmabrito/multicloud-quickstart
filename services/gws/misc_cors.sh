@@ -66,7 +66,7 @@ echo "*** Pre-change list of origins:"
 # NEW API
 #kubectl exec $GAPOD -- bash -c "curl -s http://gauth-environment/environment/v3/cors -u $CREDS" | jq .data.origins
 # OLD API
-kubectl exec $GAPOD -- bash -c "curl -s http://gauth-environment/environment/v3/contact-centers/$UUID/settings -u $CREDS" | jq .data.settings
+kubectl exec $GAPOD --namespace="gauth" -- bash -c "curl -s http://gauth-environment/environment/v3/contact-centers/$UUID/settings -u $CREDS" | jq .data.settings
 
 # Older API - add all origins in one request
 # ucsx? tlm?
@@ -107,7 +107,7 @@ ORIGINS()
 EOF
 }
 
-kubectl exec $GAPOD -- bash -c "curl -s -XPOST http://gauth-environment/environment/v3/contact-centers/$UUID/settings -u $CREDS -H 'Content-Type: application/json' -d '$(ORIGINS)'" | tee RSP
+kubectl exec $GAPOD --namespace="gauth" -- bash -c "curl -s -XPOST http://gauth-environment/environment/v3/contact-centers/$UUID/settings -u $CREDS -H 'Content-Type: application/json' -d '$(ORIGINS)'" | tee RSP
 
 
 ##################################
@@ -142,4 +142,4 @@ echo "*** Current list of origins:"
 # NEW API
 #kubectl exec $GAPOD -- bash -c "curl -s http://gauth-environment/environment/v3/cors -u $CREDS" | jq .data.origins
 # OLD API
-kubectl exec $GAPOD -- bash -c "curl -s http://gauth-environment/environment/v3/contact-centers/$UUID/settings -u $CREDS" | jq .data.settings
+kubectl exec $GAPOD --namespace="gauth" -- bash -c "curl -s http://gauth-environment/environment/v3/contact-centers/$UUID/settings -u $CREDS" | jq .data.settings

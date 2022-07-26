@@ -64,7 +64,9 @@ entryPoints:
       # Whether ingress will start
       enabled: true
       # Ingress annotations
-      annotations: {}
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        kubernetes.io/ingress.class: "nginx"
       # Paths to ingress relative to hostname
       paths: ["/"]
       # Host names
@@ -72,7 +74,7 @@ entryPoints:
         - gws-int.${DOMAIN}
       # TLS configuration
       tls:
-        - secretName: gws-secret-int
+        - secretName: gws-ingress-int
           hosts:
             - gws-int.${DOMAIN}
 
@@ -83,12 +85,13 @@ entryPoints:
       # Whether ingress will start
       enabled: true
       # Ingress annotations
-      annotations: {}
+      annotations: 
         #appgw.ingress.kubernetes.io/connection-draining: "true"
         #appgw.ingress.kubernetes.io/connection-draining-timeout: "30"
         #appgw.ingress.kubernetes.io/cookie-based-affinity: "true"
         #appgw.ingress.kubernetes.io/ssl-redirect: "false"
-        #cert-manager.io/cluster-issuer: letsencrypt-prod
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        kubernetes.io/ingress.class: "nginx"
         #ingress.kubernetes.io/ssl-redirect: "false"
         #kubernetes.io/ingress.class: azure/application-gateway
       # Paths to ingress relative to hostname
@@ -98,6 +101,6 @@ entryPoints:
         - gws.${DOMAIN}
       # TLS configuration
       tls:
-        - secretName: gws-secret-ext
+        - secretName: gws-ingress-ext
           hosts:
             - gws.${DOMAIN}

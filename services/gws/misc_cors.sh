@@ -38,7 +38,11 @@ echo $LOCATION
 [[ -z "$TID" ]] && TID="100"
 [[ -z "$LOCATION" ]] && LOCATION="/"
 
+gauth_admin_username=$( kubectl get secrets deployment-secrets -n gauth -o custom-columns=:data.gauth_admin_username --no-headers | base64 -d )
+gauth_admin_password_plain=Genesys1234
+
 CREDS="$gauth_admin_username:$gauth_admin_password_plain"
+domain=cluster02.gcp.demo.genesys.com
 
 echo $CREDS
 echo $domain

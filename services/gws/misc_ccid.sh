@@ -10,6 +10,9 @@
 TID=$2
 LOCATION=$3
 
+echo $TID
+echo $LOCATION
+
 #TID=$(echo $INPUT_COMMAND | awk '{print $2}')
 [[ -z "$TID" ]] && TID="100"
 #LOCATION=$(echo $INPUT_COMMAND | awk '{print $3}')
@@ -18,6 +21,8 @@ LOCATION=$3
 gauth_admin_username=$( kubectl get secrets deployment-secrets -n gauth -o custom-columns=:data.gauth_admin_username --no-headers | base64 -d )
 gauth_admin_password_plain=Genesys1234
 CREDS="$gauth_admin_username:$gauth_admin_password_plain"
+
+echo $CREDS
 
 case "$TID" in
     100) UUID=9350e2fc-a1dd-4c65-8d40-1f75a2e080dd
@@ -67,11 +72,14 @@ NEW_DATA()
 EOF
 }
 
+echo $UUID
+echo $NEW_DATA
+
 kubectl exec $GAPOD -- bash -c "curl -s -XPOST https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/environments -u $CREDS -H 'Content-Type: application/json' -d '$(NEW_DATA)'" | tee RSP
 sleep 3
 
 ###++++++++++++++
-[[ "$(cat RSP | jq .status.code)" != "0" ]] && echo "ERROR: failed http request to Gauth: "$(cat RSP | jq .status) && exit 1
+[[ "$(cat RSP | jq .status.code)" != "0" ]] && echo "ERROR 1: failed http request to Gauth: "$(cat RSP | jq .status) && exit 1
 
 NEW_ENV=$(cat RSP | jq .path | cut -d'/' -f3| sed 's/"//')
 
@@ -99,7 +107,7 @@ kubectl exec $GAPOD -- bash -c "curl -s -XPOST https://gauth-int.cluster02.gcp.d
 sleep 3
 
 ###++++++++++++++
-[[ "$(cat RSP | jq .status.code)" != "0" ]] && echo "ERROR: failed http request to Gauth: "$(cat RSP | jq .status) && exit 1
+[[ "$(cat RSP | jq .status.code)" != "0" ]] && echo "ERROR 2: failed http request to Gauth: "$(cat RSP | jq .status) && exit 1
 
 echo "*** Current list of CCIDs:"
 kubectl exec $GAPOD -- bash -c "curl -s https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/contact-centers -u $CREDS" | jq .data[]

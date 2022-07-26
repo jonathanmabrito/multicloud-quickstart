@@ -55,6 +55,6 @@ variable "charts" {
         "voice-sip" = "100.0.1000017"
         "voice-sipfe" = "100.0.1000006"
         "voice-sipproxy" = "100.0.1000004"
-        "voice-voicemail" = "100.0.1000012"
+        "voice-voicemail" = "100.0.1000011"
     }
 }

@@ -2,7 +2,7 @@ FROM ubuntu
 
 #Install Google CLI
 RUN apt-get -y update && \
-apt-get -y install gcc python2.7 python2-dev python3-pip wget ca-certificates software-properties-common curl apt-transport-https gettext-base openjdk-8-jre-headless
+apt-get -y install gcc python2.7 python2-dev python3-pip wget ca-certificates software-properties-common curl apt-transport-https gettext-base openjdk-8-jre-headless jq
 
 # Install Git >2.0.1
 RUN add-apt-repository ppa:git-core/ppa

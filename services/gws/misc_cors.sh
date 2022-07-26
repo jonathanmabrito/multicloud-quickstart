@@ -23,12 +23,29 @@
 ## if you decide to switch to it. Please, note that you have to switch to it right after Auth deployment. 
 ## Otherwise, you will need to migrate old data to the new interface at some point.
 
-TID=$(echo $INPUT_COMMAND | awk '{print $2}')
+TID=$2
+DMN=$3
+LOCATION=$4
+
+echo $TID
+echo $DMN
+echo $LOCATION
+
+#TID=$(echo $INPUT_COMMAND | awk '{print $2}')
+#DMN=$(echo $INPUT_COMMAND | awk '{print $3}')
+#LOCATION=$(echo $INPUT_COMMAND | awk '{print $4}')
+
 [[ -z "$TID" ]] && TID="100"
-DMN=$(echo $INPUT_COMMAND | awk '{print $3}')
-LOCATION=$(echo $INPUT_COMMAND | awk '{print $4}')
 [[ -z "$LOCATION" ]] && LOCATION="/"
+
+gauth_admin_username=$( kubectl get secrets deployment-secrets -n gauth -o custom-columns=:data.gauth_admin_username --no-headers | base64 -d )
+gauth_admin_password_plain=Genesys1234
+
 CREDS="$gauth_admin_username:$gauth_admin_password_plain"
+domain=cluster02.gcp.demo.genesys.com
+
+echo $CREDS
+echo $domain
 
 case "$TID" in
     100) UUID=9350e2fc-a1dd-4c65-8d40-1f75a2e080dd
@@ -45,7 +62,7 @@ case "$TID" in
 esac
 
 # We will Curl from gauth pod, because no access from GH runner to ingress https://gauth.$domain
-GAPOD=$(kubectl get po -n ${INPUT_NAMESPACE}| grep gauth-auth | grep Running | grep -v gauth-auth-ui -m1 | awk '{print $1}')
+GAPOD=$(kubectl get po -n gauth | grep gauth-auth | grep Running | grep -v gauth-auth-ui -m1 | awk '{print $1}')
 
 
 echo "*** Pre-change list of origins:"
@@ -53,7 +70,7 @@ echo "*** Pre-change list of origins:"
 # NEW API
 #kubectl exec $GAPOD -- bash -c "curl -s http://gauth-environment/environment/v3/cors -u $CREDS" | jq .data.origins
 # OLD API
-kubectl exec $GAPOD -- bash -c "curl -s http://gauth-environment/environment/v3/contact-centers/$UUID/settings -u $CREDS" | jq .data.settings
+kubectl exec $GAPOD --namespace="gauth" -- bash -c "curl -s https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/contact-centers/$UUID/settings -u $CREDS" | jq .data.settings
 
 # Older API - add all origins in one request
 # ucsx? tlm?
@@ -94,7 +111,7 @@ ORIGINS()
 EOF
 }
 
-kubectl exec $GAPOD -- bash -c "curl -s -XPOST http://gauth-environment/environment/v3/contact-centers/$UUID/settings -u $CREDS -H 'Content-Type: application/json' -d '$(ORIGINS)'" | tee RSP
+kubectl exec $GAPOD --namespace="gauth" -- bash -c "curl -s -XPOST https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/contact-centers/$UUID/settings -u $CREDS -H 'Content-Type: application/json' -d '$(ORIGINS)'" | tee RSP
 
 
 ##################################
@@ -129,4 +146,4 @@ echo "*** Current list of origins:"
 # NEW API
 #kubectl exec $GAPOD -- bash -c "curl -s http://gauth-environment/environment/v3/cors -u $CREDS" | jq .data.origins
 # OLD API
-kubectl exec $GAPOD -- bash -c "curl -s http://gauth-environment/environment/v3/contact-centers/$UUID/settings -u $CREDS" | jq .data.settings
+kubectl exec $GAPOD --namespace="gauth" -- bash -c "curl -s https://gauth-int.cluster02.gcp.demo.genesys.com/environment/v3/contact-centers/$UUID/settings -u $CREDS" | jq .data.settings

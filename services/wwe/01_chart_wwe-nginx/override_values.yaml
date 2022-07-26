@@ -34,13 +34,13 @@ wwe:
            - path: '/'
              port: 80
     annotations:
-      cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
+      cert-manager.io/cluster-issuer: letsencrypt-prod
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/ssl-redirect: "false"
       nginx.ingress.kubernetes.io/use-regex: "true"
     tls:
       # Example
-       - secretName: letsencrypt
+       - secretName: wwe-ingress-ext
          hosts:
            - wwe.${DOMAIN}
   serviceName: wwe

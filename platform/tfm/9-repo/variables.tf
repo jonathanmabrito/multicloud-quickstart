@@ -52,7 +52,7 @@ variable "images" {
         "voice/sip_node" = "100.0.1000030"
         "voice/sipfe_node" = "100.0.1000009"
         "voice/sipproxy_node" = "100.0.1000019"
-        "voice/voicemail_node" = "100.0.1000006"
+        #"voice/voicemail_node" = "100.0.1000006"
     }
 }
 

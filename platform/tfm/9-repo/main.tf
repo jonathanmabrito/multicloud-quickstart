@@ -14,7 +14,7 @@ resource "null_resource" "remoteregistrylogin" {
   provisioner "local-exec" {
     command = <<-EOT
       podman login -u ${var.remoteregistry_user} -p ${var.remoteregistry_pass} ${var.remoteregistry}
-      helm repo add helm-multicloud https://pureengageuse1.jfrog.io/artifactory/api/helm/helm-multicloud --username ${var.remoteregistry_user} --password ${var.remoteregistry_pass}
+      helm repo add helm-multicloud https://pureengageuse1.jfrog.io/artifactory/api/helm/helm-multicloud --username ${var.remoteregistry_user} --password ${var.remoteregistry_pass} && helm repo update
     EOT
   }
 }

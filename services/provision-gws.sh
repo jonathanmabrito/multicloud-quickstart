@@ -1,15 +1,15 @@
 echo "***********************"
 echo "Setting Variables"
 echo "***********************"
-export gkeCluster=cluster03
-export gcpRegion=us-west2
-export gcpProject=gts-multicloud-pe-dev2
+export gkeCluster=$VGKECLUSTER
+export gcpRegion=$VGCPREGION
+export gcpProject=$VGCPPROJECT
 export NS=gws
 export SERVICE=gws
-export DOMAIN=cluster03.gcp.demo.genesys.com
-export IMAGE_REGISTRY=gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe
-export ARTIFACT_REPO=oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe
-export FULLCOMMAND=install
+export DOMAIN=$VDOMAIN
+export IMAGE_REGISTRY=$VIMAGEREGISTRY
+export ARTIFACT_REPO=$VARTIFACTREPO
+export FULLCOMMAND=$VHELMCOMMAND
 
 echo "***********************"
 echo "Logging into GCP"
@@ -47,6 +47,16 @@ sed -i "s|INSERT_CONSUL_TOKEN|$CONSULSECRET|g" "./services/$SERVICE/$SERVICE-k8s
 cat "../services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
+
+echo "***********************"
+echo "Creating GAUTH API Entry"
+echo "***********************"
+sh ./services/$SERVICE/misc_apiclient.sh apiclient add all cluster02.gcp.demo.genesys.com
+
+echo "***********************"
+echo "Creating GAUTH CORS Entry"
+echo "***********************"
+sh ./services/$SERVICE/mis_cors.sh cors 100 ixn-100 USW2
 
 echo "***********************"
 echo "Run Helm Charts"

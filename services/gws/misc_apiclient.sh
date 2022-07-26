@@ -25,9 +25,17 @@ ucsx_api_client \
 webrtc-clientid \
 bds-clientid)
 
-ACT=$(echo $INPUT_COMMAND | awk '{print $2}')
-CLN=$(echo $INPUT_COMMAND | awk '{print $3}')
-domain=$(echo $INPUT_COMMAND | awk '{print $4}')
+ACT=$2
+CLN=$3
+domain=$4
+
+#ACT=$(echo $INPUT_COMMAND | awk '{print $2}')
+#CLN=$(echo $INPUT_COMMAND | awk '{print $3}')
+#domain=$(echo $INPUT_COMMAND | awk '{print $4}')
+
+echo $ACT
+echo $CLN
+echo $domain
 
 # Redirect URIs allowed for these clients (redirections during SSO auth)
 REDIRECT_URIS=$(cat << EOF
@@ -52,6 +60,9 @@ EOF
 gauth_admin_username=$( kubectl get secrets deployment-secrets -n gauth -o custom-columns=:data.gauth_admin_username --no-headers | base64 -d )
 gauth_admin_password_plain=$( kubectl get secrets deployment-secrets -n gauth -o custom-columns=:data.gauth_admin_password --no-headers | base64 -d | base64 -d )
 
+echo $gauth_admin_username
+echo $gauth_admin_password_plain
+
 ###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 CREDS="'$gauth_admin_username:$gauth_admin_password_plain'"
 [[ "$ACT" != "show" && "$ACT" != "add" && "$ACT" != "update" && "$ACT" != "delete" ]] && echo "ERROR: command must be like 'apiclient [add|update|delete] <client_id>'" && exit 1
@@ -70,12 +81,12 @@ kubectl exec $GAPOD -- bash -c "curl -s http://gauth-auth/auth/v3/ops/clients -u
 if [ "$ACT" == "show" ]; then
     if [ "$CLN" == "all" ]; then
         echo "*** Pre-change, all existing clients:"
-        kubectl exec $GAPOD -n gauth -- bash -c "curl -s http://gauth-auth/auth/v3/ops/clients -u $CREDS" | tee RSP
+        kubectl exec $GAPOD -- bash -c "curl -s http://gauth-auth/auth/v3/ops/clients -u $CREDS" | tee RSP
         [[ "$(cat RSP | jq .status.code)" != "0" ]] && echo "ERROR: Clients list not found? Failed http request to Gauth: "$(cat RSP | jq .status) && exit 1
         cat RSP | jq .data[]
     else
         echo "*** Pre-change client $CLN properties:"
-        kubectl exec $GAPOD -n gauth -- bash -c "curl -s http://gauth-auth/auth/v3/ops/clients/$CLN -u $CREDS" | tee RSP
+        kubectl exec $GAPOD -- bash -c "curl -s http://gauth-auth/auth/v3/ops/clients/$CLN -u $CREDS" | tee RSP
         [[ "$(cat RSP | jq .status.code)" != "0" ]] && echo "ERROR: Client not found? Failed http request to Gauth: "$(cat RSP | jq .status) && exit 1
         cat RSP | jq .data[]
     fi
@@ -126,7 +137,7 @@ EOF
         #curl -skL -XPOST https://gauth.$domain/auth/v3/ops/clients -u $gauth_admin_username:$gauth_admin_password_plain \
         #-H 'Content-Type: application/json' -d "$(NEW_API_CLIENT)" | tee RSP
         echo "____________________Adding apiclient: $cl __________________________________"
-        kubectl exec $GAPOD -n gauth -- bash -c "curl -s -XPOST http://gauth-auth/auth/v3/ops/clients -u $CREDS -H 'Content-Type: application/json' -d '$(NEW_API_CLIENT $cl)'" | tee RSP
+        kubectl exec $GAPOD -- bash -c "curl -s -XPOST http://gauth-auth/auth/v3/ops/clients -u $CREDS -H 'Content-Type: application/json' -d '$(NEW_API_CLIENT $cl)'" | tee RSP
         sleep 5
         echo;echo "________________________________________________________________________________"
     done
@@ -139,7 +150,7 @@ if [ "$ACT" == "delete" ]; then
         echo "____________________Deleting apiclient: $cl __________________________________"
         #curl -skL -XDELETE https://gauth.$domain/auth/v3/ops/clients/$CLN \
         #  -u "$gauth_admin_username:$gauth_admin_password_plain" | tee RSP
-        kubectl exec $GAPOD -n gauth -- bash -c "curl -s -XDELETE http://gauth-auth/auth/v3/ops/clients/$cl -u $CREDS" | tee RSP
+        kubectl exec $GAPOD -- bash -c "curl -s -XDELETE http://gauth-auth/auth/v3/ops/clients/$cl -u $CREDS" | tee RSP
         echo;echo "________________________________________________________________________________"
     done
 fi
@@ -168,7 +179,7 @@ EOF
         echo "____________________Updating apiclient: $cl __________________________________"
         #curl -skL -XPUT https://gauth.$domain/auth/v3/ops/clients/$CLN -u "$gauth_admin_username:$gauth_admin_password_plain" \
         #  -H 'Content-Type: application/json' -d "$(NEW_REDURI)" | tee RSP
-        kubectl exec $GAPOD -n gauth -- bash -c "curl -s -XPUT http://gauth-auth/auth/v3/ops/clients/$cl -u $CREDS -H 'Content-Type: application/json' -d '$(NEW_REDURI)'" | tee RSP
+        kubectl exec $GAPOD -- bash -c "curl -s -XPUT http://gauth-auth/auth/v3/ops/clients/$cl -u $CREDS -H 'Content-Type: application/json' -d '$(NEW_REDURI)'" | tee RSP
         echo;echo "________________________________________________________________________________"
     done
 fi
@@ -180,4 +191,4 @@ fi
 
 
 echo "*** Post-change, current list of cients:"
-kubectl exec $GAPOD -n gauth -- bash -c "curl -s http://gauth-auth/auth/v3/ops/clients -u $CREDS" | jq .data[].client_id
+kubectl exec $GAPOD -- bash -c "curl -s http://gauth-auth/auth/v3/ops/clients -u $CREDS" | jq .data[].client_id

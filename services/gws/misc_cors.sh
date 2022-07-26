@@ -23,12 +23,25 @@
 ## if you decide to switch to it. Please, note that you have to switch to it right after Auth deployment. 
 ## Otherwise, you will need to migrate old data to the new interface at some point.
 
-TID=$(echo $INPUT_COMMAND | awk '{print $2}')
+TID=$2
+DMN=$3
+LOCATION=$4
+
+echo $TID
+echo $DMN
+echo $LOCATION
+
+#TID=$(echo $INPUT_COMMAND | awk '{print $2}')
+#DMN=$(echo $INPUT_COMMAND | awk '{print $3}')
+#LOCATION=$(echo $INPUT_COMMAND | awk '{print $4}')
+
 [[ -z "$TID" ]] && TID="100"
-DMN=$(echo $INPUT_COMMAND | awk '{print $3}')
-LOCATION=$(echo $INPUT_COMMAND | awk '{print $4}')
 [[ -z "$LOCATION" ]] && LOCATION="/"
+
 CREDS="$gauth_admin_username:$gauth_admin_password_plain"
+
+echo $CREDS
+echo $domain
 
 case "$TID" in
     100) UUID=9350e2fc-a1dd-4c65-8d40-1f75a2e080dd
@@ -45,7 +58,7 @@ case "$TID" in
 esac
 
 # We will Curl from gauth pod, because no access from GH runner to ingress https://gauth.$domain
-GAPOD=$(kubectl get po -n ${INPUT_NAMESPACE}| grep gauth-auth | grep Running | grep -v gauth-auth-ui -m1 | awk '{print $1}')
+GAPOD=$(kubectl get po -n gauth | grep gauth-auth | grep Running | grep -v gauth-auth-ui -m1 | awk '{print $1}')
 
 
 echo "*** Pre-change list of origins:"

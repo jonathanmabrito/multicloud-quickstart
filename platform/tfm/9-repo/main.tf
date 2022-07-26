@@ -21,7 +21,7 @@ resource "null_resource" "image" {
     command = <<-EOT
       podman pull ${each.value}
       podman tag ${each.value} ${var.region}-docker.pkg.dev/${var.project}/${var.repoid}/${each.value}
-      podman push ${each.value} ${var.region}-docker.pkg.dev/${var.project}/${var.repoid}/${each.value}
+      podman push ${var.region}-docker.pkg.dev/${var.project}/${var.repoid}/${each.value}
     EOT
   }
   depends_on = [null_resource.remoteregistry]

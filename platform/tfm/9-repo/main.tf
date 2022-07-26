@@ -7,22 +7,36 @@ resource "google_artifact_registry_repository" "my-repo" {
   format        = "DOCKER"
 }
 
-resource "null_resource" "remoteregistry" {
+resource "null_resource" "remoteregistrylogin" {
   # Login to remote registry
   provisioner "local-exec" {
     command = "podman login -u ${var.remoteregistry_user} -p ${var.remoteregistry_pass} ${var.remoteregistry}"
   }
 }
 
-resource "null_resource" "image" {
-  # Pull, tag, push containers
+resource "null_resource" "image-pull" {
+  # Pullcontainers
   for_each = var.images
   provisioner "local-exec" {
-    command = <<-EOT
-      podman pull ${each.value}
-      podman tag ${each.value} ${var.region}-docker.pkg.dev/${var.project}/${var.repoid}/${each.value}
-      podman push ${var.region}-docker.pkg.dev/${var.project}/${var.repoid}/${each.value}
-    EOT
+    command = "podman pull ${var.remoteregistry}/${each.value}"
   }
-  depends_on = [null_resource.remoteregistry]
+  depends_on = [null_resource.remoteregistrylogin]
+}
+
+resource "null_resource" "image-tag" {
+  # Tag containers
+  for_each = var.images
+  provisioner "local-exec" {
+    command = "podman tag ${var.remoteregistry}/${each.value} ${var.region}-docker.pkg.dev/${var.project}/${var.repoid}/${each.value}"
+  }
+  depends_on = [null_resource.image-pull]
+}
+
+resource "null_resource" "image-push" {
+  # Push containers
+  for_each = var.images
+  provisioner "local-exec" {
+    command = "podman push ${var.region}-docker.pkg.dev/${var.project}/${var.repoid}/${each.value}"
+  }
+  depends_on = [null_resource.image-tag]
 }

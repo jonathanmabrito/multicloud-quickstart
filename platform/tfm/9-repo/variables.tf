@@ -36,8 +36,8 @@ variable "remoteregistry_pass" {
 variable "images" {
     type = set(string)
     default = [
-        "pureengageuse1-docker-multicloud.jfrog.io/voice/agent_node:100.0.1000013",
-        "pureengageuse1-docker-multicloud.jfrog.io/voice/voice_callthread:100.0.1000013",
-        "pureengageuse1-docker-multicloud.jfrog.io/voice/voice_config:100.0.1000010"
+        "voice/agent_node:100.0.1000013",
+        "voice/voice_callthread:100.0.1000013",
+        "voice/voice_config:100.0.1000010"
         ]
 }

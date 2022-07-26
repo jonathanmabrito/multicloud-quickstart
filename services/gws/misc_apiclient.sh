@@ -58,7 +58,7 @@ EOF
 )
 
 gauth_admin_username=$( kubectl get secrets deployment-secrets -n gauth -o custom-columns=:data.gauth_admin_username --no-headers | base64 -d )
-gauth_admin_password_plain=$( kubectl get secrets deployment-secrets -n gauth -o custom-columns=:data.gauth_admin_password --no-headers | base64 -d | base64 -d )
+gauth_admin_password_plain=Genesys1234
 
 echo $gauth_admin_username
 echo $gauth_admin_password_plain

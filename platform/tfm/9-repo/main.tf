@@ -20,7 +20,7 @@ resource "null_resource" "remoteregistrylogin" {
 }
 
 resource "null_resource" "chart-pull" {
-  # Pullcontainers
+  # Pull charts
   for_each = var.charts
   provisioner "local-exec" {
     command = "helm pull helm-multicloud/${each.key} --version ${each.value}"
@@ -28,8 +28,8 @@ resource "null_resource" "chart-pull" {
   depends_on = [null_resource.remoteregistrylogin]
 }
 
-resource "null_resource" "chart-pull" {
-  # Pullcontainers
+resource "null_resource" "chart-push" {
+  # Push charts
   for_each = var.charts
   provisioner "local-exec" {
     command = "helm push ${each.key}-${each.value}.tgz oci://${var.region}-docker.pkg.dev/${var.project}/${var.repoid}"

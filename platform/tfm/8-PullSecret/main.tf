@@ -1,4 +1,3 @@
-
 resource "google_service_account" "gke-pullsecret" {
   account_id   = "gke-pullsecret"
   description  = "Pull Secret for Artifact and Container images"

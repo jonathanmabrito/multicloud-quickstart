@@ -24,7 +24,6 @@ gcloud container clusters get-credentials $gkeCluster --region $gcpRegion --proj
 echo "***********************"
 echo "Create or use namespace"
 echo "***********************"
-NS=gauth
 if ! kubectl get namespaces $NS; then
     echo "Namespace $NS does not exist. Creating it.."
     kubectl create namespace $NS

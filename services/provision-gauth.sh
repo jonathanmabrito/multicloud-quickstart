@@ -33,20 +33,6 @@ fi
 kubectl config set-context --current --namespace=$NS
 
 echo "***********************"
-echo "Create Pull Secret if needed"
-echo "***********************"
-if ! kubectl get secret pullsecret; then
-    echo "Secret pullsecret does not exist. Creating it.."
-
-    $IMAGEREPOREGION="$(cut -d'/' -f1 <<<"$IMAGE_REGISTRY")"
-
-    PULLSECRET=$(gcloud secrets versions access 1 --secret="gke-pullsecret" | base64 --decode)
-    kubectl create secret docker-registry pullsecret -n $NS --docker-server=$IMAGEREPOREGION --docker-username=_json_key --docker-password="$PULLSECRET" --docker-email=jonathan.mabrito@genesys.com
-else
-    echo "Secret pullsecret already exists."
-fi
-
-echo "***********************"
 echo "Creating JKS Keystore"
 echo "***********************"
 keytool -keystore jksStorage.jks -genkey -noprompt -alias gws-auth-key -dname "CN=$DOMAIN, O=Genesys, L=Indianapolis, S=Indiana, C=US" -storepass Genesys1234 -keypass Genesys1234 -keyalg RSA

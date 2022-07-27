@@ -172,12 +172,12 @@ tolerations: []
 
 ## Service/Pod Monitoring Settings
 prometheus:
-  createRule: true
+  createRule: false
 
 ## Grafana dashboard Settings
 ## Whether to create Grafana dashboard or not.
 grafana:
-  enabled: true
+  enabled: false
   k8sSidecarTargetDirectory: /var/lib/grafana/dashboards/gvp
 
 ## Enable network policies or not

@@ -48,8 +48,8 @@ image:
     - pullsecret
   webrtc: $IMAGE_REGISTRY/webrtc
   coturn: $IMAGE_REGISTRY/webrtc
-  webrtcVersion: 100.0.016.0000
-  coturnVersion: 100.0.016.0000
+  webrtcVersion: 100.0.044.0000
+  coturnVersion: 100.0.044.0000
 
 
 gateway:

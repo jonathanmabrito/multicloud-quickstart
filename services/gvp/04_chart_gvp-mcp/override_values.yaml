@@ -429,7 +429,7 @@ hpa:
 ## Prometheus and/or podMonitor can be disabled by setting "enabled" to false.
 ## Note, however, that port values cannot be changed.
 prometheus:
-  enabled: true
+  enabled: false
   mcp:
     name: gvp-mcp-snmp
     port: 9116   
@@ -441,10 +441,10 @@ prometheus:
     port: 8200
 
   podMonitor:
-    enabled: true
+    enabled: false
 
 grafana:
-  enabled: true
+  enabled: false
 
 ## Pod Disruption Budget Settings
 ## ref - https://kubernetes.io/docs/tasks/run-application/configure-pdb/

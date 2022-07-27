@@ -25,11 +25,11 @@ designer:
     runAsUser: 0
     runAsGroup: 0
   prometheus:
-    enabled: true
+    enabled: false
     serviceMonitor:
-      enabled: true
+      enabled: false
     alerts:
-      enabled: true
+      enabled: false
   
   designerFlowSettings:
     create: true

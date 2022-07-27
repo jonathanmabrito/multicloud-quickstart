@@ -1,5 +1,5 @@
-resource "google_secret_manager_secret" "gke-pullsecret-secret" {
-  secret_id = "gke-pullsecret"
+resource "google_secret_manager_secret" "gauth_pg_password-secret" {
+  secret_id = "GAUTH_gauth_pg_password"
 
   replication {
     user_managed {
@@ -10,7 +10,24 @@ resource "google_secret_manager_secret" "gke-pullsecret-secret" {
   }
 }
 
-resource "google_secret_manager_secret_version" "gke-pullsecret-secret-1" {
-  secret      = google_secret_manager_secret.gke-pullsecret-secret.id
-  secret_data = google_service_account_key.pullKey.private_key
+resource "google_secret_manager_secret_version" "gauth_pg_password-secret-1" {
+  secret      = google_secret_manager_secret.guath_pg_password-secret.id
+  secret_data = var.gauth_pg_password
+}
+
+resource "google_secret_manager_secret" "guath_pg_password-secret" {
+  secret_id = "GAUTH_gauth_pg_password"
+
+  replication {
+    user_managed {
+      replicas {
+        location = var.region 
+      }
+    }
+  }
+}
+
+resource "google_secret_manager_secret_version" "guath_pg_password-secret-1" {
+  secret      = google_secret_manager_secret.guath_pg_password-secret.id
+  secret_data = var.gauth_pg_password
 }

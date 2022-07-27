@@ -1,7 +1,8 @@
-module "jumphost_instance" {
+module "pe-secrets_instance" {
     source          = "../../../tfm/0-pe-secrets/"
     project         = "INSERT_VGCPPROJECT"
     region          = "INSERT_VGCPREGIONPRIMARY"
+    gauth_pg_password = "Genesys1234"
 }
 
 provider "google" {
@@ -22,6 +23,6 @@ terraform {
 terraform {
   backend "gcs" {
     bucket = "INSERT_VSTORAGEBUCKET"
-    prefix = "pullsecret-INSERT_VGCPREGIONPRIMARY-state"
+    prefix = "pe-secrets-INSERT_VGCPREGIONPRIMARY-state"
   }
 }

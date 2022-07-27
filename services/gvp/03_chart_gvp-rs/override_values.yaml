@@ -60,7 +60,7 @@ readinessValues:
 ## PVCs defined
 volumes:
   pvc:
-    storageClass: nfs-client
+    storageClass: standard
     claimSize: 2Gi
     activemqAndLocalConfigPath: "/billing/gvp-rs"
 
@@ -228,21 +228,21 @@ tolerations: []
 
 ## Service/Pod Monitoring Settings
 prometheus:
-  enabled: true
+  enabled: false
   metric:
     port: 9116
 
 # Enable for Prometheus operator
 podMonitor:
-  enabled: true
+  enabled: false
   metric:
     path: /snmp
     module: [ if_mib ]
     target: [ 127.0.0.1:1161 ]
 
 monitoring:
-  prometheusRulesEnabled: true
-  grafanaEnabled: true
+  prometheusRulesEnabled: false
+  grafanaEnabled: false
 
 monitor:
   monitorName: gvp-monitoring

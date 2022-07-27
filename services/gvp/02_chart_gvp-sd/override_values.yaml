@@ -163,10 +163,10 @@ tolerations: []
 
 ## Service/Pod Monitoring Settings
 prometheus:
-  enabled: true
+  enabled: false
   # Enable for Prometheus operator
   podMonitor:
-    enabled: true
+    enabled: false
 
 ## Enable network policies or not
 networkPolicies:

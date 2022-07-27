@@ -17,14 +17,14 @@ das:
     create: true
     envs:
       DAS_SERVICES_ELASTICSEARCH_ENABLED: "true"
-      DAS_SERVICES_ELASTICSEARCH_HOST: "http://elastic-es-http.infra"
+      DAS_SERVICES_ELASTICSEARCH_HOST: "http://elastic-es-http.infra.svc.cluster.local"
       DAS_SERVICES_ELASTICSEARCH_PORT: "9200"
   prometheus:
-    enabled: true
+    enabled: false
     serviceMonitor:
-      enabled: true
+      enabled: false
     alerts:
-      enabled: true
+      enabled: false
   securityContext:  
     runAsUser: 0
     runAsGroup: 0 

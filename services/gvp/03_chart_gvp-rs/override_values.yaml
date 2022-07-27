@@ -60,7 +60,7 @@ readinessValues:
 ## PVCs defined
 volumes:
   pvc:
-    storageClass: nfs-client
+    storageClass: standard
     claimSize: 2Gi
     activemqAndLocalConfigPath: "/billing/gvp-rs"
 
@@ -85,14 +85,14 @@ context:
     CFG_PORT: '8888'
     CMDLINE: ./rs_startup.sh
     DBNAME: gvp_rs
-    DBUSER: sa
+    DBUSER: mssql
     rsDbSharedUsername: mssqlreader
     DBPORT: 1433
     #localconfigcachepath: /billing/gvp-rs/data/cache
     HOSTFOLDER: Hosts
     HOSTOS: CFGRedHatLinux
     LCAPORT: '4999'
-    MSSQLHOST: mssql-deployment.infra.svc.cluster.local
+    MSSQLHOST: mssqlserver-2019.infra.svc.cluster.local
     RSAPP: azure_rs
     RSJVM_INITIALHEAPSIZE: 4096m
     RSJVM_MAXHEAPSIZE: 8192m
@@ -228,21 +228,21 @@ tolerations: []
 
 ## Service/Pod Monitoring Settings
 prometheus:
-  enabled: true
+  enabled: false
   metric:
     port: 9116
 
 # Enable for Prometheus operator
 podMonitor:
-  enabled: true
+  enabled: false
   metric:
     path: /snmp
     module: [ if_mib ]
     target: [ 127.0.0.1:1161 ]
 
 monitoring:
-  prometheusRulesEnabled: true
-  grafanaEnabled: true
+  prometheusRulesEnabled: false
+  grafanaEnabled: false
 
 monitor:
   monitorName: gvp-monitoring

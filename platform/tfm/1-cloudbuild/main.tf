@@ -308,3 +308,35 @@ resource "google_cloudbuild_trigger" "services-designer" {
     _VIMAGEREGISTRY = "gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe"
   }
 }
+
+resource "google_cloudbuild_trigger" "services-gvp" {
+  project = var.project_id
+  name = "10-Provision-PrivateEdition-Applications-GVP"
+
+  source_to_build {
+    uri       = "https://github.com/jonathanmabrito/multicloud-quickstart"
+    ref       = "refs/heads/development"
+    repo_type = "GITHUB"
+  }
+
+  git_file_source {
+    path      = "cloudbuild-services-gvp.yaml"
+    uri       = "https://github.com/jonathanmabrito/multicloud-quickstart"
+    revision  = "refs/heads/development"
+    repo_type = "GITHUB"
+  }
+
+  approval_config {
+    approval_required = false
+  }
+
+  substitutions = {
+    _VARTIFACTREPO  = "oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe"   
+    _VDOMAIN        = var.fqdn
+    _VGCPPROJECT    = var.project_id
+    _VGCPREGION     = var.gkeregionprimary
+    _VGKECLUSTER    = var.gkecluster
+    _VHELMCOMMAND   = "install"
+    _VIMAGEREGISTRY = "gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe"
+  }
+}

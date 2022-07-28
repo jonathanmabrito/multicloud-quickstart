@@ -141,4 +141,4 @@ storage:
     keepAfterDeletion: false
     size: 2Gi
     name: cxc-claim
-    storageClassName: standard
+    storageClassName: csi-standard-rwx

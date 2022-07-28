@@ -37,9 +37,6 @@ service:
   env: {}
   annotations: {}
 
-elasticsearch:
-  url: http://ES_ADDR:9200
-
 # * Monitoring
 monitoring:
   # Deploy ServiceMonitor

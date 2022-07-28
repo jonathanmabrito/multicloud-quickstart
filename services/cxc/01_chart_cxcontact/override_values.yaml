@@ -4,8 +4,12 @@
 ###############################################################################
 
 image:
+  registry: $IMAGE_REGISTRY/cxcontact
+  # Configure imagePullSecrets if docker registry requires authentication
+  # https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials
   imagePullSecrets:
     - name: pullsecret
+  pullPolicy: IfNotPresent
 
 cxcontact:
 

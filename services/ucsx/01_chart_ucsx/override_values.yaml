@@ -38,7 +38,7 @@ service:
   annotations: {}
 
 elasticsearch:
-  url: http://elastic-es-http.infra.svc:9200
+  url: http://ES_ADDR:9200
 
 # * Monitoring
 monitoring:

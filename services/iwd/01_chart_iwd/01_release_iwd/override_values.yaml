@@ -21,3 +21,7 @@ nexus:
 iwd:
   db:
     host: POSTGRES_ADDR
+
+elasticsearch:
+  host: ES_ADDR
+  port: 9200

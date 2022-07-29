@@ -44,7 +44,6 @@ export tenant_sid=$( get_secret tenant_sid )
 envsubst < create_pulse_db.sh > create_pulse_db.sh_
 kubectl run busybox -i --rm --image=alpine --restart=Never -- sh -c "$(<create_pulse_db.sh_)"
 
-
 ###############################################################################
 #           Redis
 # pulse doesn`t support clustered redis. So if there is not unclustered version
@@ -52,16 +51,13 @@ kubectl run busybox -i --rm --image=alpine --restart=Never -- sh -c "$(<create_p
 # In other case you should define your redis parameters in deployment-secrets 
 # and comment the code installing redis below (all if section) and define 
 ###############################################################################
-
 if [ ! "$(helm list -n $NS | grep pulse-redis)" ]; then
+  HELM_VERSION=16.12.2
   HELMPACK="redis"
   REPO_NAME="bitnami"
   BITNAMI_URL="$REPO_NAME https://charts.bitnami.com/bitnami"
-  ARGS="--set master.podSecurityContext.fsGroup=null  \
-      --set master.containerSecurityContext.runAsUser=null \
-      --set replica.podSecurityContext.fsGroup=null \
-      --set replica.containerSecurityContext.runAsUser=null"
-  HELMCHART="$REPO_NAME/$HELMPACK -n $NS --version=16.12.2 --set auth.password=$redis_key \
+  ARGS=""
+  HELMCHART="$REPO_NAME/$HELMPACK -n $NS --set auth.password=$redis_key \
     --set master.resources.limits.cpu="500m" --set master.resources.limits.memory="512Mi" \
     --set master.resources.requests.cpu="200m" --set master.resources.requests.memory="256Mi" \
     --set replica.resources.limits.cpu="500m" --set replica.resources.limits.memory="512Mi" \
@@ -70,7 +66,7 @@ if [ ! "$(helm list -n $NS | grep pulse-redis)" ]; then
 
   echo "Install Redis"
   helm repo add $BITNAMI_URL
-  helm install pulse-redis $HELMCHART  --wait --timeout 300s
+  helm install pulse-redis $HELMCHART  --wait --timeout 300s --version=$HELM_VERSION
   [[ ! $redis_host ]] && export redis_host="pulse-redis-master.${NS}.svc.cluster.local"
   [[ ! $redis_port ]] && export redis_port="6379"
   echo "$(kubectl get pods | grep pulse-redis)"

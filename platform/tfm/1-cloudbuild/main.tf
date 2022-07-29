@@ -564,3 +564,67 @@ resource "google_cloudbuild_trigger" "services-cxc" {
     _VIMAGEREGISTRY = "gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe"
   }
 }
+
+resource "google_cloudbuild_trigger" "services-ges" {
+  project = var.project_id
+  name = "18-Provision-PrivateEdition-Applications-GES"
+
+  source_to_build {
+    uri       = "https://github.com/jonathanmabrito/multicloud-quickstart"
+    ref       = "refs/heads/development"
+    repo_type = "GITHUB"
+  }
+
+  git_file_source {
+    path      = "cloudbuild-services-ges.yaml"
+    uri       = "https://github.com/jonathanmabrito/multicloud-quickstart"
+    revision  = "refs/heads/development"
+    repo_type = "GITHUB"
+  }
+
+  approval_config {
+    approval_required = false
+  }
+
+  substitutions = {
+    _VARTIFACTREPO  = "oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe"   
+    _VDOMAIN        = var.fqdn
+    _VGCPPROJECT    = var.project_id
+    _VGCPREGION     = var.gkeregionprimary
+    _VGKECLUSTER    = var.gkecluster
+    _VHELMCOMMAND   = "install"
+    _VIMAGEREGISTRY = "gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe"
+  }
+}
+
+resource "google_cloudbuild_trigger" "services-ixn" {
+  project = var.project_id
+  name = "19-Provision-PrivateEdition-Applications-IXN"
+
+  source_to_build {
+    uri       = "https://github.com/jonathanmabrito/multicloud-quickstart"
+    ref       = "refs/heads/development"
+    repo_type = "GITHUB"
+  }
+
+  git_file_source {
+    path      = "cloudbuild-services-ixn.yaml"
+    uri       = "https://github.com/jonathanmabrito/multicloud-quickstart"
+    revision  = "refs/heads/development"
+    repo_type = "GITHUB"
+  }
+
+  approval_config {
+    approval_required = false
+  }
+
+  substitutions = {
+    _VARTIFACTREPO  = "oci://us-west2-docker.pkg.dev/gts-multicloud-pe-dev/gts-multicloud-pe"   
+    _VDOMAIN        = var.fqdn
+    _VGCPPROJECT    = var.project_id
+    _VGCPREGION     = var.gkeregionprimary
+    _VGKECLUSTER    = var.gkecluster
+    _VHELMCOMMAND   = "install"
+    _VIMAGEREGISTRY = "gcr.io/gts-multicloud-pe-dev/gts-multicloud-pe"
+  }
+}

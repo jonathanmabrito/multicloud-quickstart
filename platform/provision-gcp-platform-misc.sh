@@ -5,7 +5,10 @@ echo "***********************"
 
 #Get Consul bootstrap token
 CONSULSECRET=$(kubectl get -n consul secrets consul-bootstrap-acl-token -o jsonpath='{.data.token}' | base64 --decode)
-sed -i "s|INSERT_CONSUL_TOKEN|$CONSULSECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+sed -i "s#INSERT_CONSUL_TOKEN|$CONSULSECRET#g" "./platform/terraform/cloudbuild/10-misc/main.tf"
+sed -i "s#INSERT_VGKECLUSTER|$VGKECLUSTER#g" "./platform/terraform/cloudbuild/10-misc/main.tf"
+sed -i "s#INSERT_VGCPREGIONPRIMARY|$VGCPREGIONPRIMARY#g" "./platform/terraform/cloudbuild/10-misc/main.tf"
+sed -i "s#INSERT_VGCPPROJECT|$VGCPPROJECT#g" "./platform/terraform/cloudbuild/10-misc/main.tf"
 cat "./platform/terraform/cloudbuild/10-misc/main.tf"
 
 dir=platform/terraform/cloudbuild/10-misc/

@@ -12,3 +12,4 @@ variable "region" {
     type = string
     description = "GCP Region"
 }
+

@@ -7,7 +7,7 @@
 
 # Create consul intentation to allow all-to-all connectivity
 resource "consul_config_entry" "service_intentions" {
-      name = "allow-all"
+      name = "*"
       kind = "service-intentions"
       #depends_on = [null_resource.consul-port-forward]
       config_json = jsonencode({

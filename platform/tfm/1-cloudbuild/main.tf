@@ -663,7 +663,7 @@ resource "google_cloudbuild_trigger" "services-tlm" {
 
 resource "google_cloudbuild_trigger" "services-pulse" {
   project = var.project_id
-  name = "21-Provision-PrivateEdition-Applications-Pulse"
+  name = "21-Provision-PrivateEdition-Applications-PULSE"
 
   source_to_build {
     uri       = "https://github.com/jonathanmabrito/multicloud-quickstart"

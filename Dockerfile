@@ -35,11 +35,25 @@ RUN apt-get -y remove gcc python-dev wget python-pip python3-pip
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm -rf ~/.config/gcloud
 
-#Install Helm v3.7.1
+# Install Helm latest
 RUN curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | tee /usr/share/keyrings/helm.gpg > /dev/null
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list
-RUN apt-get update
-RUN apt-get install helm
+RUN apt update
+RUN apt -y install helm
 
-#Install kubectl with the Google CLI Tools
+# Install kubectl with the Google CLI Tools
 RUN /usr/local/gcloud/google-cloud-sdk/bin/gcloud components install kubectl
+
+# Install Docker engine latest 
+#RUN curl https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor | tee /usr/share/keyrings/docker.gpg > /dev/null
+#RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list
+#RUN apt update
+#RUN apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+#RUN systemctl enable docker.service
+#RUN systemctl enable containerd.service 
+
+# Install Podman, includes Buildah
+RUN apt -y install podman
+
+# Cleanup aptitude
+RUN apt -y autoremove

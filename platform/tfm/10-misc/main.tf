@@ -1,9 +1,7 @@
 # Configure port-frward for consul to inject config
 resource "null_resource" "consul-port-forward" {
   provisioner "local-exec" {
-    command = <<-EOT
-      kubectl port-forward svc/consul-server 8500:8500 -n consul > /dev/null 2>&1 &
-    EOT
+    command = "kubectl port-forward svc/consul-server 8500:8500 -n consul > /dev/null 2>&1 &"
   }
 }
 

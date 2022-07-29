@@ -61,7 +61,7 @@ if [ ! "$(helm list -n $NS | grep pulse-redis)" ]; then
       --set master.containerSecurityContext.runAsUser=null \
       --set replica.podSecurityContext.fsGroup=null \
       --set replica.containerSecurityContext.runAsUser=null"
-  HELMCHART="$REPO_NAME/$HELMPACK -n $NS --set auth.password=$redis_key \
+  HELMCHART="$REPO_NAME/$HELMPACK -n $NS --version=16.12.2 --set auth.password=$redis_key \
     --set master.resources.limits.cpu="500m" --set master.resources.limits.memory="512Mi" \
     --set master.resources.requests.cpu="200m" --set master.resources.requests.memory="256Mi" \
     --set replica.resources.limits.cpu="500m" --set replica.resources.limits.memory="512Mi" \

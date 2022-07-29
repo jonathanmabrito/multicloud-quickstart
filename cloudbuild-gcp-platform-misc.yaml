@@ -5,5 +5,7 @@ steps:
   args: ['platform/provision-gcp-platform-misc.sh', 'container-privileged']
   env:
     - 'VGCPPROJECT=${_VGCPPROJECT}'
+    - 'VGKECLUSTER=${_VGKECLUSTER}'
+    - 'VGCPREGIONPRIMARY=${_VGCPREGIONPRIMARY}'
   timeout: '7200s'
 timeout: '7200s'

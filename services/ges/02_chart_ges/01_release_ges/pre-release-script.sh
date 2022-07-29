@@ -54,7 +54,6 @@ export DEVOPS_PASSWORD=$( get_secret DEVOPS_PASSWORD )
 ###############################################################################
 #      GES Redis and ORS Redis
 ###############################################################################
-export REDIS_PASSWORD=$( get_secret REDIS_PASSWORD )
 export REDIS_ORS_PASSWORD=$( get_secret REDIS_ORS_PASSWORD )
 ###############################################################################
 #      GWS credentials

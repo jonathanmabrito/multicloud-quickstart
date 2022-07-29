@@ -41,6 +41,9 @@ sed -i "s|INSERT_REDIS_PASSWORD|$REDISPASSWORD|g" "./services/$SERVICE/$SERVICE-
 POSTGRESPASSWORD=$(kubectl get secret --namespace infra pgdb-std-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
 sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
+ORSPASSWORD=$(kubectl get secret --namespace voice redis-ors-stream-token -o jsonpath="{.data.redis-ors-stream}" | base64 --decode | jq -r .password)
+sed -i "s|INSERT_ORS_PASSWORD|$ORSPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 
 echo "***********************"

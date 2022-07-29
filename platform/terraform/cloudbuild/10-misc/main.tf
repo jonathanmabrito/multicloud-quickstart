@@ -27,7 +27,7 @@ provider "google" {
 provider "consul" {
   address    = "localhost:8500"
   datacenter = "dc1"
-  token      = var.consultoken
+  token      = "INSERT_CONSUL_TOKEN"
 }
 
 data "google_client_config" "provider" {}

@@ -33,3 +33,8 @@ function get_secret {
 ###############################################################################
 export REDIS_PASSWORD=$( get_secret REDIS_PASSWORD )
 ###############################################################################
+
+###############################################################################
+#       Install standalone redis
+###############################################################################
+helm upgrade ges-redis helm_repo/redis --install --version=16.12.2 -n infra -f /workspace/services/ges/01_chart_redis/overrides.yaml -f /workspace/services/ges/01_chart_redis/01_release_ges-redis/overrides.yaml

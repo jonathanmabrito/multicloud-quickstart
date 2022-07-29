@@ -11,6 +11,11 @@ imagePullSecrets:
     - name: pullsecret
 
 tlm:
+  image:
+    imagePullSecrets:
+    - name: pullsecret
+    registry: $IMAGE_REGISTRY
+    pullPolicy: Always
   nodeSelector:
     genesysengage.com/nodepool:
   service:

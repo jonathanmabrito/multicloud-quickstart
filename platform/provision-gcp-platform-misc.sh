@@ -1,4 +1,22 @@
 echo "***********************"
+echo "Set Variables"
+echo "***********************"
+export gkeCluster=$VGKECLUSTER
+export gcpRegion=$VGCPREGION
+export gcpProject=$VGCPPROJECT
+
+echo "***********************"
+echo "Logging into GCP"
+echo "***********************"
+gcloud init --no-launch-browser
+
+echo "***********************"
+echo "Logging into GKE"
+echo "***********************"
+gcloud container clusters get-credentials $gkeCluster --region $gcpRegion --project $gcpProject
+
+
+echo "***********************"
 echo "Modifying 10-misc"
 echo "***********************"
 #INPUT: VGCPPROJECT

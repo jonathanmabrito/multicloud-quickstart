@@ -23,6 +23,8 @@ echo "***********************"
 
 #Get Consul bootstrap token
 CONSULSECRET=$(kubectl get -n consul secrets consul-bootstrap-acl-token -o jsonpath='{.data.token}' | base64 --decode)
+#Create tunnel to consul
+kubectl port-forward svc/consul-server 8500:8500 -n consul > /dev/null 2>&1 &
 sed -i "s|INSERT_CONSUL_TOKEN|$CONSULSECRET|g" "./platform/terraform/cloudbuild/10-misc/main.tf"
 sed -i "s|INSERT_VGKECLUSTER|$VGKECLUSTER|g" "./platform/terraform/cloudbuild/10-misc/main.tf"
 sed -i "s|INSERT_VGCPREGIONPRIMARY|$VGCPREGIONPRIMARY|g" "./platform/terraform/cloudbuild/10-misc/main.tf"

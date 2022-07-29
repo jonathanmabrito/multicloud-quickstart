@@ -1,16 +1,15 @@
 # Configure port-frward for consul to inject config
-resource "null_resource" "consul-port-forward" {
-  provisioner "local-exec" {
-    command = "kubectl port-forward svc/consul-server 8500:8500 -n consul > /dev/null 2>&1 &"
-  }
-}
+#resource "null_resource" "consul-port-forward" {
+#  provisioner "local-exec" {
+#    command = "kubectl port-forward svc/consul-server 8500:8500 -n consul > /dev/null 2>&1 &"
+#  }
+#}
 
 # Create consul intentation to allow all-to-all connectivity
 resource "consul_config_entry" "service_intentions" {
       name = "allow-all"
       kind = "service-intentions"
-      #token = data.local_file.consulsecret.content
-      depends_on = [null_resource.consul-port-forward]
+      #depends_on = [null_resource.consul-port-forward]
       config_json = jsonencode({
         Sources = [
           {

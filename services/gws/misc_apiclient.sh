@@ -20,6 +20,7 @@ gcxi_client \
 ges_client \
 nexus_client \
 iwd_client \
+iwddm_client
 pulse_client \
 ucsx_api_client \
 webrtc-clientid \

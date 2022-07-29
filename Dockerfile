@@ -4,6 +4,11 @@ FROM ubuntu
 RUN apt-get -y update && \
 apt-get -y install gcc python2.7 python2-dev python3-pip wget ca-certificates software-properties-common curl apt-transport-https gettext-base openjdk-8-jre-headless jq
 
+#Install YQ
+RUN wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+RUN chmod a+x /usr/local/bin/yq
+RUN yq --version
+
 # Install Git >2.0.1
 RUN add-apt-repository ppa:git-core/ppa
 RUN apt-get -y update 

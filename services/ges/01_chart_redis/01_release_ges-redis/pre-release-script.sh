@@ -3,15 +3,6 @@
 # we have to redefine it for installing from public ones 
 ###############################################################################
 
-# Saving helm_repo parameters before 
-export OLD_HELM_REPO=$(helm repo list | grep ^helm_repo | awk '{print $2}')
-set -a
-eval $(helm env | grep HELM_REPOSITORY_CONFIG)
-set +a
-export OLD_HELM_USER=$(yq e '.repositories[] | select(.name=="helm_repo") | .username' $HELM_REPOSITORY_CONFIG)
-export OLD_HELM_PASS=$(yq e '.repositories[] | select(.name=="helm_repo") | .password' $HELM_REPOSITORY_CONFIG)
-echo OLD_HELM_USER: $OLD_HELM_USER
-
 # Then replace helm_repo to bitnami
 helm repo add --force-update helm_repo https://charts.bitnami.com/bitnami
 helm repo update
@@ -29,7 +20,6 @@ function get_secret {
 }
 
 ###############################################################################
-#       Redis password
+#       Install standalone redis
 ###############################################################################
-export REDIS_PASSWORD=$( get_secret REDIS_PASSWORD )
-###############################################################################
+helm upgrade ges-redis helm_repo/redis --install --version=16.12.2 -n ges -f /workspace/services/ges/overrides.yaml -f /workspace/services/ges/01_chart_redis/overrides.yaml

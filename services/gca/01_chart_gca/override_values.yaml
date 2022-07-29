@@ -13,7 +13,7 @@ imagePullSecrets:
   pullsecret: {}
 
 kafka:
-  bootstrap: infra-kafka-cp-kafka.infra.svc:9092
+  bootstrap: kafka-helm-cp-kafka.kafka.svc.cluster.local:9092
 
 volumes: |
   - name: kafka-secrets

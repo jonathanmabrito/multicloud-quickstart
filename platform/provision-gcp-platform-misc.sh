@@ -2,7 +2,7 @@ echo "***********************"
 echo "Set Variables"
 echo "***********************"
 export gkeCluster=$VGKECLUSTER
-export gcpRegion=$VGCPREGION
+export gcpRegion=$VGCPREGIONPRIMARY
 export gcpProject=$VGCPPROJECT
 
 echo "***********************"

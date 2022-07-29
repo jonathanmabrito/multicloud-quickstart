@@ -101,12 +101,12 @@ ges:
     ingressint: 
       enabled: true
       annotations:
-        cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
-        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: letsencrypt-prod
         nginx.ingress.kubernetes.io/ssl-redirect: 'false'
         nginx.ingress.kubernetes.io/use-regex: 'true'
       hosts:
         - ges-int.$DOMAIN
+      ingressClassName: nginx
       paths:
         - /ges/
       tls:
@@ -117,12 +117,12 @@ ges:
     ingressext: 
       enabled: true
       annotations:
-        cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
-        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: letsencrypt-prod
         nginx.ingress.kubernetes.io/ssl-redirect: 'false'
         nginx.ingress.kubernetes.io/use-regex: 'true'
       hosts:
         - ges.$DOMAIN
+      ingressClassName: nginx
       paths:
         - /ges/
       tls:

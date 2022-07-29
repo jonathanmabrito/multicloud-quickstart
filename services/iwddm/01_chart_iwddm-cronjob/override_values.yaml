@@ -49,7 +49,7 @@ iwddm:
       gauth:
         enabled: false
         rest_url: http://gauth-auth.gauth.svc.cluster.local.:80
-        client_id: iwddm_client
+        client_id: iwd_client
         client_secret:
           valueFrom:
             secretKeyRef:

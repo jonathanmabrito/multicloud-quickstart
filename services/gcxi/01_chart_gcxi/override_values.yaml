@@ -39,6 +39,7 @@ gcxi:
 
   ingress:
     annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
       nginx.ingress.kubernetes.io/affinity: cookie
       nginx.ingress.kubernetes.io/affinity-mode: persistent
       nginx.ingress.kubernetes.io/proxy-body-size: "50m"
@@ -79,13 +80,13 @@ gcxi:
   pvc:
     backup:
       capacity: 1Gi
-      storageClassName: nfs-client
+      storageClassName: csi-standard-rwx
     log:
       capacity: 1Gi
-      storageClassName: nfs-client
+      storageClassName: csi-standard-rwx
     postgres:
       capacity: 1Gi
-      storageClassName: nfs-client
+      storageClassName: csi-standard-rwx
     share:
       capacity: 1Gi
-      storageClassName: nfs-client
+      storageClassName: csi-standard-rwx

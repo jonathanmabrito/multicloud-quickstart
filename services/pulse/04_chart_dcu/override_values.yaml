@@ -27,7 +27,7 @@ log:
     accessModes:
       - ReadWriteMany
     capacity: 10Gi
-    class: nfs-client
+    class: csi-standard-rwx
 
 # * Config info
 # Set your values.
@@ -259,4 +259,4 @@ volumeClaims:
     # capacity is storage capacity
     capacity: "1Gi"
     # class is storage class. Must be set explicitly.
-    class: nfs-client
+    class: standard

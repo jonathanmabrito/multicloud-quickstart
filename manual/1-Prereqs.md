@@ -85,6 +85,12 @@ Before continuing onto this step, make sure you authenticated Github to Cloud Bu
 - githubURL (replace INSERT_GITHUBURL instances) - The URL containing the cloned repository
 - helmRepoURL (replace INSERT_HELMURL) - The URL/Connection string for the Helm Charts. If Google Artifact registry is going to be used, then the follow schema is used: oci://us-west2-docker.pkg.dev/PROJECT_NAME/genesys-multicloud-pe
 - containerRegistryURL (replace INSERT_CONTAINERURL) - The URL for the Container Registry storing the MultiCloud Private Edition images. If Google Artifact registry is going to be used,then the following schema is used: gcr.io/PROJECT_NAME/genesys-multicloud-pe
+- repoid (INSERT_ARTIFCTORYURL) - 
+- remotehelm (INSERT_ARTIFCTORYHELMPATH) - URL of the Artifactory repo of Genesys MultiCloud Private Edition containers hosted by Genesys
+- remoterepo (INSERT_ARTIFCTORYHELMPATH) - HELM Repo path within the Artifactory instance by Genesys
+- remoteuser (INSERT_ARTIFACTORYUSER) - username for the Artifactory account
+- remotepass (INSERT_ARTIFACTORYPASSWORD) - password for the Artifactory account
+
 
 ```
 module "cloudbuild" {

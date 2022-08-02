@@ -1,5 +1,5 @@
 module "jumphost_instance" {
-    source                = "../../../tfm/3-gcp-posttasks/1-consul-mssql/"
+    source                = "../../../tfm/3-gcp-posttasks/2-consul-mssql/"
     project               = "INSERT_VGCPPROJECT"
     region                = "INSERT_VGCPREGIONPRIMARY"
 }
@@ -36,5 +36,12 @@ provider "mssql" {
   sql_auth = {
     username = "sa"
     password = var.mssqlsapassword
+  }
+}
+
+terraform {
+  backend "gcs" {
+    bucket = "INSERT_VSTORAGEBUCKET"
+    prefix = "consul-mssql-INSERT_VGKECLUSTER-INSERT_VGCPREGIONPRIMARY-state"
   }
 }

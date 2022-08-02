@@ -1,5 +1,5 @@
 module "third-party" {
-    source  = "../../../tfm/2-gcp/5-third-party/"
+    source  = "../../../tfm/3-gcp-posttasks/1-third-party/"
     project               = "INSERT_VGCPPROJECT"
     region                = "INSERT_VGCPREGIONPRIMARY"
     cluster               = "INSERT_VGKECLUSTER"

@@ -11,7 +11,7 @@ resource "local_file" "kubeconfig" {
 }
 
 module "ingress_certs" {
-  source            = "../../../tfm/2-gcp/4-ingress-certs/"
+  source            = "../../../tfm/3-gcp-posttasks/1-ingress-certs/"
   project_id        = "INSERT_VGCPPROJECT"
   environment       = "INSERT_VGCPPROJECT"
   domain_name_nginx = "INSERT_VDOMAIN"

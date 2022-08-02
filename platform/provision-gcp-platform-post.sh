@@ -29,31 +29,49 @@ kubectl port-forward svc/consul-server 8500:8500 -n consul > /dev/null 2>&1 &
 kubectl port-forward svc/mssqlserver-2019 1433:1433 -n infra > /dev/null 2>&1 &
 
 echo "***********************"
-echo "Modifying 1-thirdparty"
+echo "Modifying 1-certs"
+echo "***********************"
+#INPUT: VGCPPROJECT
+#INPUT: VGCPREGIONPRIMARY
+#INPUT: VGKECLUSTER
+#INPUT: VDOMAIN
+#INPUT: VEMAILADDRESS
+#INPUT: VSTORAGEBUCKET
+
+sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/3-gcp-posttasks/1-certs/main.tf"
+sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/3-gcp-posttasks/1-certs/main.tf"
+sed -i "s#INSERT_VGKECLUSTER#$VGKECLUSTER#g" "./platform/terraform/3-gcp-posttasks/1-certs/main.tf"
+sed -i "s#INSERT_VDOMAIN#$VDOMAIN#g" "./platform/terraform/3-gcp-posttasks/1-certs/main.tf"
+sed -i "s#INSERT_VEMAILADDRESS#$VEMAILADDRESS#g" "./platform/terraform/3-gcp-posttasks/1-certs/main.tf"
+sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/1-certs/main.tf"
+cat "./platform/terraform/3-gcp-posttasks/1-certs/main.tf"
+
+echo "***********************"
+echo "Modifying 2-thirdparty"
 echo "***********************"
 #INPUT: VGCPPROJECT
 #INPUT: VGCPREGIONPRIMARY
 #INPUT: VGKECLUSTER
 #INPUT: VSTORAGEBUCKET
 
-sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/3-gcp-posttasks/1-thirdparty/main.tf"
-sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/3-gcp-posttasks/1-thirdparty/main.tf"
-sed -i "s#INSERT_VGKECLUSTER#$VGKECLUSTER#g" "./platform/terraform/3-gcp-posttasks/1-thirdparty/main.tf"
-sed -i "s#INSERT_VDOMAIN#$VDOMAIN#g" "./platform/terraform/3-gcp-posttasks/1-thirdparty/main.tf"
-sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/1-thirdparty/main.tf"
-cat "./platform/terraform/3-gcp-posttasks/1-thirdparty/main.tf"
+sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/3-gcp-posttasks/2-thirdparty/main.tf"
+sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/3-gcp-posttasks/2-thirdparty/main.tf"
+sed -i "s#INSERT_VGKECLUSTER#$VGKECLUSTER#g" "./platform/terraform/3-gcp-posttasks/2-thirdparty/main.tf"
+sed -i "s#INSERT_VDOMAIN#$VDOMAIN#g" "./platform/terraform/3-gcp-posttasks/2-thirdparty/main.tf"
+sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/2-thirdparty/main.tf"
+cat "./platform/terraform/3-gcp-posttasks/2-thirdparty/main.tf"
 
 echo "***********************"
-echo "Modifying 2-consul-mssql"
+echo "Modifying 3-consul-mssql"
 echo "***********************"
 #INPUT: VGKECLUSTER
 #INPUT: VGCPREGIONPRIMARY
 #INPUT: VGCPPROJECT
 
-sed -i "s|INSERT_VGKECLUSTER|$VGKECLUSTER|g" "./platform/terraform/3-gcp-posttasks/2-consul-mssql/main.tf"
-sed -i "s|INSERT_VGCPREGIONPRIMARY|$VGCPREGIONPRIMARY|g" "./platform/terraform/3-gcp-posttasks/2-consul-mssql/main.tf"
-sed -i "s|INSERT_VGCPPROJECT|$VGCPPROJECT|g" "./platform/terraform/3-gcp-posttasks/2-consul-mssql/main.tf"
-cat "./platform/terraform/3-gcp-posttasks/2-consul-mssql/main.tf"
+sed -i "s|INSERT_VGKECLUSTER|$VGKECLUSTER|g" "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
+sed -i "s|INSERT_VGCPREGIONPRIMARY|$VGCPREGIONPRIMARY|g" "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
+sed -i "s|INSERT_VGCPPROJECT|$VGCPPROJECT|g" "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
+cat "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
 
 echo "***********************"
 echo "Initializing Terraform to provision GKE misc settings"

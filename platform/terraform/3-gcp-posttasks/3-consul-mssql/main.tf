@@ -1,5 +1,5 @@
 module "jumphost_instance" {
-    source                = "../../../tfm/3-gcp-posttasks/2-consul-mssql/"
+    source                = "../../../tfm/3-gcp-posttasks/3-consul-mssql/"
     project               = "INSERT_VGCPPROJECT"
     region                = "INSERT_VGCPREGIONPRIMARY"
 }

@@ -15,18 +15,6 @@ echo "Logging into GKE"
 echo "***********************"
 gcloud container clusters get-credentials $gkeCluster --region $gcpRegion --project $gcpProject
 
-echo "***********************"
-echo "Modifying 10-misc"
-echo "***********************"
-#INPUT: VGCPPROJECT
-
-#Get Consul bootstrap token and MSSQL SA password and export as TF VARs
-export TF_VAR_consulsecret=$(kubectl get -n consul secrets consul-bootstrap-acl-token -o jsonpath='{.data.token}' | base64 --decode)
-export TF_VAR_mssqlsapassword=$(kubectl get -n infra secrets mssql-mssqlserver-2019-secret -o jsonpath='{.data.sapassword}' | base64 --decode)
-
-#Create tunnel to consul and mssql
-kubectl port-forward svc/consul-server 8500:8500 -n consul > /dev/null 2>&1 &
-kubectl port-forward svc/mssqlserver-2019 1433:1433 -n infra > /dev/null 2>&1 &
 
 echo "***********************"
 echo "Modifying 1-certs"
@@ -74,36 +62,64 @@ sed -i "s|INSERT_VGCPPROJECT|$VGCPPROJECT|g" "./platform/terraform/3-gcp-posttas
 cat "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
 
 echo "***********************"
-echo "Initializing Terraform to provision GKE misc settings"
+echo "Provisioning 1-certs"
 echo "***********************"
-for dir in platform/terraform/3-gcp-posttasks/*
-do 
-    cd ${dir}   
-    env=${dir%*/}
-    env=${env#*/}  
-    echo ""
-    echo "*************** TERRAFOM PLAN ******************"
-    echo "******* At environment: ${env} ********"
-    echo "*************************************************"
-    terraform init || exit 1
-    cd ../../../../
-done
+dir=platform/terraform/3-gcp-posttasks/1-certs
+
+cd ${dir}   
+env=${dir%*/}
+env=${env#*/}  
+echo ""
+echo "*************** TERRAFOM PLAN ******************"
+echo "******* At environment: ${env} ********"
+echo "*************************************************"
+terraform init || exit 1
+terraform apply -auto-approve || exit 1
+
+cd ../../../../
+
 
 echo "***********************"
-echo "Executing Terraform to provision GKE misc settings"
+echo "Provisioning 2-thirdparty"
 echo "***********************"
-for dir in platform/terraform/3-gcp-posttasks/*
-do 
-    cd ${dir}   
-    env=${dir%*/}
-    env=${env#*/}  
-    echo ""
-    echo "*************** TERRAFOM PLAN ******************"
-    echo "******* At environment: ${env} ********"
-    echo "*************************************************"
-    terraform apply -auto-approve || exit 1
-    cd ../../../../
-done
+dir=platform/terraform/3-gcp-posttasks/2-thirdparty
+
+cd ${dir}   
+env=${dir%*/}
+env=${env#*/}  
+echo ""
+echo "*************** TERRAFOM PLAN ******************"
+echo "******* At environment: ${env} ********"
+echo "*************************************************"
+terraform init || exit 1
+terraform apply -auto-approve || exit 1
+
+cd ../../../../
+
+#Get Consul bootstrap token and MSSQL SA password and export as TF VARs
+export TF_VAR_consulsecret=$(kubectl get -n consul secrets consul-bootstrap-acl-token -o jsonpath='{.data.token}' | base64 --decode)
+export TF_VAR_mssqlsapassword=$(kubectl get -n infra secrets mssql-mssqlserver-2019-secret -o jsonpath='{.data.sapassword}' | base64 --decode)
+
+#Create tunnel to consul and mssql
+kubectl port-forward svc/consul-server 8500:8500 -n consul > /dev/null 2>&1 &
+kubectl port-forward svc/mssqlserver-2019 1433:1433 -n infra > /dev/null 2>&1 &
+
+echo "***********************"
+echo "Provisioning 3-consul-mssql"
+echo "***********************"
+dir=platform/terraform/3-gcp-posttasks/3-consul-mssql
+
+cd ${dir}   
+env=${dir%*/}
+env=${env#*/}  
+echo ""
+echo "*************** TERRAFOM PLAN ******************"
+echo "******* At environment: ${env} ********"
+echo "*************************************************"
+terraform init || exit 1
+terraform apply -auto-approve || exit 1
+
+cd ../../../../
 
 echo "***********************"
 echo "Enable Filestore"

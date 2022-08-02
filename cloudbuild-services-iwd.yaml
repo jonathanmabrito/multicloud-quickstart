@@ -1,6 +1,6 @@
 steps:
 - id: 'Provision IWD Components'
-  name: 'gcr.io/gts-multicloud-pe-dev/privateedition'
+  name: 'gcr.io/$PROJECT_ID/privateedition'
   entrypoint: 'bash'
   args: ['services/provision-iwd.sh']
   timeout: '3600s'

@@ -1,6 +1,6 @@
 steps:
 - id: 'Provision GCP Platform with Terraform'
-  name: 'gcr.io/gts-multicloud-pe-jonathan/privateedition'
+  name: 'gcr.io/$PROJECT_ID/privateedition'
   entrypoint: 'bash'
   args: ['platform/provision-gcp-platform.sh']
   env:

@@ -1,6 +1,6 @@
 steps:
 - id: 'Provision CXC Components'
-  name: 'gcr.io/gts-multicloud-pe-dev/privateedition'
+  name: 'gcr.io/$PROJECT_ID/privateedition'
   entrypoint: 'bash'
   args: ['services/provision-cxc.sh']
   timeout: '3600s'

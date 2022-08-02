@@ -1,6 +1,6 @@
 steps:
 - id: 'Provision GCP Artifactory with Terraform'
-  name: 'us-west2-docker.pkg.dev/gts-multicloud-pe-dmitry/cloudbuild/privateedition'
+  name: 'us-west2-docker.pkg.dev/$PROJECT_ID/privateedition'
   entrypoint: 'bash'
   args: ['platform/provision-gcp-repo.sh', 'container-privileged']
   env:

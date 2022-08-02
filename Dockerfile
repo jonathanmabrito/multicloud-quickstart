@@ -7,7 +7,6 @@ apt-get -y install gcc python2.7 python2-dev python3-pip wget ca-certificates so
 #Install YQ
 RUN wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
 RUN chmod a+x /usr/local/bin/yq
-RUN yq --version
 
 # Install Git >2.0.1
 RUN add-apt-repository ppa:git-core/ppa
@@ -45,12 +44,12 @@ RUN apt -y install helm
 RUN /usr/local/gcloud/google-cloud-sdk/bin/gcloud components install kubectl
 
 # Install Docker engine latest 
-#RUN curl https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor | tee /usr/share/keyrings/docker.gpg > /dev/null
-#RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list
-#RUN apt update
-#RUN apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-#RUN systemctl enable docker.service
-#RUN systemctl enable containerd.service 
+RUN curl https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor | tee /usr/share/keyrings/docker.gpg > /dev/null
+RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list
+RUN apt update
+RUN apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+RUN systemctl enable docker.service
+RUN systemctl enable containerd.service 
 
 # Install Podman, includes Buildah
 RUN apt -y install podman

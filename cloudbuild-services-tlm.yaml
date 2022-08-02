@@ -1,6 +1,6 @@
 steps:
 - id: 'Provision TLM Components'
-  name: 'gcr.io/gts-multicloud-pe-dev/privateedition'
+  name: 'gcr.io/$PROJECT_ID/privateedition'
   entrypoint: 'bash'
   args: ['services/provision-tlm.sh']
   env:

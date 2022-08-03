@@ -61,6 +61,8 @@ sed -i "s|INSERT_VGCPREGIONPRIMARY|$VGCPREGIONPRIMARY|g" "./platform/terraform/3
 sed -i "s|INSERT_VGCPPROJECT|$VGCPPROJECT|g" "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
 cat "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
 
+sed -i "s#INSERT_VDOMAIN#$VDOMAIN#g" "./platform/tfm/3-gcp-posttasks/2-thirdparty/prometheus-values.yaml"
+
 echo "***********************"
 echo "Provisioning 1-certs"
 echo "***********************"

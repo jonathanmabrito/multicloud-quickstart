@@ -50,9 +50,6 @@ resource "google_dns_record_set" "a_wildcard" {
   rrdatas = [data.kubernetes_service.ingress-nginx_controller.status[0].load_balancer[0].ingress[0].ip]
 }
 
-
-
-
 resource "kubernetes_namespace" "cert-manager" {
   metadata {
     name = "cert-manager" 

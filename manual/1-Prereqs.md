@@ -1,7 +1,5 @@
 # Summary
-The steps outlined in this ReadMe will prepare the GCP project with the necessary Google API enablement, CloudBuild triggers, and Google Secrets.
-
-The steps outlined in this ReadMe are the only steps that need to be manually executed from your local workstation. Once these procedures are complete, Cloud Build is setup to take over and run the rest of the Terraform and Helm Charts automatically. 
+The steps outlined below will prepare the GCP project with the necessary Google API enablement, CloudBuild triggers, and Google Secrets. These are the only steps that need to be manually executed from your local workstation. Once these procedures are complete, Cloud Build is setup to take over and run the rest of the Terraform and Helm Charts automatically. 
 
 ## Install Terraform
 If its not already installed on your local workstation, go ahead and install Terraform from [HashiCorp](https://www.terraform.io/downloads)

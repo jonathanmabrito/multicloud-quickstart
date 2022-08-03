@@ -7,7 +7,7 @@ module "gcp" {
 }
 
 provider "google" {
-  project = "gts-multicloud-pe-staging"
+  project = ""INSERT_PROJECTNAME"
 }
 
 terraform {

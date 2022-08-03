@@ -17,7 +17,7 @@ multicloud-quickstart
 |
 ├── platform - Terraform scripts that provision GCP with the necessary services, API enablement, etc
 │   ├── terraform
-|   |   ├── 1-prereqs   -   Terraform files that need to be manually invoked before Cloud Build can take over.
+|   |   ├── 1-prereqs   -   Terraform files that need to be manually invoked before Cloud Build Ci/CD can take over.
 │   │   |   ├── 1-gcp - Sets up the GCP project with the necessary API's and creates a storage bucket for future Terraform state files
 |   |   |   |   ├── main.tf
 │   │   |   ├── 2-cloudbuild - Sets up the Cloud Build trigger jobs that will be invoked to provision the rest of GCP via Terraform and Private Edition with Helm
@@ -31,17 +31,15 @@ multicloud-quickstart
 |   |   |   |   ├── main.tf
 │   │   |   ├── 3-k8s-setup - Provisions the Filestore StorageClass for K8's on the newly provisioned GKE cluster
 |   |   |   |   ├── main.tf
-│   │   |   ├── 4-certs - Sets up the Ngnix Ingress for outside connections and Cert Manager
-|   |   |   |   ├── main.tf
-│   │   |   ├── 5-thirdparty - Sets up thirdparty components such as Consul, Kafka, etc
-|   |   |   |   ├── main.tf
-│   │   |   ├── 6-jumphost - Sets up a Ubuntu Jumphost that can be used to access some of the internal components if needded
-|   |   |   |   ├── main.tf
 |   |   ├── 3-gcp-posttasks    -   Terraform files that perform post tasks such as configuring consul, MSSQL, etc
-│   │   |   ├── 1-consul-mssql
+│   │   |   ├── 1-certs - Sets up the Ngnix Ingress for outside connections and Cert Manager
+|   |   |   |   ├── main.tf
+│   │   |   ├── 2-thirdparty - Sets up thirdparty components such as Consul, Kafka, MSSQL, etc
+|   |   |   |   ├── main.tf
+│   │   |   ├── 3-consul-mssql - Configures the thirdparty components such as a MSSQL database and related account. 
 │   |   |   |   ├── main.tf
 │   |   |   |   ├── variables.tf
-|   |   ├── 4-artifactory-optional  -   Terraform job that will copy the MultiCloud Helm Charts and Containers out of the Artifactory into Google Artifacts.
+|   |   ├── 4-artifactory-optional  -   Terraform job that will copy the MultiCloud Helm Charts and Containers out of the Genesys JFROG Artifactory into Google Artifacts.
                                         If you already have an established repo to store Helm Charts and Containers, then this job is not needed and you will need to perform your own copy job
 │   |   |   ├── main.tf
 │   |   |   ├── provision-gcp-repo.sh
@@ -72,20 +70,16 @@ multicloud-quickstart
 │   |   |   |   ├── main.tf
 │   |   |   |   ├── variables.tf
 │   |   |   |   └── README.md  -  Details on all inputs that must be modified
-│   │   |   ├── 4-certs - Sets up the Ngnix Ingress for outside connections and Cert Manager
-│   |   |   |   ├── main.tf
-│   |   |   |   ├── variables.tf
-│   |   |   |   └── README.md  -  Details on all inputs that must be modified
-│   │   |   ├── 5-thirdparty - Sets up thirdparty components such as Consul, Kafka, etc
-│   |   |   |   ├── main.tf
-│   |   |   |   ├── variables.tf
-│   |   |   |   └── README.md  -  Details on all inputs that must be modified
-│   │   |   ├── 6-jumphost - Sets up a Ubuntu Jumphost that can be used to access some of the internal components if needded
-│   |   |   |   ├── main.tf
-│   |   |   |   ├── variables.tf
-│   |   |   |   └── README.md  -  Details on all inputs that must be modified
 |   |   ├── 3-gcp-posttasks    -   Terraform files that perform post tasks such as configuring consul, MSSQL, etc
-│   │   |   ├── 1-consul-mssql 
+│   │   |   ├── 1-certs - Sets up the Ngnix Ingress for outside connections and Cert Manager
+│   |   |   |   ├── main.tf
+│   |   |   |   ├── variables.tf
+│   |   |   |   └── README.md  -  Details on all inputs that must be modified
+│   │   |   ├── 2-thirdparty - Sets up thirdparty components such as Consul, Kafka, etc
+│   |   |   |   ├── main.tf
+│   |   |   |   ├── variables.tf
+│   |   |   |   └── README.md  -  Details on all inputs that must be modified
+│   │   |   ├── 3-consul-mssql 
 │   |   |   |   ├── main.tf
 │   |   |   |   ├── variables.tf
 |   |   ├── 4-artifactory-optional

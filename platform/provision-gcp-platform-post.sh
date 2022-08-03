@@ -59,6 +59,7 @@ echo "***********************"
 sed -i "s|INSERT_VGKECLUSTER|$VGKECLUSTER|g" "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
 sed -i "s|INSERT_VGCPREGIONPRIMARY|$VGCPREGIONPRIMARY|g" "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
 sed -i "s|INSERT_VGCPPROJECT|$VGCPPROJECT|g" "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
+sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/2-thirdparty/main.tf"
 cat "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
 
 sed -i "s#INSERT_VDOMAIN#$VDOMAIN#g" "./platform/tfm/3-gcp-posttasks/2-third-party/prometheus-values.yaml"

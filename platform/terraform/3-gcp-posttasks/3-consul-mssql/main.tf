@@ -1,4 +1,4 @@
-module "jumphost_instance" {
+module "consul-mssql-tasks" {
     source                = "../../../tfm/3-gcp-posttasks/3-consul-mssql/"
     project               = "INSERT_VGCPPROJECT"
     region                = "INSERT_VGCPREGIONPRIMARY"

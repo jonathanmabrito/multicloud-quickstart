@@ -13,3 +13,6 @@ steps:
     - 'REMOTEHELM=${_REMOTEHELM}'
   timeout: '43200s'
 timeout: '43200s'
+options:
+  diskSizeGb: '1000'
+  machineType: 'E2_HIGHCPU_8'

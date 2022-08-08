@@ -1,9 +1,10 @@
-module "jumphost_instance" {
-    source                = "../../../tfm/3-artifactory/"
+module "artifactory_instance" {
+    source                = "../../../tfm/4-artifactory/"
     project               = "INSERT_VGCPPROJECT"
     region                = "INSERT_VGCPREGIONPRIMARY"
     repoid                = "INSERT_VGCPREPOID"
-    repoexists            = "INSERT_REPOEXISTS"
+    imagerepoexists       = "INSERT_IMAGEREPOEXISTS"
+    chartrepoexists       = "INSERT_CHARTSREPOEXISTS"
     remotehelm            = "INSERT_REMOTEHELM"
     remoteregistry        = "INSERT_REMOTEREPO"
     remoteregistry_user   = "INSERT_REMOTEUSER"

@@ -36,9 +36,11 @@ echo "***********************"
 echo "Create Docker Pull Secret"
 echo "***********************"
 if ! kubectl get secret pullsecret -n $NS; then
-    echo "Pull Secret does not exist. Creating it.."
+    echo "Fetching Pullsecret from Google Secrets"
     pullsecret=$(gcloud secrets versions access 1 --secret="docker-pull-secret" | base64 --decode)
-    kubectl create secret docker-registry pullsecret -n $NS --docker-server=$gcpRegion-docker.pkg.dev --docker-username=_json_key --docker-password=$pullsecret --docker-email=jonathan.mabrito@genesys.com
+
+    echo "Creating Kubernetes Secret for the Pullsecret"
+    kubectl create secret docker-registry pullsecret -n $NS --docker-server=$gcpRegion-docker.pkg.dev --docker-username=_json_key --docker-password=$(echo $pullsecret) --docker-email=jonathan.mabrito@genesys.com
 else
     echo "Pullsecret already exists. Will use it."
 fi

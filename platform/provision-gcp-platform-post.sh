@@ -33,11 +33,6 @@ sed -i "s#INSERT_VEMAILADDRESS#$VEMAILADDRESS#g" "./platform/terraform/3-gcp-pos
 sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/1-certs/main.tf"
 cat "./platform/terraform/3-gcp-posttasks/1-certs/main.tf"
 
-sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
-sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
-sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
-cat "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
-
 echo "***********************"
 echo "Modifying 2-thirdparty"
 echo "***********************"
@@ -51,6 +46,7 @@ sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/3
 sed -i "s#INSERT_VGKECLUSTER#$VGKECLUSTER#g" "./platform/terraform/3-gcp-posttasks/2-thirdparty/main.tf"
 sed -i "s#INSERT_VDOMAIN#$VDOMAIN#g" "./platform/terraform/3-gcp-posttasks/2-thirdparty/main.tf"
 sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/2-thirdparty/main.tf"
+sed -i "s#INSERT_VDOMAIN#$VDOMAIN#g" "./platform/tfm/3-gcp-posttasks/2-third-party/prometheus-values.yaml"
 cat "./platform/terraform/3-gcp-posttasks/2-thirdparty/main.tf"
 
 echo "***********************"
@@ -66,7 +62,16 @@ sed -i "s|INSERT_VGCPPROJECT|$VGCPPROJECT|g" "./platform/terraform/3-gcp-posttas
 sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
 cat "./platform/terraform/3-gcp-posttasks/3-consul-mssql/main.tf"
 
-sed -i "s#INSERT_VDOMAIN#$VDOMAIN#g" "./platform/tfm/3-gcp-posttasks/2-third-party/prometheus-values.yaml"
+echo "***********************"
+echo "Modifying 4-pullsecret"
+echo "***********************"
+#INPUT: VGCPREGIONPRIMARY
+#INPUT: VGCPPROJECT
+#INPUT: VSTORAGEBUCKET
+sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
+sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
+sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
+cat "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
 
 echo "***********************"
 echo "Provisioning 1-certs"
@@ -127,6 +132,24 @@ terraform init || exit 1
 terraform apply -auto-approve || exit 1
 
 cd ../../../../
+
+echo "***********************"
+echo "Provisioning 4-pullsecret"
+echo "***********************"
+dir=platform/terraform/3-gcp-posttasks/4-pullsecret
+
+cd ${dir}   
+env=${dir%*/}
+env=${env#*/}  
+echo ""
+echo "*************** TERRAFOM PLAN ******************"
+echo "******* At environment: ${env} ********"
+echo "*************************************************"
+terraform init || exit 1
+terraform apply -auto-approve || exit 1
+
+cd ../../../../
+
 
 echo "***********************"
 echo "Enable Filestore"

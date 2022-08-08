@@ -52,6 +52,7 @@ services:
       consul_token: keyvault-consul-consul-gauth-token
   # Number of pod replicas, recommended to be N+1
   replicas: 2
+  
   location: /USW1
   db:
     init: true
@@ -69,6 +70,7 @@ services:
 
   auth_ui:
     # Pod resources requests and limits
+    replicas: 1
     resources:
       limits:
         cpu: 100m
@@ -95,7 +97,7 @@ services:
       # SSL key password
       keyPassword: gauth_jks_keyPassword
     # Number of pod replicas, recommended to be N+1, defaults to services.replica if empty
-    replicas:
+    replicas: 1
     # Pod resources requests and limits
     resources:
       requests:
@@ -127,7 +129,7 @@ services:
 
   environment:
     # Number of pod replicas, recommended to be N+1, defaults to services.replica if empty
-    replicas:
+    replicas: 1
     force_writable: true
     # Pod resources requests and limits
     resources:
@@ -240,14 +242,6 @@ monitoring:
   # Create rules with CRITICAL severity for Pager Duty integration.
   # `false` will change severity to HIGH (email notifications)
   pagerduty: false
-
-services:
-  auth:
-    replicas: 1
-  environment:
-    replicas: 1
-  auth_ui:
-    replicas: 1
 
 pod_autoscaler:
   auth:

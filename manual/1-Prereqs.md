@@ -7,11 +7,14 @@ If its not already installed on your local workstation, go ahead and install Ter
 ## Install Google Cloud CLI
 If its not already install on your local workstation, go ahead and install the Google Cloud CLI package from [Google](https://cloud.google.com/sdk/docs/install)
 
-## Clone the repo
-Clone this repo to your local workstation if its not already. 
+## Fork/Copy the repo
+Fork this repo to your own Github account (you can also copy it over manaully if desired). While you can Fork it to other providers such as Bitbucket, the assumption throughout this project is that Github is used. Using other GIT Providers will be at your own discretion and making the necessary modifications to Cloud Build, etc.
+
+## Create a new Google Cloud Project
+It is highly recommended to install MultiCloud Private Edition into its own dedicated Google Cloud Project, however, you may use an existing Google Cloud Project if desired. Please refer to this [GCP Document](https://cloud.google.com/resource-manager/docs/creating-managing-projects) on creating a new Google Cloud Project. 
 
 ## Log into Google Cloud
-Log into your Google Cloud account and set the project. 
+Log into your Google Cloud account and set the project. With the Google Cloud CLI installed on your workstation, open up your favorite terminal and input the following commands to authenticate the terminal with your Google Cloud account and project:
 
 ```
 gcloud auth login
@@ -24,12 +27,15 @@ The "main.tf" file within the "platform/terraform/1-prereqs" directory and sub-f
 
 ### 1.) Update "platform/terraform/1-prereqs/1-gcp/main.tf"
 
+#### Objective
+The Terraform files within this step will provision the chosen GCP Project with the necessary Google Cloud API's and Terraform State Storage Bucket. 
+
 | main.tf Variable | Value to replace | Description |
 | ----------- | ----------- | ----------- |
 | storageBucketName | INSERT_STORAGEBUCKETNAME | Name of the Cloud Storage bucket to store the Terraform state files |
 | location | INSERT_LOCATION | The primary GCP region. To get a list of all possible regions, please refer to this [GCP Document](https://cloud.google.com/compute/docs/regions-zones/viewing-regions-zones) |
-| project_id | INSERT_PROJECTNAME | The logical name of the GCP project (do not use the Project Number) |
-| project | INSERT_PROJECTNAME | The logical name of the GCP project (do not use the Project Number) |
+| project_id | INSERT_PROJECTNAME | The logical name of the GCP project (do not use the GCP Project Number) |
+| project | INSERT_PROJECTNAME | The logical name of the GCP project (do not use the GCP Project Number) |
 | user   | INSERT_SERVICEACCOUNT | The service account that will be used to execute the Cloud Build triggers |
 
 ```
@@ -57,7 +63,7 @@ terraform {
 }
 ```
 
-Within your terminal, set the directory to "/platform/terraform/1-prereqs/1-gcp" and then run the following commands:
+Within your terminal, set the directory to "/platform/terraform/1-prereqs/1-gcp" and then run the following commands to execute and provision the GCP project with Terraform:
 
 ```
 terraform init
@@ -67,22 +73,25 @@ terraform apply
 
 **NOTICE**
 
-The Cloud Build API sometimes takes a few to fully initialize, even after Terraform says its completed and enabled it. This Terraform job may error out with a "Error 400: Request contains an invalid argument." message. If this happens, wait a few minutes and re-run "Terraform Apply" and it should run successfully. 
+The Cloud Build API sometimes takes a few minutes to fully initialize, even after Terraform says its completed and enabled the specific API for Cloud Build. This Terraform job may error out with a "Error 400: Request contains an invalid argument." message. If this happens, wait a few minutes and re-run "Terraform Apply" and it should run successfully. 
 
 ### 2.) Authenticate Github to Cloud Build
-The Terraform logic in the previous step, enables the necessary Google API's against the chosen Google Cloud project, including the Cloud Build API. The Github account where this repository is cloned too will need to be authenticated with Cloud Build before the next steps can continue. Please follow the Cloud Build documentation to set up the necessary authentication: https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github
+The Terraform logic in the previous step, enables the necessary Google API's against the chosen Google Cloud project, including the Cloud Build API. The Github account where this repository is forked too will need to be authenticated with Cloud Build before the next steps can continue. Please follow the Cloud Build documentation to set up the necessary Github authentication: https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github
 
 
 ### 3.) Update "platform/terraform/1-prereqs/2-cloudbuild/main.tf"
 
 **NOTICE**
 
-Before continuing onto this step, make sure you authenticated Github to Cloud Build. This procedure is outlined in step 2 and very important to have been completed before continuing. 
+Before continuing onto this step, make sure you authenticated Github to Cloud Build. This procedure is outlined in step 2 and very important to have been completed before continuing.
+
+#### Objective
+The Terraform files within this step will setup the Google Cloud Build triggers that will be used to provision the rest of the GCP platform and Multicloud Private Edition services. 
 
 | main.tf Variable | Value to replace | Description |
 | ----------- | ----------- | ----------- |
-| project_id | INSERT_PROJECTNAME | The logical name of the GCP project (do not use the Project Number) |
-| project | INSERT_PROJECTNAME | The logical name of the GCP project (do not use the Project Number) |
+| project_id | INSERT_PROJECTNAME | The logical name of the GCP project (do not use the GCP Project Number) |
+| project | INSERT_PROJECTNAME | The logical name of the GCP project (do not use the GCP Project Number) |
 | gkeregionprimary | INSERT_PRIMARYREGION | The primary GCP region. To get a list of all possible regions, please refer to this [GCP Document](https://cloud.google.com/compute/docs/regions-zones/viewing-regions-zones) |
 | gkeregionsecondary | INSERT_SECONDARYEGION | The secondary GCP region. To get a list of all possible regions, please refer to this [GCP Document](https://cloud.google.com/compute/docs/regions-zones/viewing-regions-zones) |
 | gkecluster | INSERT_GKECLUSTERNAME | The name of the GKE cluster | 
@@ -143,7 +152,7 @@ terraform {
 }
 ```
 
-Within your terminal, set the directory to "/platform/terraform/1-prereqs/2-cloudbuild" and then run the following commands:
+Within your terminal, set the directory to "/platform/terraform/1-prereqs/2-cloudbuild" and then run the following commands to setup the GCP Cloud Build triggers:
 
 ```
 terraform init
@@ -152,11 +161,14 @@ terraform apply
 ```
 
 ### 4.) Update "platform/terraform/1-prereqs/3-pe-secrets/main.tf"
+
+#### Objective
+
 **NOTICE**
 
 **THIS SECTION IS VERY IMPORTANT....PLEASE TAKE YOUR TIME HERE!**
 
-Throughout the provisioning process of the MultiCloud Private Edition stack, various credentials are created such as Database Accounts, API clients, etc. The Helm charts in this repository will create a pre-defined username, but the passwords that will be used are defined here.
+Throughout the provisioning process of the MultiCloud Private Edition stack, various credentials are created such as Database Accounts, API clients, etc. The Helm charts in this repository will create a pre-defined username, but the passwords that will be used are defined here. This job will create numerous Google Secret entries that contain the passwords for various services and future steps. 
 
 | main.tf Variable | Value to replace | Description |
 | ----------- | ----------- | ----------- |
@@ -196,7 +208,7 @@ terraform {
 }
 ```
 
-Within your terminal, set the directory to "/platform/terraform/1-prereqs/3-pe-secrets" and then run the following commands:
+Within your terminal, set the directory to "/platform/terraform/1-prereqs/3-pe-secrets" and then run the following commands to create the Google Secrets:
 
 ```
 terraform init

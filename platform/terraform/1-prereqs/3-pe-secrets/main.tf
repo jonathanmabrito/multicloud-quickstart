@@ -1,7 +1,8 @@
 module "pe-secrets_instance" {
     source           = "../../../tfm/1-prereqs/3-pe-secrets/"
     region           = "INSERT_PRIMARYREGION"
-    gauth_pg_password = ""
+    GAUTH_POSTGRES_PASSWORD = ""
+    GAUTH_gauth_pg_password = ""
 }
 
 provider "google" {

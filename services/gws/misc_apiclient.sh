@@ -12,6 +12,7 @@
 # API clients list for bulk operation ("all")
 CLIENTS=(\
 external_api_client \
+gauth_client \
 gws-app-provisioning \
 gws-app-workspace \
 cx_contact \

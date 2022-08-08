@@ -41,18 +41,4 @@ echo "*************** TERRAFOM PLAN ******************"
 echo "******* At environment: ${env} ********"
 echo "*************************************************"
 terraform init || exit 1
-cd ../../../../
-
-
-echo "***********************"
-echo "Executing Terraform to provision GCP Artifacts"
-echo "***********************"
-cd ${dir}   
-env=${dir%*/}
-env=${env#*/}  
-echo ""
-echo "*************** TERRAFOM PLAN ******************"
-echo "******* At environment: ${env} ********"
-echo "*************************************************"
 terraform apply -auto-approve -parallelism=1 || exit 1
-cd ../../../../

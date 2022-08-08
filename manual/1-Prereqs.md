@@ -100,8 +100,8 @@ The Terraform files within this step will setup the Google Cloud Build triggers 
 |  storageBucketName | INSERT_STORAGEBUCKETNAME | Name of the Cloud Storage bucket to store the Terraform state files. This MUST be the same value from "1-prereqs" | 
 | bucket | INSERT_STORAGEBUCKETNAME | Name of the Cloud Storage bucket to store the Terraform state files. This MUST be the same value from "1-prereqs" | 
 | githubURL | INSERT_GITHUBURL | The Github URL containing the cloned repository | 
-| helmRepoURL | INSERT_HELMURL | The URL/Connection string for the Helm Charts. If Google Artifact registry is going to be used, then the follow schema is used: oci://GCP_REGION-docker.pkg.dev/PROJECT_NAME/genesys-multicloud-pe | 
-| containerRegistryURL | INSERT_CONTAINERURL | The URL for the Container Registry storing the MultiCloud Private Edition images. If Google Artifact registry is going to be used,then the following schema is used: gcr.io/PROJECT_NAME/genesys-multicloud-pe
+| helmRepoURL | INSERT_PRIMARYREGION and INSERT_HELMURL | The URL/Connection string for the Helm Charts. If Google Artifact registry is going to be used, then the follow schema is used: oci://INSERT_PRIMARYREGION-docker.pkg.dev/PROJECT_NAME/genesys-multicloud-pe-charts | 
+| containerRegistryURL | INSERT_PRIMARYREGION and INSERT_CONTAINERURL | The URL for the Container Registry storing the MultiCloud Private Edition images. If Google Artifact registry is going to be used,then the following schema is used: INSERT_PRIMARYREGION-docker.pkg.dev/INSERT_PROJECTNAME/genesys-multicloud-pe-images
 | repoid | INSERT_HELMREPOID | Folder/Directory to store the Helm Charts |
 | remotehelm | INSERT_ARTIFCTORYURL | The FQDN url of the Genesys JFROG Artifactory repository. Example: https://pureengageuse1.jfrog.io/artifactory/api/helm/helm-multicloud | 
 | remoterepo | INSERT_ARTIFCTORYHELMPATH | The url to the images and charts inside the Genesys JFROG Artifactory repository. Example: pureengageuse1-docker-multicloud.jfrog.io | 
@@ -120,8 +120,8 @@ module "cloudbuild" {
   emailaddress = "INSERT_EMAILADDRESS"
   storageBucketName = "INSERT_STORAGEBUCKETNAME"
   githubURL = "INSERT_GITHUBURL"
-  helmRepoURL = "oci://us-west2-docker.pkg.dev/INSERT_PROJECTNAME/genesys-multicloud-pe"
-  containerRegistryURL = "gcr.io/INSERT_PROJECTNAME/genesys-multicloud-pe"
+  helmRepoURL = "oci://INSERT_PRIMARYREGION-docker.pkg.dev/INSERT_PROJECTNAME/genesys-multicloud-pe-charts"
+  containerRegistryURL = "INSERT_PRIMARYREGION-docker.pkg.dev/INSERT_PROJECTNAME/genesys-multicloud-pe-images"
   repoid = "INSERT_HELMREPOID"
   remotehelm = "INSERT_ARTIFCTORYURL" 
   remoterepo = "INSERT_ARTIFCTORYHELMPATH"
@@ -219,7 +219,7 @@ terraform apply
 ### 5.) Create PrivateEdition Cloud Build Builder image
 Before the rest of the GCP platform can be provisioned, a custom Cloud Build builder image needs to be created. This image will contain the necessary tools, SDK's, etc to perform the rest of the provisioning tasks. 
 
-A CloudBuild trigger is created called "0-Create-PrivateEdition-Builder" is created. Please run this Cloud Build job to create the necessary Builder image. 
+A CloudBuild trigger is created called "0-Create-PrivateEdition-Builder" is created. Run this Cloud Build job to create the necessary Builder image. 
 
 ### 6.) DNS Considerations and Delegation
 The Terraform logic in future steps will setup Google Cloud DNS and create a wildcard entry A record entry with value of "*.PROVIDED_FQDN" for the MultiCloud applications. As the MultiCloud Services are spun up and if they require external access, then the wildcard entry will be used to provide DNS resolution. Also Cert-Manager will use this entry for the ACME challenge when provisioning a certificate for the service.

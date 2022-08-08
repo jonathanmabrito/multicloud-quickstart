@@ -9,7 +9,7 @@ The following services and applications are spun up on the newly created GKE clu
 - Prometheus
 
 After the following services are spun up, some extra configuration steps are then executed:
-- Setting up MSSQL Database and User Accounts
+- Setting up MSSQL Database and User Accounts (Used in GVP)
 - Configuring Consul Intentions
 - Setting Stub DNS Zone in Kube-DNS config-map
 

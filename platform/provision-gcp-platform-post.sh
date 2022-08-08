@@ -15,7 +15,6 @@ echo "Logging into GKE"
 echo "***********************"
 gcloud container clusters get-credentials $gkeCluster --region $gcpRegion --project $gcpProject
 
-
 echo "***********************"
 echo "Modifying 1-certs"
 echo "***********************"
@@ -33,6 +32,11 @@ sed -i "s#INSERT_VDOMAIN#$VDOMAIN#g" "./platform/terraform/3-gcp-posttasks/1-cer
 sed -i "s#INSERT_VEMAILADDRESS#$VEMAILADDRESS#g" "./platform/terraform/3-gcp-posttasks/1-certs/main.tf"
 sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/1-certs/main.tf"
 cat "./platform/terraform/3-gcp-posttasks/1-certs/main.tf"
+
+sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
+sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
+sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
+cat "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
 
 echo "***********************"
 echo "Modifying 2-thirdparty"

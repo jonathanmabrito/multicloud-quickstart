@@ -1,5 +1,5 @@
 module "artifactory_instance" {
-    source                = "../../../tfm/4-artifactory/"
+    source                = "../../tfm/4-artifactory/"
     project               = "INSERT_VGCPPROJECT"
     region                = "INSERT_VGCPREGIONPRIMARY"
     repoid                = "INSERT_VGCPREPOID"

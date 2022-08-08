@@ -22,10 +22,10 @@ sed -i "s#INSERT_VGCPREPOID#$VGCPREPOID#g" "./platform/terraform/4-artifactory-o
 sed -i "s#INSERT_IMAGEREPOEXISTS#$IMAGEREPOEXISTS#g" "./platform/terraform/4-artifactory-optional/main.tf"
 sed -i "s#INSERT_CHARTSREPOEXISTS#$CHARTSREPOEXISTS#g" "./platform/terraform/4-artifactory-optional/main.tf"
 
-sed -i "s#INSERT_REMOTEREPO#$REMOTEREPO#g" "./platform/terraform/4-artifactory-optional/main.tf"
-sed -i "s#INSERT_REMOTEHELM#$REMOTEHELM#g" "./platform/terraform/4-artifactory-optional/main.tf"
-sed -i "s#INSERT_REMOTEUSER#$REMOTEUSER#g" "./platform/terraform/4-artifactory-optional/main.tf"
-sed -i "s#INSERT_REMOTEPASS#$REMOTEPASS#g" "./platform/terraform/4-artifactory-optional/main.tf"
+sed -i "s#INSERT_REMOTEREPO#$VREMOTEREPO#g" "./platform/terraform/4-artifactory-optional/main.tf"
+sed -i "s#INSERT_REMOTEHELM#$VREMOTEREPO#g" "./platform/terraform/4-artifactory-optional/main.tf"
+sed -i "s#INSERT_REMOTEUSER#$VREMOTEUSER#g" "./platform/terraform/4-artifactory-optional/main.tf"
+sed -i "s#INSERT_REMOTEPASS#$VREMOTEPASS#g" "./platform/terraform/4-artifactory-optional/main.tf"
 cat "./platform/terraform/4-artifactory-optional/main.tf"
 
 dir=platform/terraform/4-artifactory-optional/

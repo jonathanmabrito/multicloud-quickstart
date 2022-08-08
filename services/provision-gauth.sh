@@ -33,6 +33,17 @@ fi
 kubectl config set-context --current --namespace=$NS
 
 echo "***********************"
+echo "Create Docker Pull Secret"
+echo "***********************"
+if ! kubectl get secret pullsecret -n $NS; then
+    echo "Pull Secret does not exist. Creating it.."
+    pullsecret=$(gcloud secrets versions access 1 --secret="docker-pull-secret" | base64 --decode)
+    kubectl create secret docker-registry pullsecret -n $NS --docker-server=$gcpRegion-docker.pkg.dev --docker-username=_json_key --docker-password=$pullsecret --docker-email=jonathan.mabrito@genesys.com
+else
+    echo "Pullsecret already exists. Will use it."
+fi
+
+echo "***********************"
 echo "Creating JKS Keystore"
 echo "***********************"
 keytool -keystore jksStorage.jks -genkey -noprompt -alias gws-auth-key -dname "CN=$DOMAIN, O=Genesys, L=Indianapolis, S=Indiana, C=US" -storepass Genesys1234 -keypass Genesys1234 -keyalg RSA

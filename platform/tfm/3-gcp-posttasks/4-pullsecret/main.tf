@@ -6,7 +6,7 @@ resource "google_service_account" "docker-pull-service-account" {
 
 resource "google_service_account_iam_member" "docker-pull-service-account-IAM" {
   service_account_id = google_service_account.docker-pull-service-account.name
-  role               = "roles/viewer"
+  role               = "roles/artifactregistry.reader"
   member             = "serviceAccount:${google_service_account.docker-pull-service-account.email}"
 }
 

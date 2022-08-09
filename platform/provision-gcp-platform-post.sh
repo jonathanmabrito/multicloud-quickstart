@@ -188,6 +188,7 @@ then
     done
 fi
 
+echo "Enable Filestore CSI driver...this can take over an hour to enable"
 gcloud container clusters update $VGKECLUSTER --update-addons=GcpFilestoreCsiDriver=ENABLED --region=$VGCPREGIONPRIMARY
 
 echo "***********************"

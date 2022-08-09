@@ -78,7 +78,7 @@ echo "Checking to see if GKE is in RUNNING status"
 echo "***********************"
 # A freshly deployed GKE cluster will usually have updates to apply to the nodes, etc. 
 # While its online and usuable from a Kubernetes perspective, its not in a fully running state and enabling Filestore will fail. 
-# Checking for status of the cluster and performing 10 minute waits and re checks. 
+# Checking for status of the cluster and performing 5 minute waits and re checks. 
 
 gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
 $status="RUNNING"
@@ -100,10 +100,6 @@ dir=platform/terraform/3-gcp-posttasks/1-certs
 cd ${dir}   
 env=${dir%*/}
 env=${env#*/}  
-echo ""
-echo "*************** TERRAFOM ******************"
-echo "******* At environment: ${env} ********"
-echo "*************************************************"
 terraform init || exit 1
 terraform apply -auto-approve || exit 1
 
@@ -117,10 +113,6 @@ dir=platform/terraform/3-gcp-posttasks/2-thirdparty
 cd ${dir}   
 env=${dir%*/}
 env=${env#*/}  
-echo ""
-echo "*************** TERRAFOM ******************"
-echo "******* At environment: ${env} ********"
-echo "*************************************************"
 terraform init || exit 1
 terraform apply -auto-approve || exit 1
 
@@ -142,10 +134,6 @@ dir=platform/terraform/3-gcp-posttasks/3-consul-mssql
 cd ${dir}   
 env=${dir%*/}
 env=${env#*/}  
-echo ""
-echo "*************** TERRAFOM ******************"
-echo "******* At environment: ${env} ********"
-echo "*************************************************"
 terraform init || exit 1
 terraform apply -auto-approve || exit 1
 
@@ -159,10 +147,6 @@ dir=platform/terraform/3-gcp-posttasks/4-pullsecret
 cd ${dir}   
 env=${dir%*/}
 env=${env#*/}  
-echo ""
-echo "*************** TERRAFOM ******************"
-echo "******* At environment: ${env} ********"
-echo "*************************************************"
 terraform init || exit 1
 terraform apply -auto-approve || exit 1
 

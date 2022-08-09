@@ -16,3 +16,6 @@ When the GKE cluster is provisioned, the following is setup/created:
 CloudBuild Trigger Name: 1-Provision-GCP-Platform
 
 A CloudBuild trigger is created called "1-Provision-GCP-Platform" within the Google Cloud Project from the "1-prereqs" steps. Execute this trigger to start the provisioning of the GCP and GKE components. The CloudBuild trigger will execute Terraform to provision the various components outlined above. 
+
+## Delegate DNS
+If Cloud DNS is going to be used for DNS services then a delegation will need to be setup between the provider of the domain name being used and Cloud DNS. Cloud DNS will provide 4 nameservers in the zone that is created. Retreive these 4 nameservers DNS names and setup a NS record with the provider of the domain name to delegate the domain to the 4 Cloud DNS nameservers. 

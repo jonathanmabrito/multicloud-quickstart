@@ -74,6 +74,25 @@ sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-p
 cat "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
 
 echo "***********************"
+echo "Checking to see if GKE is in RUNNING status"
+echo "***********************"
+# A freshly deployed GKE cluster will usually have updates to apply to the nodes, etc. 
+# While its online and usuable from a Kubernetes perspective, its not in a fully running state and enabling Filestore will fail. 
+# Checking for status of the cluster and performing 10 minute waits and re checks. 
+
+gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
+$status="RUNNING"
+if ["$gkeClusterStatus" != "$status"]
+then
+    until ["$gkeClusterStatus" == "$status" ]
+    do
+    echo "GKE Cluster is not fully ready yet. Waiting 5 minutes to check again"
+    sleep 5m
+    gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
+    done
+fi
+
+echo "***********************"
 echo "Provisioning 1-certs"
 echo "***********************"
 dir=platform/terraform/3-gcp-posttasks/1-certs
@@ -169,6 +188,7 @@ then
     done
 fi
 
+echo "Enable Filestore CSI driver...this can take over an hour to enable"
 gcloud container clusters update $VGKECLUSTER --update-addons=GcpFilestoreCsiDriver=ENABLED --region=$VGCPREGIONPRIMARY
 
 echo "***********************"

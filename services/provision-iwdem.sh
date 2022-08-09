@@ -51,6 +51,9 @@ echo "***********************"
 REDISPASSWORD=$(kubectl get -n infra secrets infra-redis-redis-cluster -o jsonpath='{.data.redis-password}' | base64 --decode)
 sed -i "s|INSERT_REDIS_PASSWORD|$REDISPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
+IWDEM_NEXUS_API_KEY=$(gcloud secrets versions access 1 --secret="IWDEM_iwdem_nexus_api_key")
+sed -i "s|INSERT_NEXUS_API_KEY|$IWDEM_NEXUS_API_KEY|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 
 echo "***********************"

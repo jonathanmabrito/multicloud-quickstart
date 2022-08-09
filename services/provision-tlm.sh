@@ -48,6 +48,9 @@ fi
 echo "***********************"
 echo "Creating K8 Secrets"
 echo "***********************"
+TELEMETRYSECRET=$(gcloud secrets versions access 1 --secret="TLM_TELEMETRY_AUTH_CLIENT_SECRET")
+sed -i "s|INSERT_TELEMETRY_SECRET|$TELEMETRYSECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 
 echo "***********************"

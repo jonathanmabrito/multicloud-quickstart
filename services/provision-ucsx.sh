@@ -51,6 +51,12 @@ echo "***********************"
 POSTGRESPASSWORD=$(kubectl get secret --namespace infra pgdb-ucsx-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
 sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
+CLIENTSECRET=$(gcloud secrets versions access 1 --secret="UCWS_ucsx_gauth_client_secret")
+sed -i "s|INSERT_CLIENT_SECRET|$CLIENTSECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+TENANTPASSWORD=$(gcloud secrets versions access 1 --secret="UCWS_ucsx_tenant_100_db_password")
+sed -i "s|INSERT_TENANT_PASSWORD|$TENANTPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 
 echo "***********************"

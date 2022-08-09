@@ -57,6 +57,18 @@ sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/$SERVICE/$SE
 CONSULSECRET=$(kubectl get -n consul secrets consul-bootstrap-acl-token -o jsonpath='{.data.token}' | base64 --decode)
 sed -i "s|INSERT_CONSUL_TOKEN|$CONSULSECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
+PGPASSWORD=$(gcloud secrets versions access 1 --secret="GWS_gws_pg_pass")
+sed -i "s|INSERT_PG_PASSWORD|$PGPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+ASPGPASSWORD=$(gcloud secrets versions access 1 --secret="GWS_gws_as_pg_pass")
+sed -i "s|INSERT_AS_PG_PASSWORD|$ASPGPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+CLIENTSECRET=$(gcloud secrets versions access 1 --secret="GWS_gws_client_secret")
+sed -i "s|INSERT_CLIENT_SECRET|$CLIENTSECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+OPSPASSWORD=$(gcloud secrets versions access 1 --secret="GWS_ws_ops_pass_encr")
+sed -i "s|INSERT_OPS_PASSWORD|$OPSPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
 cat "../services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml

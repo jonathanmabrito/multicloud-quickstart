@@ -1,5 +1,5 @@
 echo "***********************"
-echo "Modifying 3-artifactory-optional"
+echo "Modifying 4-artifactory-optional"
 echo "***********************"
 #INPUT: VGCPPROJECT
 #INPUT: VGCPREGION

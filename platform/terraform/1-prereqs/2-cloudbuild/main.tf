@@ -1,5 +1,5 @@
 module "cloudbuild" {
-  source = "../../tfm/1-prereqs/2-cloudbuild/"
+  source = "../../../tfm/1-prereqs/2-cloudbuild/"
   project_id = "INSERT_PROJECTNAME"
   gkeregionprimary = "INSERT_PRIMARYREGION"
   gkeregionsecondary = "INSERT_SECONDARYREGION"

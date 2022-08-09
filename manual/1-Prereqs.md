@@ -32,7 +32,7 @@ The Terraform files within this step will provision the chosen GCP Project with 
 
 | main.tf Variable | Value to replace | Description |
 | ----------- | ----------- | ----------- |
-| storageBucketName | INSERT_STORAGEBUCKETNAME | Name of the Cloud Storage bucket to store the Terraform state files |
+| storageBucketName | INSERT_STORAGEBUCKETNAME | Name of the Cloud Storage bucket to store the Terraform state files. This is a name you define and then use throughout the rest of the project. |
 | location | INSERT_LOCATION | The primary GCP region. To get a list of all possible regions, please refer to this [GCP Document](https://cloud.google.com/compute/docs/regions-zones/viewing-regions-zones) |
 | project_id | INSERT_PROJECTNAME | The logical name of the GCP project (do not use the GCP Project Number) |
 | project | INSERT_PROJECTNAME | The logical name of the GCP project (do not use the GCP Project Number) |
@@ -219,7 +219,4 @@ terraform apply
 ### 5.) Create PrivateEdition Cloud Build Builder image
 Before the rest of the GCP platform can be provisioned, a custom Cloud Build builder image needs to be created. This image will contain the necessary tools, SDK's, etc to perform the rest of the provisioning tasks. 
 
-A CloudBuild trigger is created called "0-Create-PrivateEdition-Builder" is created. Run this Cloud Build job to create the necessary Builder image. 
-
-### 6.) DNS Considerations and Delegation
-The Terraform logic in future steps will setup Google Cloud DNS and create a wildcard entry A record entry with value of "*.PROVIDED_FQDN" for the MultiCloud applications. As the MultiCloud Services are spun up and if they require external access, then the wildcard entry will be used to provide DNS resolution. Also Cert-Manager will use this entry for the ACME challenge when provisioning a certificate for the service.
+A CloudBuild trigger is created called "0-Create-PrivateEdition-Builder" is created. Run this Cloud Build job to create the necessary Builder image.

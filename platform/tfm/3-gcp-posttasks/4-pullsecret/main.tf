@@ -4,8 +4,8 @@ resource "google_service_account" "docker-pull-service-account" {
   project = var.project_id
 }
 
-resource "google_service_account_iam_member" "docker-pull-service-account-IAM" {
-  service_account_id = google_service_account.docker-pull-service-account.name
+resource "ggoogle_project_iam_member" "docker-pull-service-account-IAM" {
+  project             = var.project_id
   role               = "roles/artifactregistry.reader"
   member             = "serviceAccount:${google_service_account.docker-pull-service-account.email}"
 }

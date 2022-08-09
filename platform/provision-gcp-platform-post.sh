@@ -82,14 +82,16 @@ echo "***********************"
 
 gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
 status="RUNNING"
-if ["$gkeClusterStatus" != "$status"]
+if [ "$gkeClusterStatus" != "$status" ]
 then
-    until ["$gkeClusterStatus" == "$status" ]
+    until [ "$gkeClusterStatus" == "$status" ]
     do
     echo "GKE Cluster is not fully ready yet. Waiting 10 minutes to check again"
     sleep 10m
     gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
     done
+else
+    echo "GKE Cluster is in a RUNNING state"
 fi
 
 echo "***********************"
@@ -162,7 +164,8 @@ echo "***********************"
 
 gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
 status="RUNNING"
-if ["$gkeClusterStatus" != "$status"]
+
+if [ "$gkeClusterStatus" != "$status" ]
 then
     until ["$gkeClusterStatus" == "$status" ]
     do
@@ -170,6 +173,8 @@ then
     sleep 10m
     gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
     done
+else
+    echo "GKE Cluster is in a RUNNING state"
 fi
 
 echo "Enable Filestore CSI driver...this can take over an hour to enable"

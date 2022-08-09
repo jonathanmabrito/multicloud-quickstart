@@ -78,16 +78,16 @@ echo "Checking to see if GKE is in RUNNING status"
 echo "***********************"
 # A freshly deployed GKE cluster will usually have updates to apply to the nodes, etc. 
 # While its online and usuable from a Kubernetes perspective, its not in a fully running state and enabling Filestore will fail. 
-# Checking for status of the cluster and performing 5 minute waits and re checks. 
+# Checking for status of the cluster and performing 10 minute waits and re checks. 
 
 gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
-$status="RUNNING"
+status="RUNNING"
 if ["$gkeClusterStatus" != "$status"]
 then
     until ["$gkeClusterStatus" == "$status" ]
     do
-    echo "GKE Cluster is not fully ready yet. Waiting 5 minutes to check again"
-    sleep 5m
+    echo "GKE Cluster is not fully ready yet. Waiting 10 minutes to check again"
+    sleep 10m
     gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
     done
 fi
@@ -161,7 +161,7 @@ echo "***********************"
 # Checking for status of the cluster and performing 10 minute waits and re checks. 
 
 gkeClusterStatus=$(gcloud container clusters list --format="value(STATUS.scope())")
-$status="RUNNING"
+status="RUNNING"
 if ["$gkeClusterStatus" != "$status"]
 then
     until ["$gkeClusterStatus" == "$status" ]

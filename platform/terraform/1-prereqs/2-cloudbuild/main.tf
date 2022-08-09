@@ -4,7 +4,7 @@ module "cloudbuild" {
   gkeregionprimary = "INSERT_PRIMARYREGION"
   gkeregionsecondary = "INSERT_SECONDARYREGION"
   gkecluster = "INSERT_GKECLUSTERNAME"
-  fqdn = "INSERT_EMAILADDRESS"
+  fqdn = "INSERT_FQDN"
   emailaddress = "INSERT_EMAILADDRESS"
   storageBucketName = "INSERT_STORAGEBUCKETNAME"
   githubURL = "INSERT_GITHUBURL"

@@ -6,14 +6,14 @@ resource "google_cloudbuild_trigger" "pe-builder" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-builder.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -28,14 +28,14 @@ resource "google_cloudbuild_trigger" "gcp-artifact" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-gcp-repo.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -60,14 +60,14 @@ resource "google_cloudbuild_trigger" "gcp-platform" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-gcp-platform.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -92,14 +92,14 @@ resource "google_cloudbuild_trigger" "gcp-platform-post" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-gcp-platform-post.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -124,14 +124,14 @@ resource "google_cloudbuild_trigger" "services-infra" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-infra.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -154,14 +154,14 @@ resource "google_cloudbuild_trigger" "services-gauth" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-gauth.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -177,6 +177,7 @@ resource "google_cloudbuild_trigger" "services-gauth" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -186,14 +187,14 @@ resource "google_cloudbuild_trigger" "services-voice" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-voice.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -209,6 +210,7 @@ resource "google_cloudbuild_trigger" "services-voice" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -218,14 +220,14 @@ resource "google_cloudbuild_trigger" "services-tenant" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-tenant.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -241,6 +243,7 @@ resource "google_cloudbuild_trigger" "services-tenant" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -251,14 +254,14 @@ resource "google_cloudbuild_trigger" "services-gws" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-gws.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -274,6 +277,7 @@ resource "google_cloudbuild_trigger" "services-gws" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -283,14 +287,14 @@ resource "google_cloudbuild_trigger" "services-wwe" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-wwe.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -306,6 +310,7 @@ resource "google_cloudbuild_trigger" "services-wwe" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -315,14 +320,14 @@ resource "google_cloudbuild_trigger" "services-webrtc" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-webrtc.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -338,6 +343,7 @@ resource "google_cloudbuild_trigger" "services-webrtc" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -347,14 +353,14 @@ resource "google_cloudbuild_trigger" "services-designer" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-designer.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -370,6 +376,7 @@ resource "google_cloudbuild_trigger" "services-designer" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -379,14 +386,14 @@ resource "google_cloudbuild_trigger" "services-gvp" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-gvp.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -402,6 +409,7 @@ resource "google_cloudbuild_trigger" "services-gvp" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -411,14 +419,14 @@ resource "google_cloudbuild_trigger" "services-gsp" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-gsp.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -434,6 +442,7 @@ resource "google_cloudbuild_trigger" "services-gsp" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -443,14 +452,14 @@ resource "google_cloudbuild_trigger" "services-gim" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-gim.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -466,6 +475,7 @@ resource "google_cloudbuild_trigger" "services-gim" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -475,14 +485,14 @@ resource "google_cloudbuild_trigger" "services-gca" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-gca.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -498,6 +508,7 @@ resource "google_cloudbuild_trigger" "services-gca" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -507,14 +518,14 @@ resource "google_cloudbuild_trigger" "services-ucsx" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-ucsx.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -530,6 +541,7 @@ resource "google_cloudbuild_trigger" "services-ucsx" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -539,14 +551,14 @@ resource "google_cloudbuild_trigger" "services-nexus" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-nexus.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -562,6 +574,7 @@ resource "google_cloudbuild_trigger" "services-nexus" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -571,14 +584,14 @@ resource "google_cloudbuild_trigger" "services-iwd" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-iwd.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -594,6 +607,7 @@ resource "google_cloudbuild_trigger" "services-iwd" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -603,14 +617,14 @@ resource "google_cloudbuild_trigger" "services-cxc" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-cxc.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -626,6 +640,7 @@ resource "google_cloudbuild_trigger" "services-cxc" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -635,14 +650,14 @@ resource "google_cloudbuild_trigger" "services-ges" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-ges.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -658,6 +673,7 @@ resource "google_cloudbuild_trigger" "services-ges" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -667,14 +683,14 @@ resource "google_cloudbuild_trigger" "services-ixn" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-ixn.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -690,6 +706,7 @@ resource "google_cloudbuild_trigger" "services-ixn" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -699,14 +716,14 @@ resource "google_cloudbuild_trigger" "services-tlm" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-tlm.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -722,6 +739,7 @@ resource "google_cloudbuild_trigger" "services-tlm" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -731,14 +749,14 @@ resource "google_cloudbuild_trigger" "services-pulse" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-pulse.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -754,6 +772,7 @@ resource "google_cloudbuild_trigger" "services-pulse" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -763,14 +782,14 @@ resource "google_cloudbuild_trigger" "services-iwddm" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-iwddm.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -786,6 +805,7 @@ resource "google_cloudbuild_trigger" "services-iwddm" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -795,14 +815,14 @@ resource "google_cloudbuild_trigger" "services-gcxi" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-gcxi.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -818,6 +838,7 @@ resource "google_cloudbuild_trigger" "services-gcxi" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }
 
@@ -827,14 +848,14 @@ resource "google_cloudbuild_trigger" "services-iwdem" {
 
   source_to_build {
     uri       = var.githubURL
-    ref       = "refs/heads/development"
+    ref       = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
   git_file_source {
     path      = "cloudbuild-services-iwdem.yaml"
     uri       = var.githubURL
-    revision  = "refs/heads/development"
+    revision  = "refs/heads/main"
     repo_type = "GITHUB"
   }
 
@@ -850,5 +871,6 @@ resource "google_cloudbuild_trigger" "services-iwdem" {
     _VGKECLUSTER    = var.gkecluster
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
+    _VEMAILADDRESS  = var.emailaddress
   }
 }

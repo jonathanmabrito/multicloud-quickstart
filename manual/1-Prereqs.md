@@ -36,7 +36,7 @@ The Terraform files within this step will provision the chosen GCP Project with 
 | location | INSERT_LOCATION | The primary GCP region. To get a list of all possible regions, please refer to this [GCP Document](https://cloud.google.com/compute/docs/regions-zones/viewing-regions-zones) |
 | project_id | INSERT_PROJECTNAME | The logical name of the GCP project (do not use the GCP Project Number) |
 | project | INSERT_PROJECTNAME | The logical name of the GCP project (do not use the GCP Project Number) |
-| user   | INSERT_SERVICEACCOUNT | The service account that will be used to execute the Cloud Build triggers |
+| user   | INSERT_SERVICEACCOUNT | The service account specific to Cloud Build that will be used to execute the Cloud Build triggers. This service account is created automatically when the Cloud Build API is enabled. The service account name will always be in the following format:  GCP_PROJECT_NUMBER@cloudbuild.gserviceaccount.com. |
 
 ```
 module "gcp" {
@@ -99,7 +99,7 @@ The Terraform files within this step will setup the Google Cloud Build triggers 
 | emailaddress | INSERT_EMAILADDRESS | The email address of an administrater to assign to the Cloud DNS service that is provisioned | 
 |  storageBucketName | INSERT_STORAGEBUCKETNAME | Name of the Cloud Storage bucket to store the Terraform state files. This MUST be the same value from "1-prereqs" | 
 | bucket | INSERT_STORAGEBUCKETNAME | Name of the Cloud Storage bucket to store the Terraform state files. This MUST be the same value from "1-prereqs" | 
-| githubURL | INSERT_GITHUBURL | The Github URL containing the cloned repository | 
+| githubURL | INSERT_GITHUBURL | The Github URL containing the cloned/forked repository | 
 | helmRepoURL | INSERT_PRIMARYREGION and INSERT_HELMURL | The URL/Connection string for the Helm Charts. If Google Artifact registry is going to be used, then the follow schema is used: oci://INSERT_PRIMARYREGION-docker.pkg.dev/PROJECT_NAME/genesys-multicloud-pe-charts | 
 | containerRegistryURL | INSERT_PRIMARYREGION and INSERT_CONTAINERURL | The URL for the Container Registry storing the MultiCloud Private Edition images. If Google Artifact registry is going to be used,then the following schema is used: INSERT_PRIMARYREGION-docker.pkg.dev/INSERT_PROJECTNAME/genesys-multicloud-pe-images
 | repoid | INSERT_HELMREPOID | Folder/Directory to store the Helm Charts |

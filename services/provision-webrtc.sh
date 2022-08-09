@@ -33,6 +33,19 @@ fi
 kubectl config set-context --current --namespace=$NS
 
 echo "***********************"
+echo "Create Docker Pull Secret"
+echo "***********************"
+if ! kubectl get secret pullsecret -n $NS; then
+    echo "Fetching Pullsecret from Google Secrets"
+    pullsecret=$(gcloud secrets versions access 1 --secret="docker-pull-secret" | base64 --decode)
+    echo "$pullsecret" >> "./services/$SERVICE/key.json"
+    echo "Creating Kubernetes Secret for the Pullsecret"
+    kubectl create secret docker-registry pullsecret -n $NS --docker-server=$gcpRegion-docker.pkg.dev --docker-username=_json_key --docker-password="$(cat ./services/$SERVICE/key.json)" --docker-email=$EMAIL
+else
+    echo "Pullsecret already exists. Will use it."
+fi
+
+echo "***********************"
 echo "Run Helm Charts"
 echo "***********************"
 

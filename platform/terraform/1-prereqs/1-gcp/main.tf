@@ -7,7 +7,7 @@ module "gcp" {
 }
 
 provider "google" {
-  project = ""INSERT_PROJECTNAME"
+  project = "INSERT_PROJECTNAME"
 }
 
 terraform {

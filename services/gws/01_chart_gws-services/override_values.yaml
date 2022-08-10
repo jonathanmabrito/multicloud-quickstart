@@ -244,4 +244,4 @@ consul:
 prometheus:
   # Enables annotation based discovery to scrape metrics
   metricServer:
-    enabled: false
+    enabled: true

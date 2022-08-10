@@ -67,6 +67,7 @@ variable "images" {
         "designer/das" = "100.0.001.0043"
         "designer/designer" = "100.0.202.0011"
         "gcxi/gcxi" = "100.0.028.0000"
+        "gcxi/gcxi_control" = "100.0.028.0000"
         "gcxi/raa" = "100.0.011.0100"
         "genesys/ges" = "100.0.002.2105"
         "genesys/katana/tenant_node" = "100.0.1000068"

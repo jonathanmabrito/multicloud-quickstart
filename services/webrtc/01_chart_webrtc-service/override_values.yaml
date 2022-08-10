@@ -32,10 +32,10 @@ deployment:
         value: "3"
 
 monitoring:
-  enabled:           false
+  enabled:           true
   dashboards:        false
-  prometheusMetrics: false
-  prometheusAlerts:  false
+  prometheusMetrics: true
+  prometheusAlerts:  true
 
 
 networkPolicies:
@@ -103,7 +103,7 @@ gateway:
       cpu: 1
       memory: 1Gi
   scaling:
-    prometheusAddress: http://monitoring-prometheus-prometheus.monitoring:9090
+    prometheusAddress: http://prometheus-kube-prometheus-prometheus:9090
     pollingInterval:   30
     maxReplicaCount:   100
     thresholdSignins:  71

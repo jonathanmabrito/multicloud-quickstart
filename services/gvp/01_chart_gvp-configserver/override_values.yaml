@@ -172,7 +172,7 @@ tolerations: []
 
 ## Service/Pod Monitoring Settings
 prometheus:
-  createRule: false
+  createRule: true
 
 ## Grafana dashboard Settings
 ## Whether to create Grafana dashboard or not.

@@ -50,7 +50,7 @@ function IWD_PROVISION_PARAMS {
     "id": "$tenant_sid",
     "name": "t${tenant_sid}",
     "ccid": "$tenant_id",
-    "apiKey": "${iwd_tenant_api_key}"
+    "apiKey": "${iwd_nexus_api_key}"
   },
   "iwd": {
     "url": "http://iwd.${NS}:4024",
@@ -63,7 +63,7 @@ function IWD_PROVISION_PARAMS {
       "ssl": false
     },
     "apiKeys": {
-      "IWD_APIKEY_TENANT": "${iwd_nexus_api_key}",
+      "IWD_APIKEY_TENANT": "${iwd_tenant_api_key_tenant}",
       "IWD_APIKEY_IWDDM": "${iwd_tenant_api_key_iwddm}"
     }
   },

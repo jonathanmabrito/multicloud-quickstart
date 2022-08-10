@@ -88,7 +88,8 @@ kubectl run curlbox --image=alpine/curl --restart=Never -- \
   curl "http://iwd.${NS}:4024/iwd/v3/provisioning" \
   -H "Content-Type: application/json; charset=utf-8" \
   -H "x-api-key: ${iwd_tenant_api_key}" \
-  -d "$(IWD_PROVISION_PARAMS)"
+  -d "$(IWD_PROVISION_PARAMS)" \
+  -X "POST"
 sleep 30
 kubectl logs curlbox
 kubectl delete pods curlbox

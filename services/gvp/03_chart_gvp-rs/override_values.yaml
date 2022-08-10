@@ -228,20 +228,20 @@ tolerations: []
 
 ## Service/Pod Monitoring Settings
 prometheus:
-  enabled: false
+  enabled: true
   metric:
     port: 9116
 
 # Enable for Prometheus operator
 podMonitor:
-  enabled: false
+  enabled: true
   metric:
     path: /snmp
     module: [ if_mib ]
     target: [ 127.0.0.1:1161 ]
 
 monitoring:
-  prometheusRulesEnabled: false
+  prometheusRulesEnabled: true
   grafanaEnabled: false
 
 monitor:

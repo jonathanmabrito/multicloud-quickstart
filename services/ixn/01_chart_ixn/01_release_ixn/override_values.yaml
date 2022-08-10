@@ -13,6 +13,7 @@ ixnService:
       tag: 100.0.006.1204
     logSidecar:
       enabled: true
+      registry: docker.io
       repository: "fluent/fluent-bit"
       tag: "1.8.5"
     ixnNode:

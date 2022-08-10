@@ -5,9 +5,9 @@ global:
 
 prometheus:
   podMonitor:
-    create: "false"
+    create: "true"
   alertrule:
-    create: "false"
+    create: "true"
 
 fluent:
   rawlogs:

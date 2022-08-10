@@ -20,11 +20,11 @@ das:
       DAS_SERVICES_ELASTICSEARCH_HOST: "http://elastic-es-http.infra.svc.cluster.local"
       DAS_SERVICES_ELASTICSEARCH_PORT: "9200"
   prometheus:
-    enabled: false
+    enabled: true
     serviceMonitor:
-      enabled: false
+      enabled: true
     alerts:
-      enabled: false
+      enabled: true
   securityContext:  
     runAsUser: 0
     runAsGroup: 0 

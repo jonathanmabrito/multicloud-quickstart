@@ -70,6 +70,8 @@ variable "images" {
         "gcxi/raa" = "100.0.011.0100"
         "genesys/ges" = "100.0.002.2105"
         "genesys/katana/tenant_node" = "100.0.1000068"
+        "genesys/katana/tenant_pgdb_init" = "100.0.1000068"
+        "genesys/katana/tenant_pulse_init" = "100.0.1000068"
         "gim/gca" = "100.0.100.2300"
         "gim/gim" = "100.0.116.2900"
         "gim/gsp" = "100.0.100.1400"
@@ -126,7 +128,6 @@ variable "images" {
         "voice/sip_node" = "100.0.1000030"
         "voice/sipfe_node" = "100.0.1000009"
         "voice/sipproxy_node" = "100.0.1000019"
-        # "voice/voicemail_node" = "100.0.1000006" # n/a on edge - using 100.0.1000009
         "voice/voicemail_node" = "100.0.1000009"
         "webrtc/coturn" = "100.0.044.0000"
         "webrtc/webrtc" = "100.0.044.0000"

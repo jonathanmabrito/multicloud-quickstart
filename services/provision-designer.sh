@@ -48,6 +48,10 @@ fi
 echo "***********************"
 echo "Creating K8 Secrets"
 echo "***********************"
+
+DESIGNER_GWS_CLIENT_SECRET=$(gcloud secrets versions access 1 --secret="DESIGNER_gws_client_secret")
+sed -i "s|INSERT_DESIGNER_GWS_CLIENT_SECRET|$DESIGNER_GWS_CLIENT_SECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 
 echo "***********************"

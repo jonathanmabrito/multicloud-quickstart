@@ -48,6 +48,10 @@ fi
 echo "***********************"
 echo "Creating K8 Secrets"
 echo "***********************"
+
+GSP_SECRET_ACCESS_KEY=$(gcloud secrets versions access 1 --secret="GSP_SECRET_ACCESS_KEY")
+sed -i "s|INSERT_GSP_SECRET_ACCESS_KEY|$GSP_SECRET_ACCESS_KEY|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 
 echo "***********************"

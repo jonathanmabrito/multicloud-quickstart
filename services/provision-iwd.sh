@@ -54,6 +54,12 @@ sed -i "s|INSERT_REDIS_PASSWORD|$REDISPASSWORD|g" "./services/$SERVICE/$SERVICE-
 POSTGRESPASSWORD=$(kubectl get secret --namespace infra pgdb-dgt-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
 sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
+IWD_DB_PASSWORD=$(gcloud secrets versions access 1 --secret="IWD_db_password")
+sed -i "s|INSERT_IWD_DB_PASSWORD|$IWD_DB_PASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+IWD_GWS_CLIENT_SECRET=$(gcloud secrets versions access 1 --secret="IWD_gws_client_secret")
+sed -i "s|INSERT_IWD_GWS_CLIENT_SECRET|$IWD_GWS_CLIENT_SECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 
 echo "***********************"

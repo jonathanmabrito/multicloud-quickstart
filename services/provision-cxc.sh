@@ -54,6 +54,19 @@ sed -i "s|INSERT_REDIS_PASSWORD|$REDISPASSWORD|g" "./services/$SERVICE/$SERVICE-
 POSTGRESPASSWORD=$(kubectl get secret --namespace infra pgdb-std-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
 sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
+CXC_CONFIGSERVER_USER_PASSWORD=$(gcloud secrets versions access 1 --secret="CXC_configserver_user_password")
+sed -i "s|INSERT_CXC_CONFIGSERVER_USER_PASSWORD|$CXC_CONFIGSERVER_USER_PASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+CXC_GWS_CLIENT_SECRET=$(gcloud secrets versions access 1 --secret="CXC_gws_client_secret")
+sed -i "s|INSERT_CXC_GWS_CLIENT_SECRET|$CXC_GWS_CLIENT_SECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+CXC_PROV_GWSAUTHPASS=$(gcloud secrets versions access 1 --secret="CXC_prov_gwsauthpass")
+sed -i "s|INSERT_CXC_PROV_GWSAUTHPASS|$CXC_PROV_GWSAUTHPASS|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+CXC_PROV_TENANT_PASS=$(gcloud secrets versions access 1 --secret="CXC_prov_tenant_pass")
+sed -i "s|INSERT_CXC_PROV_TENANT_PASS|$CXC_PROV_TENANT_PASS|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 
 echo "***********************"

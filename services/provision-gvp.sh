@@ -54,6 +54,21 @@ sed -i "s|INSERT_CONSUL_TOKEN|$CONSULSECRET|g" "./services/$SERVICE/$SERVICE-k8s
 POSTGRESPASSWORD=$(kubectl get secret --namespace infra pgdb-std-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
 sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
+GVP_CM_CONFIGSERVER_PASSWORD=$(gcloud secrets versions access 1 --secret="GVP_cm_configserver_password")
+sed -i "s|INSERT_GVP_CM_CONFIGSERVER_PASSWORD|$GVP_CM_CONFIGSERVER_PASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+GVP_CM_PG_DB_PASSWORD=$(gcloud secrets versions access 1 --secret="GVP_cm_pg_db_password")
+sed -i "s|INSERT_GVP_CM_PG_DB_PASSWORD|$GVP_CM_PG_DB_PASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+GVP_RS_MSSQL_DB_PASSWORD=$(gcloud secrets versions access 1 --secret="GVP_rs_mssql_db_password")
+sed -i "s|INSERT_GVP_RS_MSSQL_DB_PASSWORD|$GVP_RS_MSSQL_DB_PASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+GVP_RS_MSSQL_ADMIN_PASSWORD=$(gcloud secrets versions access 1 --secret="GVP_rs_mssql_admin_password")
+sed -i "s|INSERT_GVP_RS_MSSQL_ADMIN_PASSWORD|$GVP_RS_MSSQL_ADMIN_PASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+GVP_RS_MSSQL_READER_PASSWORD=$(gcloud secrets versions access 1 --secret="GVP_rs_mssql_reader_password")
+sed -i "s|INSERT_GVP_RS_MSSQL_READER_PASSWORD|$GVP_RS_MSSQL_READER_PASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 
 echo "***********************"

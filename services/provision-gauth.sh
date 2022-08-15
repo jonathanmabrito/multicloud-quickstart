@@ -65,6 +65,21 @@ sed -i "s|INSERT_REDIS_PASSWORD|$REDISPASSWORD|g" "./services/$SERVICE/$SERVICE-
 POSTGRESPASSWORD=$(kubectl get secret --namespace infra pgdb-gws-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
 sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
+GAUTH_PG_PASSWORD=$(gcloud secrets versions access 1 --secret="GAUTH_pg_password")
+sed -i "s|INSERT_GAUTH_PG_PASSWORD|$GAUTH_PG_PASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+GAUTH_ADMIN_PASSWORD=$(gcloud secrets versions access 1 --secret="GAUTH_admin_password")
+sed -i "s|INSERT_GAUTH_ADMIN_PASSWORD|$GAUTH_ADMIN_PASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+GAUTH_GWS_CLIENT_SECRET=$(gcloud secrets versions access 1 --secret="GAUTH_gws_client_secret")
+sed -i "s|INSERT_GAUTH_GWS_CLIENT_SECRET|$GAUTH_GWS_CLIENT_SECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+GAUTH_JKS_KEYPASSWORD=$(gcloud secrets versions access 1 --secret="GAUTH_jks_keyPassword")
+sed -i "s|INSERT_GAUTH_JKS_KEYPASSWORD|$GAUTH_JKS_KEYPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+GAUTH_JKS_KEYSTOREPASSWORD=$(gcloud secrets versions access 1 --secret="GAUTH_jks_keyStorePassword")
+sed -i "s|INSERT_JKS_KEYSTOREPASSWORD|$GAUTH_JKS_KEYSTOREPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
 cat "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml

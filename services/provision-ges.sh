@@ -48,14 +48,21 @@ fi
 echo "***********************"
 echo "Creating K8 Secrets"
 echo "***********************"
-REDISPASSWORD=$(kubectl get -n infra secrets infra-redis-redis-cluster -o jsonpath='{.data.redis-password}' | base64 --decode)
-sed -i "s|INSERT_REDIS_PASSWORD|$REDISPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
 POSTGRESPASSWORD=$(kubectl get secret --namespace infra pgdb-std-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
 sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
 ORSPASSWORD=$(kubectl get secret --namespace voice redis-ors-stream-token -o jsonpath="{.data.redis-ors-stream}" | base64 --decode | jq -r .password)
 sed -i "s|INSERT_ORS_PASSWORD|$ORSPASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+GES_AUTHENTICATION_CLIENT_SECRET=$(gcloud secrets versions access 1 --secret="GES_AUTHENTICATION_CLIENT_SECRET")
+sed -i "s|INSERT_GES_AUTHENTICATION_CLIENT_SECRET|$GES_AUTHENTICATION_CLIENT_SECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+GES_DB_PASSWORD=$(gcloud secrets versions access 1 --secret="GES_DB_PASSWORD")
+sed -i "s|INSERT_GES_DB_PASSWORD|$GES_DB_PASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+
+GES_DEVOPS_PASSWORD=$(gcloud secrets versions access 1 --secret="GES_DEVOPS_PASSWORD")
+sed -i "s|INSERT_GES_DEVOPS_PASSWORD|$GES_DEVOPS_PASSWORD|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 

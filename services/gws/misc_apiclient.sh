@@ -11,19 +11,19 @@
 
 # API clients list for bulk operation ("all")
 CLIENTS=(\
-external_api_client \
-gauth_client \
+external-api-client \
+gauth-client \
 gws-app-provisioning \
 gws-app-workspace \
-cx_contact \
-designer_client \
-gcxi_client \
-ges_client \
-nexus_client \
-iwd_client \
-iwddm_client
-pulse_client \
-ucsx_api_client \
+cx-contact \
+designer-client \
+gcxi-client \
+ges-client \
+nexus-client \
+iwd-client \
+iwddm-client
+pulse-client \
+ucsx-api-client \
 webrtc-clientid \
 bds-clientid)
 
@@ -139,8 +139,16 @@ EOF
         #curl -skL -XPOST https://gauth.$domain/auth/v3/ops/clients -u $gauth_admin_username:$gauth_admin_password_plain \
         #-H 'Content-Type: application/json' -d "$(NEW_API_CLIENT)" | tee RSP
         echo "____________________Adding apiclient: $cl __________________________________"
-        kubectl exec $GAPOD --namespace="gauth" -- bash -c "curl -s -XPOST https://gauth-int.$domain/auth/v3/ops/clients -u $CREDS -H 'Content-Type: application/json' -d '$(NEW_API_CLIENT $cl)'" | tee RSP
+        gauthClientOutput=$(kubectl exec $GAPOD --namespace="gauth" -- bash -c "curl -s -XPOST https://gauth-int.$domain/auth/v3/ops/clients -u $CREDS -H 'Content-Type: application/json' -d '$(NEW_API_CLIENT $cl)'" | tee RSP)
         sleep 5
+
+        #Adding encrypted client secret to K8 secret. Using secret naming format of "gauth-client-secret-CLIENTNAME
+        
+        if [ "$(echo $gauthClientOutput | jq .status.code)" == "0" ]; then
+            echo "Creating Kubernets secret for GAUTH encrypted Client Secret for client $cl"
+            encryptedSecret=$(echo $gauthClientOutput | jq -r .data.encrypted_client_secret)
+            kubectl create secret generic gauth-client-secret-$cl -n gauth --from-literal=secret=$encryptedSecret
+        fi
         echo;echo "________________________________________________________________________________"
     done
 fi

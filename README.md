@@ -10,6 +10,8 @@ This project is derived from the following two repositories maintained by Genesy
 
 ![Quickstart - User Diagram](diagrams/Quickstart-on-GCP-Quickstart-User.png)
 
+![Quickstart - GCP Diagram](diagrams/Quickstart-on-GCP.png)
+
 ## Getting Started with Quickstart
 The scripts provided in this repository assumes a newly created and dedicated GCP project for MultiCloud Private Edition is created. The Terraform files will provision the newly created Google Project with the necessary Google API's and services (GKE, etc) and prepare the project and GKE cluster for MultiCloud Private Edition. Once the GKE cluster is stood up, then the provided Helm Charts will execute one by one to stand up the MultiCloud Private Edition services (GAuth, Voice, WWE, IWD, etc).
 

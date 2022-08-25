@@ -219,4 +219,4 @@ terraform apply
 ### 5.) Create PrivateEdition Cloud Build Builder image
 Before the rest of the GCP platform can be provisioned, a custom Cloud Build builder image needs to be created. This image will contain the necessary tools, SDK's, etc to perform the rest of the provisioning tasks. 
 
-A CloudBuild trigger is created called "0-Create-PrivateEdition-Builder" is created. Run this Cloud Build job to create the necessary Builder image.
+A CloudBuild trigger called "0-Create-PrivateEdition-Builder" is created. Run this Cloud Build job to create the necessary Builder image.

@@ -7,7 +7,7 @@ module "cloudbuild" {
   fqdn = "INSERT_FQDN"
   emailaddress = "INSERT_EMAILADDRESS"
   storageBucketName = "INSERT_STORAGEBUCKETNAME"
-  gspStorageBucketName = "INSERT_GSPSTORAGEBUCKETNAME"
+  gspStorageBucketName = "INSERT_GSPSTORAGEBUCKET"
   githubURL = "INSERT_GITHUBURL"
   helmRepoURL = "oci://INSERT_PRIMARYREGION-docker.pkg.dev/INSERT_PROJECTNAME/genesys-multicloud-pe-charts"
   containerRegistryURL = "INSERT_PRIMARYREGION-docker.pkg.dev/INSERT_PROJECTNAME/genesys-multicloud-pe-images"
@@ -30,7 +30,7 @@ terraform {
     }
   }
 
-  required_version = "= 1.2.6"
+  required_version = ">= 1.2.0, < 1.3.0"
 }
 
 terraform {

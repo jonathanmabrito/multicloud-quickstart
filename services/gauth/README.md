@@ -38,10 +38,10 @@ POSTGRES_PASSWORD|postgresPass
 gauth_pg_password|gauthPass
 gauth_pg_username|gauthUser
 gauth_redis_password|redPass
-gauth_admin_password|gadminPass **base64 encoded**
 gauth_admin_username|gadminUser
+gauth_admin_password|gadminPass **bcrypt encoded**
 gauth_gws_client_id|gauth_client
-gauth_gws_client_secret|gauth_secret **base64 encoded**
+gauth_gws_client_secret|gauth_secret **bcrypt encoded**
 gauth_jks_keyPassword|keyPass
 gauth_jks_keyStorePassword|keyStorePass
 LOCATION|USW1
@@ -61,9 +61,9 @@ stringData:
   gauth_pg_password: gauthPass
   gauth_redis_password: redPass
   gauth_admin_username: gadminUser
-  gauth_admin_password: base64 encoded gadminPass
+  gauth_admin_password: bcrypt encoded gadminPass
   gauth_gws_client_id: gauth_client
-  gauth_gws_client_secret: base64 encoded gauth_secret
+  gauth_gws_client_secret: bcrypt encoded gauth_secret
   gauth_jks_keyPassword: keyPass 
   gauth_jks_keyStorePassword: keyStorePass
   LOCATION: USW1

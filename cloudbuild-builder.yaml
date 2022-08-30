@@ -5,3 +5,4 @@ steps:
   timeout: '3600s'
 images:
   - 'gcr.io/$PROJECT_ID/privateedition:latest'
+timeout: '3600s'

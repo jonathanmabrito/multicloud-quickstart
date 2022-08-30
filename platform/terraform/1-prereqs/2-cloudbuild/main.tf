@@ -7,6 +7,7 @@ module "cloudbuild" {
   fqdn = "INSERT_FQDN"
   emailaddress = "INSERT_EMAILADDRESS"
   storageBucketName = "INSERT_STORAGEBUCKETNAME"
+  gspStorageBucketName = "INSERT_GSPSTORAGEBUCKETNAME"
   githubURL = "INSERT_GITHUBURL"
   helmRepoURL = "oci://INSERT_PRIMARYREGION-docker.pkg.dev/INSERT_PROJECTNAME/genesys-multicloud-pe-charts"
   containerRegistryURL = "INSERT_PRIMARYREGION-docker.pkg.dev/INSERT_PROJECTNAME/genesys-multicloud-pe-images"

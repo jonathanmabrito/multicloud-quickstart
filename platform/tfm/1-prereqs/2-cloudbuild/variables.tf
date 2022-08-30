@@ -33,6 +33,11 @@ variable "storageBucketName" {
   description = "Name of the Terraform Storage Bucket"
 }
 
+variable "gspStorageBucketName" {
+  type = string
+  description = "Name of the GSP Storage Bucket"
+}
+
 variable "githubURL" {
   type = string
   description = "URL of Github account"

@@ -115,6 +115,7 @@ resource "google_cloudbuild_trigger" "gcp-platform-post" {
     _VDOMAIN              = var.fqdn
     _VEMAILADDRESS        = var.emailaddress
     _VSTORAGEBUCKET       = var.storageBucketName
+    _VGSPSTORAGEBUCKET    = var.gspStorageBucketName
   }
 }
 
@@ -443,6 +444,7 @@ resource "google_cloudbuild_trigger" "services-gsp" {
     _VHELMCOMMAND   = "install"
     _VIMAGEREGISTRY = var.containerRegistryURL
     _VEMAILADDRESS  = var.emailaddress
+    _VGSPSTORAGEBUCKET  = var.gspStorageBucketName
   }
 }
 

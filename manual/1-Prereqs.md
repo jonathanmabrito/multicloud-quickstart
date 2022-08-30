@@ -97,7 +97,8 @@ The Terraform files within this step will setup the Google Cloud Build triggers 
 | gkecluster | INSERT_GKECLUSTERNAME | The name of the GKE cluster | 
 | FQDN | INSERT_FQDN | The root FQDN that will be used for DNS. Every MultiCloud Private Edition service will use this FQDN and create a subdomain address off of it. For example, the FQDN of "domain.com" is assigned as the value. When GAUTH is stood up, it's URL will be "gauth.domain.com" and a certficate is assigned by Cert-Manager. |
 | emailaddress | INSERT_EMAILADDRESS | The email address of an administrater to assign to the Cloud DNS service that is provisioned | 
-|  storageBucketName | INSERT_STORAGEBUCKETNAME | Name of the Cloud Storage bucket to store the Terraform state files. This MUST be the same value from "1-prereqs" | 
+| storageBucketName | INSERT_STORAGEBUCKETNAME | Name of the Cloud Storage bucket to store the Terraform state files. This MUST be the same value from "1-prereqs" | 
+| gspStorageBucketName | INSERT_GSPSTORAGEBUCKETNAME | Name of the Cloud Storage bucket to store GSP exports | 
 | bucket | INSERT_STORAGEBUCKETNAME | Name of the Cloud Storage bucket to store the Terraform state files. This MUST be the same value from "1-prereqs" | 
 | githubURL | INSERT_GITHUBURL | The Github URL containing the cloned/forked repository | 
 | helmRepoURL | INSERT_PRIMARYREGION and INSERT_HELMURL | The URL/Connection string for the Helm Charts. If Google Artifact registry is going to be used, then the follow schema is used: oci://INSERT_PRIMARYREGION-docker.pkg.dev/PROJECT_NAME/genesys-multicloud-pe-charts | 
@@ -119,6 +120,7 @@ module "cloudbuild" {
   fqdn = "INSERT_EMAILADDRESS"
   emailaddress = "INSERT_EMAILADDRESS"
   storageBucketName = "INSERT_STORAGEBUCKETNAME"
+  gspStorageBucketName = "INSERT_GSPSTORAGEBUCKETNAME"
   githubURL = "INSERT_GITHUBURL"
   helmRepoURL = "oci://INSERT_PRIMARYREGION-docker.pkg.dev/INSERT_PROJECTNAME/genesys-multicloud-pe-charts"
   containerRegistryURL = "INSERT_PRIMARYREGION-docker.pkg.dev/INSERT_PROJECTNAME/genesys-multicloud-pe-images"

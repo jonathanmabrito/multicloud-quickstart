@@ -73,6 +73,20 @@ sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/3
 sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
 cat "./platform/terraform/3-gcp-posttasks/4-pullsecret/main.tf"
 
+
+echo "***********************"
+echo "Modifying 5-gsp-storage-bucket"
+echo "***********************"
+#INPUT: VGCPREGIONPRIMARY
+#INPUT: VGCPPROJECT
+#INPUT: VSTORAGEBUCKET
+#INPUT: VGSPSTORAGEBUCKET
+sed -i "s#INSERT_VGCPPROJECT#$VGCPPROJECT#g" "./platform/terraform/3-gcp-posttasks/5-gsp-storage-bucket/main.tf"
+sed -i "s#INSERT_VGCPREGIONPRIMARY#$VGCPREGIONPRIMARY#g" "./platform/terraform/3-gcp-posttasks/5-gsp-storage-bucket/main.tf"
+sed -i "s#INSERT_VSTORAGEBUCKET#$VSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/5-gsp-storage-bucket/main.tf"
+sed -i "s#INSERT_VGSPSTORAGEBUCKET#$VGSPSTORAGEBUCKET#g" "./platform/terraform/3-gcp-posttasks/5-gsp-storage-bucket/main.tf"
+cat "./platform/terraform/3-gcp-posttasks/5-gsp-storage-bucket/main.tf"
+
 echo "***********************"
 echo "Checking to see if GKE is in RUNNING status"
 echo "***********************"
@@ -154,6 +168,18 @@ terraform apply -auto-approve || exit 1
 
 cd ../../../../
 
+echo "***********************"
+echo "Provisioning 5-gsp-storage-bucket"
+echo "***********************"
+dir=platform/terraform/3-gcp-posttasks/5-gsp-storage-bucket
+
+cd ${dir}   
+env=${dir%*/}
+env=${env#*/}  
+terraform init || exit 1
+terraform apply -auto-approve || exit 1
+
+cd ../../../../
 
 echo "***********************"
 echo "Enable Filestore"

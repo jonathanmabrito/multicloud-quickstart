@@ -5,7 +5,7 @@ module "gke" {
     network_name            = "network01"
     region                  = "INSERT_VGCPREGIONPRIMARY"
     cluster                 = "INSERT_VGKECLUSTER"
-    gke_version             = "1.22.8-gke.2200" #Minumum version supported: 1.22.*
+    gke_version             = "1.22.11-gke.400" #Minumum version supported: 1.22.*
     release_channel         = "UNSPECIFIED" 
     secondary_pod_range     = "10.198.64.0/18"
     secondary_service_range = "10.198.16.0/20"

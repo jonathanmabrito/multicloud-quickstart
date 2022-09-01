@@ -24,7 +24,7 @@ userPassword="Genesys1234"
 ###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 GET_TOKEN()
 {
-    curl -k --location --request POST https://gauth.$domain/auth/v3/oauth/token --user $gauth_client_id:$gauth_client_secret --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode username=$gauth_user_name --data-urlencode 'client_id=external_api_client' --data-urlencode 'grant_type=password' --data-urlencode password=$gauth_user_pass | tee RSP
+    curl -k --location --request POST https://gauth.$domain/auth/v3/oauth/token --user $gauth_client_id:$gauth_client_secret --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode username=$gauth_user_name --data-urlencode 'grant_type=password' --data-urlencode password=$gauth_user_pass | tee RSP
 
     [[ $(cat RSP | jq .token_type) != "\"bearer\"" ]] && echo "ERROR: Could not get token from Gauth. Got: "$(cat RSP) && exit 1
     gauth_token=$(cat RSP | jq -r '.access_token')

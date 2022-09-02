@@ -17,8 +17,8 @@ echo domain=$domain
 gauth_client_id=gauth-client
 gauth_client_secret=secret
 
-gauth_user_name=gauth_admin_user
-gauth_user_pass=Genesys1234
+gauth_user_name=t100\default
+gauth_user_pass=password
 userPassword="Genesys1234"
 
 ###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

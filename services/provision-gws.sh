@@ -57,7 +57,7 @@ sed -i "s|INSERT_POSTGRES_PASSWORD|$POSTGRESPASSWORD|g" "./services/$SERVICE/$SE
 CONSULSECRET=$(kubectl get -n consul secrets consul-bootstrap-acl-token -o jsonpath='{.data.token}' | base64 --decode)
 sed -i "s|INSERT_CONSUL_TOKEN|$CONSULSECRET|g" "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
-cat "../services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
+cat "./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml"
 
 kubectl apply -f  ./services/$SERVICE/$SERVICE-k8secrets-deployment-secrets.yaml
 
